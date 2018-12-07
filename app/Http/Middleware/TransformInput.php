@@ -162,6 +162,36 @@ class TransformInput
             ];
         }
 
+        $charges = [];
+        if(array_key_exists('cargos', $inputs)) {
+            foreach ($inputs['cargos'] as $add)
+            {
+                $charges[] = [
+                    'code' => $add['codigo'],
+                    'name' => $add['nombre'],
+                    'value' => array_key_exists('valor', $add)?$add['valor']:null,
+                    'start_date' => array_key_exists('fecha_inicio', $add)?$add['fecha_inicio']:null,
+                    'end_date' => array_key_exists('fecha_fin', $add)?$add['fecha_fin']:null,
+                    'duration' => array_key_exists('duracion', $add)?$add['duracion']:null,
+                ];
+            }
+        }
+
+        $discounts = [];
+        if(array_key_exists('descuentos', $inputs)) {
+            foreach ($inputs['descuentos'] as $add)
+            {
+                $discounts[] = [
+                    'code' => $add['codigo'],
+                    'name' => $add['nombre'],
+                    'value' => array_key_exists('valor', $add)?$add['valor']:null,
+                    'start_date' => array_key_exists('fecha_inicio', $add)?$add['fecha_inicio']:null,
+                    'end_date' => array_key_exists('fecha_fin', $add)?$add['fecha_fin']:null,
+                    'duration' => array_key_exists('duracion', $add)?$add['duracion']:null,
+                ];
+            }
+        }
+
         $document_base = [];
         $group_id = null;
         /*
@@ -170,17 +200,17 @@ class TransformInput
         if (in_array($inputs['tipo_de_documento'], ['01', '03'])) {
             $document_base = [
                 'operation_type_code' => $inputs['tipo_de_operacion'],
+                'date_of_due' => array_key_exists('fecha_de_vencimiento', $inputs)?$inputs['fecha_de_vencimiento']:null,
                 'total_free' => array_key_exists('total_operaciones_gratuitas', $inputs['totales'])?$inputs['totales']['total_operaciones_gratuitas']:0,
                 'total_global_discount' => array_key_exists('total_descuento_global', $inputs['totales'])?$inputs['totales']['total_descuento_global']:0,
                 'total_discount' => array_key_exists('total_descuentos', $inputs['totales'])?$inputs['totales']['total_descuentos']:0,
                 'total_charge' => array_key_exists('total_cargos', $inputs['totales'])?$inputs['totales']['total_cargos']:0,
-                'date_of_due' => array_key_exists('fecha_de_vencimiento', $inputs)?$inputs['fecha_de_vencimiento']:null,
-                'base_global_discount' => array_key_exists('base_descuento_global', $inputs['totales'])?$inputs['totales']['base_descuento_global']:0,
-                'percentage_global_discount' => array_key_exists('porcentaje_descuento_global', $inputs['totales'])?$inputs['totales']['porcentaje_descuento_global']:0,
-                'total_prepayment' => array_key_exists('total_anticipos', $inputs['totales'])?$inputs['totales']['total_anticipos']:0,
-                'purchase_order' => array_key_exists('numero_de_orden_de_compra', $inputs)?$inputs['numero_de_orden_de_compra']:null,
-                'detraction' => $detraction,
+                'total_value' => array_key_exists('total_valor', $inputs['totales'])?$inputs['totales']['total_valor']:0,
+
+                'charges' => $charges,
+                'discounts' => $discounts,
                 'perception' => $perception,
+                'detraction' => $detraction,
                 'prepayments' => $prepayments,
             ];
             $group_id = ($inputs['tipo_de_documento'] === '01')?'01':'02';
@@ -199,6 +229,7 @@ class TransformInput
                 'affected_document_number' => $affected_document_series_and_number[1],
                 'total_global_discount' => array_key_exists('total_descuento_global', $inputs['totales'])?$inputs['totales']['total_descuento_global']:0,
                 'total_prepayment' => array_key_exists('total_anticipos', $inputs['totales'])?$inputs['totales']['total_anticipos']:0,
+                'perception' => $perception,
             ];
             $group_id = ($inputs['tipo_de_documento_afectado'] === '01')?'01':'02';
         }
@@ -225,14 +256,6 @@ class TransformInput
             }
         }
 
-        $company = Company::byUser();
-        $series_and_number = explode('-',$inputs['serie_y_numero_correlativo']);
-        $total_exportation  = array_key_exists('total_exportacion', $inputs['totales'])?$inputs['totales']['total_exportacion']:0;
-        $total_taxed = array_key_exists('total_operaciones_gravadas', $inputs['totales'])?$inputs['totales']['total_operaciones_gravadas']:0;
-        $total_unaffected = array_key_exists('total_operaciones_inafectas', $inputs['totales'])?$inputs['totales']['total_operaciones_inafectas']:0;
-        $total_exonerated = array_key_exists('total_operaciones_exoneradas', $inputs['totales'])?$inputs['totales']['total_operaciones_exoneradas']:0;
-
-
         /*
          * Establishment
          */
@@ -248,8 +271,8 @@ class TransformInput
                     '$province_id' => $province_id,
                     '$district_id' => $district_id,
                     'address' => $data['direccion'],
-                    'email' => $data['direccion'],
-                    'phone' => $data['email'],
+                    'email' => $data['corre_electronico'],
+                    'phone' => $data['telefono'],
                     'code' => $data['codigo_del_domicilio_fiscal']
                 ];
             } else {
@@ -274,8 +297,8 @@ class TransformInput
                     'province_id' => $province_id,
                     'district_id' => $district_id,
                     'address' => $data['direccion'],
-                    'email' => $data['direccion'],
-                    'phone' => $data['email'],
+                    'email' => $data['corre_electronico'],
+                    'phone' => $data['telefono'],
                 ];
             } else {
 
@@ -283,6 +306,23 @@ class TransformInput
         } else {
 
         }
+
+        $company = Company::byUser();
+        $series_and_number = explode('-',$inputs['serie_y_numero_correlativo']);
+        $purchase_order = array_key_exists('orden_compra', $inputs)?$inputs['orden_compra']:null;
+
+        $total_other_charges  = array_key_exists('total_otros_cargos', $inputs['totales'])?$inputs['totales']['total_otros_cargos']:0;
+        $total_exportation  = array_key_exists('total_exportacion', $inputs['totales'])?$inputs['totales']['total_exportacion']:0;
+        $total_taxed = array_key_exists('total_operaciones_gravadas', $inputs['totales'])?$inputs['totales']['total_operaciones_gravadas']:0;
+        $total_unaffected = array_key_exists('total_operaciones_inafectas', $inputs['totales'])?$inputs['totales']['total_operaciones_inafectas']:0;
+        $total_exonerated = array_key_exists('total_operaciones_exoneradas', $inputs['totales'])?$inputs['totales']['total_operaciones_exoneradas']:0;
+        $total_igv = array_key_exists('total_igv', $inputs['totales'])?$inputs['totales']['total_igv']:0;
+        $total_base_isc = array_key_exists('total_base_isc', $inputs['totales'])?$inputs['totales']['total_base_isc']:0;
+        $total_isc = array_key_exists('total_isc', $inputs['totales'])?$inputs['totales']['total_isc']:0;
+        $total_base_other_taxes = array_key_exists('total_base_otros_impuestos', $inputs['totales'])?$inputs['totales']['total_base_otros_impuestos']:0;
+        $total_other_taxes = array_key_exists('total_otros_impuestos', $inputs['totales'])?$inputs['totales']['total_otros_impuestos']:0;
+        $total_taxes = array_key_exists('total_impuestos', $inputs['totales'])?$inputs['totales']['total_impuestos']:0;
+        $total = $inputs['totales']['total_de_la_venta'];
 
         $original_attributes = [
             'document' => [
@@ -298,27 +338,32 @@ class TransformInput
                 'series' => $series_and_number[0],
                 'number' => $series_and_number[1],
                 'currency_type_code' => $inputs['tipo_de_moneda'],
+                'purchase_order' => $purchase_order,
+
+                'total_other_charges' => $total_other_charges,
                 'total_exportation' => $total_exportation,
                 'total_taxed' => $total_taxed,
                 'total_unaffected' => $total_unaffected,
                 'total_exonerated' => $total_exonerated,
-                'total_igv' => array_key_exists('sumatoria_igv', $inputs['totales'])?$inputs['totales']['sumatoria_igv']:0,
-                'total_isc' => array_key_exists('sumatoria_isc', $inputs['totales'])?$inputs['totales']['sumatoria_isc']:0,
-                'total_other_taxes' => array_key_exists('sumatoria_otros_tributos', $inputs['totales'])?$inputs['totales']['sumatoria_otros_tributos']:0,
-                'total_other_charges' => array_key_exists('sumatoria_otros_cargos', $inputs['totales'])?$inputs['totales']['sumatoria_otros_cargos']:0,
-                'total_discount' => array_key_exists('total_descuentos', $inputs['totales'])?$inputs['totales']['total_descuentos']:0,
-                'total_value' => $total_exportation + $total_taxed + $total_unaffected + $total_exonerated,
-                'total' => $inputs['totales']['total_de_la_venta'],
+                'total_igv' => $total_igv,
+                'total_base_isc' => $total_base_isc,
+                'total_isc' => $total_isc,
+                'total_base_other_taxes' => $total_base_other_taxes,
+                'total_other_taxes' => $total_other_taxes,
+                'total_taxes' => $total_taxes,
+                'total' => $total,
+
                 'establishment' => $establishment,
-                'customer_id' => $customer,
-                'items' => $items,
+                'customer' => $customer,
+                'legends' => $legends,
                 'guides' => $guides,
                 'additional_documents' => $additional_documents,
-                'legends' => $legends,
+                'optional' => $optional,
+
+                'items' => $items,
                 'filename' => '',
                 'hash' => '',
                 'qr' => '',
-                'optional' => $optional,
             ],
             'document_base' => $document_base
         ];

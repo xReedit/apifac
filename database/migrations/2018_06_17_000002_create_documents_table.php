@@ -27,6 +27,7 @@ class CreateDocumentsTable extends Migration
             $table->date('date_of_issue');
             $table->time('time_of_issue');
             $table->string('currency_type_code');
+            $table->string('purchase_order')->nullable();
             $table->decimal('total_other_charges', 12, 2)->default(0);
             $table->decimal('total_exportation', 12, 2)->default(0);
             $table->decimal('total_taxed', 12, 2);
@@ -39,7 +40,6 @@ class CreateDocumentsTable extends Migration
             $table->decimal('total_other_taxes', 12, 2)->default(0);
             $table->decimal('total_taxes', 12, 2);
             $table->decimal('total', 12, 2);
-            $table->string('purchase_order')->nullable();
 
             $table->json('establishment');
             $table->json('customer');
