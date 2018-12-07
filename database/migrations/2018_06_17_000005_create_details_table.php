@@ -20,6 +20,7 @@ class CreateDetailsTable extends Migration
             $table->string('internal_id');
             $table->string('item_description');
             $table->string('item_code')->nullable();
+            $table->string('item_code_gs1')->nullable();
             $table->string('unit_type_code');
             $table->integer('quantity');
             $table->decimal('unit_value', 12, 2);

@@ -72,35 +72,38 @@ class TransformInput
 
             $items[] = [
                 'internal_id' => array_key_exists('codigo_interno', $row)?$row['codigo_interno']:null,
-                'item_description' => $row['descripcion_detallada'],
-                'item_code' => array_key_exists('codigo_producto_de_sunat', $row)?$row['codigo_producto_de_sunat']:null,
+                'item_description' => $row['descripcion'],
+                'item_code' => array_key_exists('codigo_producto_de_sunat', $row)?$row['codigo_producto_sunat']:null,
+                'item_code_gs1' => array_key_exists('codigo_producto_gsl', $row)?$row['codigo_producto_gsl']:null,
                 'unit_type_code' => $row['unidad_de_medida'],
-                'quantity' => $row['cantidad_de_unidades'],
+                'quantity' => $row['cantidad'],
                 'unit_value' => $row['valor_unitario'],
 
-                'price_type_code' => $row['codigo_de_tipo_de_precio'],
-                'unit_price' => $row['precio_de_venta_unitario_valor_referencial'],
-                'affectation_igv_type_code' => $row['afectacion_al_igv'],
+                'affectation_igv_type_code' => $row['codigo_tipo_afectacion_igv'],
+                'total_base_igv' => $row['total_base_igv'],
                 'percentage_igv' => $row['porcentaje_de_igv'],
-                'total_igv' => $row['monto_de_igv'],
-                'system_isc_type_code' => null,
-                'total_isc' => 0,
-                'charge_type_code' => array_key_exists('codigo_tipo_cargo', $row)?$row['codigo_tipo_cargo']:null,
-                'charge_percentage' => array_key_exists('porcentaje_cargo', $row)?$row['porcentaje_cargo']:0,
-                'total_charge' => array_key_exists('total_cargo', $row)?$row['total_cargo']:0,
-                'discount_type_code' => array_key_exists('codigo_tipo_descuento', $row)?$row['codigo_tipo_descuento']:null,
-                'discount_percentage' => array_key_exists('porcentaje_descuento', $row)?$row['porcentaje_descuento']:0,
-                'total_discount' => array_key_exists('total_descuento', $row)?$row['total_descuento']:0,
-//                'discount_type_code' => null,
-//                'discount_percentage' => 0,
-//                'total_discount' => 0,
+                'total_igv' => $row['total_igv'],
+
+                'system_isc_type_code' => array_key_exists('codigo_tipo_sistema_isc', $row)?$row['codigo_tipo_sistema_isc']:null,
+                'total_base_isc' => array_key_exists('total_base_isc', $row)?$row['total_base_isc']:0,
+                'percentage_isc' => array_key_exists('porcentaje_de_isc', $row)?$row['porcentaje_de_isc']:0,
+                'total_isc' => array_key_exists('total_isc', $row)?$row['total_isc']:0,
+
+                'total_base_other_taxes' => array_key_exists('total_base_otros_impuestos', $row)?$row['total_base_otros_impuestos']:0,
+                'percentage_other_taxes' => array_key_exists('percentage_other_taxes', $row)?$row['percentage_other_taxes']:0,
+                'total_other_taxes' => array_key_exists('total_otros_impuestos', $row)?$row['total_otros_impuestos']:0,
+
+                'total_taxes' => $row['total_impuestos'],
+
+                'price_type_code' => $row['codigo_tipo_precio'],
+                'unit_price' => $row['precio_unitario'],
+
                 'total_value' => $row['valor_de_venta_por_item'],
                 'total' => $row['total_por_item'],
-                'first_housing_contract_number' => null,
-                'first_housing_credit_date' => null,
+
                 'attributes' => $attributes,
-                'attributes' => $attributes,
-                'attributes' => $attributes
+                'charges' => $charges,
+                'discounts' => $discounts
             ];
         }
 
@@ -166,12 +169,14 @@ class TransformInput
          */
         if (in_array($inputs['tipo_de_documento'], ['01', '03'])) {
             $document_base = [
-                'operation_type_code' => $inputs['informacion_adicional']['tipo_de_operacion'],
+                'operation_type_code' => $inputs['tipo_de_operacion'],
+                'total_free' => array_key_exists('total_operaciones_gratuitas', $inputs['totales'])?$inputs['totales']['total_operaciones_gratuitas']:0,
+                'total_global_discount' => array_key_exists('total_descuento_global', $inputs['totales'])?$inputs['totales']['total_descuento_global']:0,
+                'total_discount' => array_key_exists('total_descuentos', $inputs['totales'])?$inputs['totales']['total_descuentos']:0,
+                'total_charge' => array_key_exists('total_cargos', $inputs['totales'])?$inputs['totales']['total_cargos']:0,
                 'date_of_due' => array_key_exists('fecha_de_vencimiento', $inputs)?$inputs['fecha_de_vencimiento']:null,
                 'base_global_discount' => array_key_exists('base_descuento_global', $inputs['totales'])?$inputs['totales']['base_descuento_global']:0,
                 'percentage_global_discount' => array_key_exists('porcentaje_descuento_global', $inputs['totales'])?$inputs['totales']['porcentaje_descuento_global']:0,
-                'total_global_discount' => array_key_exists('total_descuento_global', $inputs['totales'])?$inputs['totales']['total_descuento_global']:0,
-                'total_free' => array_key_exists('total_operaciones_gratuitas', $inputs['totales'])?$inputs['totales']['total_operaciones_gratuitas']:0,
                 'total_prepayment' => array_key_exists('total_anticipos', $inputs['totales'])?$inputs['totales']['total_anticipos']:0,
                 'purchase_order' => array_key_exists('numero_de_orden_de_compra', $inputs)?$inputs['numero_de_orden_de_compra']:null,
                 'detraction' => $detraction,
