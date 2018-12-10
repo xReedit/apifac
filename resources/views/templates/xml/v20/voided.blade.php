@@ -2,7 +2,7 @@
     $voided = $document;
     $documents = $voided->documents;
 @endphp
-{!! '<?xml version="1.0" encoding="windows-1250"?>' !!}
+{!! '<?xml version="1.0" encoding="utf-8"?>' !!}
 <VoidedDocuments xmlns="urn:sunat:names:specification:ubl:peru:schema:xsd:VoidedDocuments-1"
                  xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
                  xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
@@ -26,7 +26,7 @@
                 <cbc:ID>{{ $company->number }}</cbc:ID>
             </cac:PartyIdentification>
             <cac:PartyName>
-                <cbc:Name><![CDATA[{{$company->name}}]]></cbc:Name>
+                <cbc:Name><![CDATA[{{$company->trade_name}}]]></cbc:Name>
             </cac:PartyName>
         </cac:SignatoryParty>
         <cac:DigitalSignatureAttachment>
@@ -45,9 +45,7 @@
         </cac:Party>
     </cac:AccountingSupplierParty>
     @foreach($documents as $doc)
-        @php
-            $document = $doc->document;
-        @endphp
+        @php($document = $doc->document)
         <sac:VoidedDocumentsLine>
             <cbc:LineID>{{ $loop->iteration }}</cbc:LineID>
             <cbc:DocumentTypeCode>{{ $document->document_type_code }}</cbc:DocumentTypeCode>

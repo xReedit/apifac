@@ -2,6 +2,10 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Catalogs\Code;
+use App\Models\Catalogs\Department;
+use App\Models\Catalogs\District;
+use App\Models\Catalogs\Province;
 use App\Models\Company;
 use Closure;
 
@@ -202,7 +206,7 @@ class TransformInput
                 'operation_type_code' => $inputs['tipo_de_operacion'],
                 'date_of_due' => array_key_exists('fecha_de_vencimiento', $inputs)?$inputs['fecha_de_vencimiento']:null,
                 'total_free' => array_key_exists('total_operaciones_gratuitas', $inputs['totales'])?$inputs['totales']['total_operaciones_gratuitas']:0,
-                'total_global_discount' => array_key_exists('total_descuento_global', $inputs['totales'])?$inputs['totales']['total_descuento_global']:0,
+//                'total_global_discount' => array_key_exists('total_descuento_global', $inputs['totales'])?$inputs['totales']['total_descuento_global']:0,
                 'total_discount' => array_key_exists('total_descuentos', $inputs['totales'])?$inputs['totales']['total_descuentos']:0,
                 'total_charge' => array_key_exists('total_cargos', $inputs['totales'])?$inputs['totales']['total_cargos']:0,
                 'total_value' => array_key_exists('total_valor', $inputs['totales'])?$inputs['totales']['total_valor']:0,
@@ -263,16 +267,19 @@ class TransformInput
         if (array_key_exists('datos_del_emisor', $inputs)) {
             $data = $inputs['datos_del_emisor'];
             if (array_key_exists('ubigeo', $data)) {
-                $department_id = substr($data['ubigeo'], 0 ,2);
-                $province_id = substr($data['ubigeo'], 0 ,4);
-                $district_id = $data['ubigeo'];
+                $location_code = $data['ubigeo'];
+                $department = Department::find(substr($location_code, 0 ,2));
+                $province = Province::find(substr($location_code, 0 ,4));
+                $district = District::find($location_code);
                 $establishment = [
-                    '$department_id' => $department_id,
-                    '$province_id' => $province_id,
-                    '$district_id' => $district_id,
+                    'location_code' => $location_code,
+                    'department' => $department->description,
+                    'province' => $province->description,
+                    'district' => $district->description,
+                    'urbanization' => array_key_exists('urbanizacion', $data)?$data['urbanizacion']:null,
                     'address' => $data['direccion'],
                     'email' => $data['corre_electronico'],
-                    'phone' => $data['telefono'],
+                    'telephone' => $data['telefono'],
                     'code' => $data['codigo_del_domicilio_fiscal']
                 ];
             } else {
@@ -289,16 +296,23 @@ class TransformInput
         if (array_key_exists('datos_del_receptor', $inputs)) {
             $data = $inputs['datos_del_receptor'];
             if (array_key_exists('ubigeo', $data)) {
-                $department_id = substr($data['ubigeo'], 0 ,2);
-                $province_id = substr($data['ubigeo'], 0 ,4);
-                $district_id = $data['ubigeo'];
+                $location_code = $data['ubigeo'];
+                $department = Department::find(substr($location_code, 0 ,2));
+                $province = Province::find(substr($location_code, 0 ,4));
+                $district = District::find($location_code);
+                $country_code = $data['codigo_pais'];
                 $customer = [
-                    'department_id' => $department_id,
-                    'province_id' => $province_id,
-                    'district_id' => $district_id,
+                    'identity_document_type_code' => $data['tipo_de_documento'],
+                    'number' => $data['numero_de_documento'],
+                    'name' => $data['apellidos_y_nombres_o_razon_social'],
+                    'country_code' => $country_code,
+                    'location_code' => $location_code,
+                    'department' => $department,
+                    'province' => $province,
+                    'district' => $district,
                     'address' => $data['direccion'],
                     'email' => $data['corre_electronico'],
-                    'phone' => $data['telefono'],
+                    'telephone' => $data['telefono'],
                 ];
             } else {
 

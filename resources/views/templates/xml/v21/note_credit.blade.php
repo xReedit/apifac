@@ -9,13 +9,8 @@
 <CreditNote xmlns="urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2"
             xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
             xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
-            xmlns:ccts="urn:un:unece:uncefact:documentation:2"
             xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
-            xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2"
-            xmlns:qdt="urn:oasis:names:specification:ubl:schema:xsd:QualifiedDatatypes-2"
-            xmlns:sac="urn:sunat:names:specification:ubl:peru:schema:xsd:SunatAggregateComponents-1"
-            xmlns:udt="urn:un:unece:uncefact:data:specification:UnqualifiedDataTypesSchemaModule:2"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2">
     <ext:UBLExtensions>
         <ext:UBLExtension>
             <ext:ExtensionContent/>
@@ -27,7 +22,7 @@
     <cbc:IssueDate>{{ $document->date_of_issue->format('Y-m-d') }}</cbc:IssueDate>
     <cbc:IssueTime>{{ $document->time_of_issue }}</cbc:IssueTime>
     @foreach($legends as $legend)
-        <cbc:Note languageLocaleID="{{ $legend->code }}">{{ $legend->description }}</cbc:Note>
+        <cbc:Note languageLocaleID="{{ $legend->code }}"><![CDATA[{{ $legend->description }}]]></cbc:Note>
     @endforeach
     <cbc:DocumentCurrencyCode>{{ $document->currency_type_code }}</cbc:DocumentCurrencyCode>
     <cac:DiscrepancyResponse>
@@ -35,14 +30,36 @@
         <cbc:ResponseCode>{{ $note->note_type_code }}</cbc:ResponseCode>
         <cbc:Description>{{ $note->description }}</cbc:Description>
     </cac:DiscrepancyResponse>
+    @if($document->purchase_order)
+        <cac:OrderReference>
+            <cbc:ID>{{ $document->purchase_order }}</cbc:ID>
+        </cac:OrderReference>
+    @endif
     <cac:BillingReference>
         <cac:InvoiceDocumentReference>
             <cbc:ID>{{ $note->affected_document_series.'-'.$note->affected_document_number }}</cbc:ID>
             <cbc:DocumentTypeCode>{{ $note->affected_document_type_code }}</cbc:DocumentTypeCode>
         </cac:InvoiceDocumentReference>
     </cac:BillingReference>
+    @if($document->guides)
+        @foreach($document->guides as $guide)
+            <cac:DespatchDocumentReference>
+                <cbc:ID>{{ $guide->number }}</cbc:ID>
+                <cbc:DocumentTypeCode>{{ $guide->document_type_code }}</cbc:DocumentTypeCode>
+            </cac:DespatchDocumentReference>
+        @endforeach
+    @endif
+    @if($document->related_documents)
+        @foreach($document->related_documents as $related)
+            <cac:AdditionalDocumentReference>
+                <cbc:ID>{{ $related->number }}</cbc:ID>
+                <cbc:DocumentTypeCode>{{ $related->document_type_code }}</cbc:DocumentTypeCode>
+            </cac:AdditionalDocumentReference>
+        @endforeach
+    @endif
     <cac:Signature>
         <cbc:ID>{{ $company->number }}</cbc:ID>
+        <cbc:Note>FACTURALO</cbc:Note>
         <cac:SignatoryParty>
             <cac:PartyIdentification>
                 <cbc:ID>{{ $company->number }}</cbc:ID>
@@ -60,10 +77,7 @@
     <cac:AccountingSupplierParty>
         <cac:Party>
             <cac:PartyIdentification>
-                <cbc:ID schemeID="{{ $company->identity_document_type->code }}"
-                        schemeName="SUNAT:Identificador de Documento de Identidad"
-                        schemeAgencyName="PE:SUNAT"
-                        schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06">{{ $company->number }}</cbc:ID>
+                <cbc:ID schemeID="6">{{ $company->number }}</cbc:ID>
             </cac:PartyIdentification>
             <cac:PartyName>
                 <cbc:Name><![CDATA[{{ $company->trade_name }}]]></cbc:Name>
@@ -71,88 +85,166 @@
             <cac:PartyLegalEntity>
                 <cbc:RegistrationName><![CDATA[{{ $company->name }}]]></cbc:RegistrationName>
                 <cac:RegistrationAddress>
+                    <cbc:ID>{{ $establishment->location_code }}</cbc:ID>
                     <cbc:AddressTypeCode>{{ $establishment->code }}</cbc:AddressTypeCode>
+                    @if($establishment->urbanization)
+                        <cbc:CitySubdivisionName>{{ $establishment->urbanization }}</cbc:CitySubdivisionName>
+                    @endif
+                    <cbc:CityName>{{ $establishment->province }}</cbc:CityName>
+                    <cbc:CountrySubentity>{{ $establishment->department  }}</cbc:CountrySubentity>
+                    <cbc:District>{{ $establishment->district }}</cbc:District>
+                    <cac:AddressLine>
+                        <cbc:Line><![CDATA[{{ $establishment->address }}]]></cbc:Line>
+                    </cac:AddressLine>
+                    <cac:Country>
+                        <cbc:IdentificationCode>{{ $establishment->country_code }}</cbc:IdentificationCode>
+                    </cac:Country>
                 </cac:RegistrationAddress>
             </cac:PartyLegalEntity>
+            @if($establishment->email || $establishment->telephone)
+                <cac:Contact>
+                    @if($establishment->telephone)
+                        <cbc:Telephone>{{ $establishment->telephone }}</cbc:Telephone>
+                    @endif
+                    @if($establishment->email)
+                        <cbc:ElectronicMail>{{ $establishment->email }}</cbc:ElectronicMail>
+                    @endif
+                </cac:Contact>
+            @endif
         </cac:Party>
     </cac:AccountingSupplierParty>
-    {{----}}
-    {{--<cac:AccountingSupplierParty>--}}
-        {{--<cac:Party>--}}
-            {{--<cac:PartyName>--}}
-                {{--<cbc:Name><![CDATA[{{ $company->trade_name }}]]></cbc:Name>--}}
-            {{--</cac:PartyName>--}}
-            {{--<cac:PartyTaxScheme>--}}
-                {{--<cbc:RegistrationName><![CDATA[{{ $company->name }}]]></cbc:RegistrationName>--}}
-                {{--<cbc:CompanyID schemeID="{{ $company->identity_document_type_code }}"--}}
-                               {{--schemeName="SUNAT:Identificador de Documento de Identidad"--}}
-                               {{--schemeAgencyName="PE:SUNAT"--}}
-                               {{--schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06">{{ $company->number }}</cbc:CompanyID>--}}
-                {{--<cac:RegistrationAddress>--}}
-                    {{--<cbc:AddressTypeCode>{{ $establishment->code }}</cbc:AddressTypeCode>--}}
-                {{--</cac:RegistrationAddress>--}}
-                {{--<cac:TaxScheme>--}}
-                    {{--<cbc:ID>-</cbc:ID>--}}
-                {{--</cac:TaxScheme>--}}
-            {{--</cac:PartyTaxScheme>--}}
-        {{--</cac:Party>--}}
-    {{--</cac:AccountingSupplierParty>--}}
-    {{--<cac:AccountingCustomerParty>--}}
-        {{--<cac:Party>--}}
-            {{--<cac:PartyTaxScheme>--}}
-                {{--<cbc:RegistrationName>{{ $customer->name }}</cbc:RegistrationName>--}}
-                {{--<cbc:CompanyID schemeID="{{ $customer->identity_document_type_code }}"--}}
-                               {{--schemeName="SUNAT:Identificador de Documento de Identidad"--}}
-                               {{--schemeAgencyName="PE:SUNAT"--}}
-                               {{--schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06">{{ $customer->number }}</cbc:CompanyID>--}}
-                {{--<cac:TaxScheme>--}}
-                    {{--<cbc:ID>-</cbc:ID>--}}
-                {{--</cac:TaxScheme>--}}
-            {{--</cac:PartyTaxScheme>--}}
-        {{--</cac:Party>--}}
-    {{--</cac:AccountingCustomerParty>--}}
     <cac:AccountingCustomerParty>
         <cac:Party>
             <cac:PartyIdentification>
-                <cbc:ID schemeID="{{ $customer->identity_document_type->code }}"
-                        schemeName="SUNAT:Identificador de Documento de Identidad"
-                        schemeAgencyName="PE:SUNAT"
-                        schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06">{{ $customer->number }}</cbc:ID>
+                <cbc:ID schemeID="{{ $customer->identity_document_type_code }}">{{ $customer->number }}</cbc:ID>
             </cac:PartyIdentification>
             <cac:PartyLegalEntity>
-                <cbc:RegistrationName>{{ $customer->name }}</cbc:RegistrationName>
+                <cbc:RegistrationName><![CDATA[{{ $customer->name }}]]></cbc:RegistrationName>
+                @if($customer->address)
+                    <cac:RegistrationAddress>
+                        @if($customer->location_code)
+                            <cbc:ID>{{ $customer->location_code }}</cbc:ID>
+                        @endif
+                        <cac:AddressLine>
+                            <cbc:Line><![CDATA[{{ $customer->address }}]]></cbc:Line>
+                        </cac:AddressLine>
+                        <cac:Country>
+                            <cbc:IdentificationCode>{{ $customer->country_code }}</cbc:IdentificationCode>
+                        </cac:Country>
+                    </cac:RegistrationAddress>
+                @endif
             </cac:PartyLegalEntity>
+            @if($customer->email || $customer->telephone)
+                <cac:Contact>
+                    @if($customer->telephone)
+                        <cbc:Telephone>{{ $customer->telephone }}</cbc:Telephone>
+                    @endif
+                    @if($customer->email)
+                        <cbc:ElectronicMail>{{ $customer->email }}</cbc:ElectronicMail>
+                    @endif
+                </cac:Contact>
+            @endif
         </cac:Party>
     </cac:AccountingCustomerParty>
-    @if($document->total_igv > 0)
     <cac:TaxTotal>
-        <cbc:TaxAmount currencyID="{{ $document->currency_type_code }}">{{ $document->total_igv }}</cbc:TaxAmount>
-        <cac:TaxSubtotal>
-            <cbc:TaxableAmount currencyID="{{ $document->currency_type_code }}">{{ $document->total_taxed }}</cbc:TaxableAmount>
-            <cbc:TaxAmount currencyID="{{ $document->currency_type_code }}">{{ $document->total_igv }}</cbc:TaxAmount>
-            <cac:TaxCategory>
-                <cac:TaxScheme>
-                    <cbc:ID schemeID="UN/ECE 5153" schemeAgencyID="6">1000</cbc:ID>
-                    <cbc:Name>IGV</cbc:Name>
-                    <cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
-                </cac:TaxScheme>
-            </cac:TaxCategory>
-        </cac:TaxSubtotal>
+        <cbc:TaxAmount currencyID="{{ $document->currency_type_code }}">{{ $document->total_taxes }}</cbc:TaxAmount>
+        @if($document->total_isc > 0)
+            <cac:TaxSubtotal>
+                <cbc:TaxableAmount currencyID="{{ $document->currency_type_code }}">{{ $document->total_base_isc }}</cbc:TaxableAmount>
+                <cbc:TaxAmount currencyID="{{ $document->currency_type_code }}">{{ $document->total_isc }}</cbc:TaxAmount>
+                <cac:TaxCategory>
+                    <cac:TaxScheme>
+                        <cbc:ID>2000</cbc:ID>
+                        <cbc:Name>ISC</cbc:Name>
+                        <cbc:TaxTypeCode>EXC</cbc:TaxTypeCode>
+                    </cac:TaxScheme>
+                </cac:TaxCategory>
+            </cac:TaxSubtotal>
+        @endif
+        @if($document->total_taxed > 0)
+            <cac:TaxSubtotal>
+                <cbc:TaxableAmount currencyID="{{ $document->currency_type_code }}">{{ $document->total_taxed }}</cbc:TaxableAmount>
+                <cbc:TaxAmount currencyID="{{ $document->currency_type_code }}">{{ $document->total_igv }}</cbc:TaxAmount>
+                <cac:TaxCategory>
+                    <cac:TaxScheme>
+                        <cbc:ID>1000</cbc:ID>
+                        <cbc:Name>IGV</cbc:Name>
+                        <cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+                    </cac:TaxScheme>
+                </cac:TaxCategory>
+            </cac:TaxSubtotal>
+        @endif
+        @if($document->total_unaffected > 0)
+            <cac:TaxSubtotal>
+                <cbc:TaxableAmount currencyID="{{ $document->currency_type_code }}">{{ $document->total_unaffected }}</cbc:TaxableAmount>
+                <cbc:TaxAmount currencyID="{{ $document->currency_type_code }}">0</cbc:TaxAmount>
+                <cac:TaxCategory>
+                    <cac:TaxScheme>
+                        <cbc:ID>9998</cbc:ID>
+                        <cbc:Name>INA</cbc:Name>
+                        <cbc:TaxTypeCode>FRE</cbc:TaxTypeCode>
+                    </cac:TaxScheme>
+                </cac:TaxCategory>
+            </cac:TaxSubtotal>
+        @endif
+        @if($document->total_exonerated > 0)
+            <cac:TaxSubtotal>
+                <cbc:TaxableAmount currencyID="{{ $document->currency_type_code }}">{{ $document->total_exonerated }}</cbc:TaxableAmount>
+                <cbc:TaxAmount currencyID="{{ $document->currency_type_code }}">0</cbc:TaxAmount>
+                <cac:TaxCategory>
+                    <cac:TaxScheme>
+                        <cbc:ID>9997</cbc:ID>
+                        <cbc:Name>EXO</cbc:Name>
+                        <cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+                    </cac:TaxScheme>
+                </cac:TaxCategory>
+            </cac:TaxSubtotal>
+        @endif
+        @if($invoice->total_free > 0)
+            <cac:TaxSubtotal>
+                <cbc:TaxableAmount currencyID="{{ $document->currency_type_code }}">{{ $invoice->total_free }}</cbc:TaxableAmount>
+                <cbc:TaxAmount currencyID="{{ $document->currency_type_code }}">0</cbc:TaxAmount>
+                <cac:TaxCategory>
+                    <cac:TaxScheme>
+                        <cbc:ID>9996</cbc:ID>
+                        <cbc:Name>GRA</cbc:Name>
+                        <cbc:TaxTypeCode>FRE</cbc:TaxTypeCode>
+                    </cac:TaxScheme>
+                </cac:TaxCategory>
+            </cac:TaxSubtotal>
+        @endif
+        @if($document->total_exportation > 0)
+            <cac:TaxSubtotal>
+                <cbc:TaxableAmount currencyID="{{ $document->currency_type_code }}">{{ $document->total_exportation }}</cbc:TaxableAmount>
+                <cbc:TaxAmount currencyID="{{ $document->currency_type_code }}">0</cbc:TaxAmount>
+                <cac:TaxCategory>
+                    <cac:TaxScheme>
+                        <cbc:ID>9995</cbc:ID>
+                        <cbc:Name>EXP</cbc:Name>
+                        <cbc:TaxTypeCode>FRE</cbc:TaxTypeCode>
+                    </cac:TaxScheme>
+                </cac:TaxCategory>
+            </cac:TaxSubtotal>
+        @endif
+        @if($document->total_other_taxes > 0)
+            <cac:TaxSubtotal>
+                <cbc:TaxableAmount currencyID="{{ $document->currency_type_code }}">{{ $document->total_base_other_taxes }}</cbc:TaxableAmount>
+                <cbc:TaxAmount currencyID="{{ $document->currency_type_code }}">{{ $document->total_other_taxes }}</cbc:TaxAmount>
+                <cac:TaxCategory>
+                    <cac:TaxScheme>
+                        <cbc:ID>9999</cbc:ID>
+                        <cbc:Name>OTROS</cbc:Name>
+                        <cbc:TaxTypeCode>OTH</cbc:TaxTypeCode>
+                    </cac:TaxScheme>
+                </cac:TaxCategory>
+            </cac:TaxSubtotal>
+        @endif
     </cac:TaxTotal>
-    @endif
     <cac:LegalMonetaryTotal>
-        @if($note->total_global_discount > 0)
-        <cbc:AllowanceTotalAmount currencyID="{{ $document->currency_type_code }}">{{ $note->total_global_discount }}</cbc:AllowanceTotalAmount>
-        @endif
         @if($document->total_other_charges > 0)
-        <cbc:ChargeTotalAmount currencyID="{{ $document->currency_type_code }}">{{ $document->total_other_charges }}</cbc:ChargeTotalAmount>
+            <cbc:ChargeTotalAmount currencyID="{{ $document->currency_type_code }}">{{ $document->total_other_charges }}</cbc:ChargeTotalAmount>
         @endif
-        @if($note->total_prepayment > 0)
-        <cbc:PrepaidAmount currencyID="{{ $document->currency_type_code }}">{{ $note->total_prepayment }}</cbc:PrepaidAmount>
-        @endif
-        @if($document->total > 0)
         <cbc:PayableAmount currencyID="{{ $document->currency_type_code }}">{{ $document->total }}</cbc:PayableAmount>
-        @endif
     </cac:LegalMonetaryTotal>
     @foreach($details as $row)
     <cac:CreditNoteLine>
@@ -165,58 +257,92 @@
                 <cbc:PriceTypeCode>{{ $row->price_type_code }}</cbc:PriceTypeCode>
             </cac:AlternativeConditionPrice>
         </cac:PricingReference>
-        @if($row->total_igv > 0)
         <cac:TaxTotal>
-            <cbc:TaxAmount currencyID="{{ $document->currency_type_code }}">{{ $row->total_igv }}</cbc:TaxAmount>
+            <cbc:TaxAmount currencyID="{{ $document->currency_type_code }}">{{ $row->total_taxes }}</cbc:TaxAmount>
+            @if ($row->total_isc > 0)
+                <cac:TaxSubtotal>
+                    <cbc:TaxableAmount currencyID="{{ $document->currency_type_code }}">{{ $row->total_base_isc }}</cbc:TaxableAmount>
+                    <cbc:TaxAmount currencyID="{{ $document->currency_type_code }}">{{ $row->total_isc}}</cbc:TaxAmount>
+                    <cac:TaxCategory>
+                        <cbc:Percent>{{ $row->percentage_isc }}</cbc:Percent>
+                        <cbc:TierRange>{{ $row->system_isc_type_code }}</cbc:TierRange>
+                        <cac:TaxScheme>
+                            <cbc:ID>2000</cbc:ID>
+                            <cbc:Name>ISC</cbc:Name>
+                            <cbc:TaxTypeCode>EXC</cbc:TaxTypeCode>
+                        </cac:TaxScheme>
+                    </cac:TaxCategory>
+                </cac:TaxSubtotal>
+            @endif
             <cac:TaxSubtotal>
-                <cbc:TaxableAmount currencyID="{{ $document->currency_type_code }}">{{ $row->total_value }}</cbc:TaxableAmount>
+                <cbc:TaxableAmount currencyID="{{ $document->currency_type_code }}">{{ $row->total_base_igv }}</cbc:TaxableAmount>
                 <cbc:TaxAmount currencyID="{{ $document->currency_type_code }}">{{ $row->total_igv }}</cbc:TaxAmount>
                 <cac:TaxCategory>
                     <cbc:Percent>{{ $row->percentage_igv }}</cbc:Percent>
                     <cbc:TaxExemptionReasonCode>{{ $row->affectation_igv_type_code }}</cbc:TaxExemptionReasonCode>
+                    @php($affect = \App\Core\Helpers\TributeFunction::getByAffectation($row->affectation_igv_type_code))
                     <cac:TaxScheme>
-                        <cbc:ID>1000</cbc:ID>
-                        <cbc:Name>IGV</cbc:Name>
-                        <cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+                        <cbc:ID>{{ $affect['id'] }}</cbc:ID>
+                        <cbc:Name>{{ $affect['name'] }}</cbc:Name>
+                        <cbc:TaxTypeCode>{{ $affect['code'] }}</cbc:TaxTypeCode>
                     </cac:TaxScheme>
                 </cac:TaxCategory>
             </cac:TaxSubtotal>
-        </cac:TaxTotal>
-        @endif
-        <cac:Item>
-            <cbc:Description>{{ $row->item_description }}</cbc:Description>
-            @if($row->internal_id)
-            <cac:SellersItemIdentification>
-                <cbc:ID>{{ $row->internal_id }}</cbc:ID>
-            </cac:SellersItemIdentification>
+            @if ($row->total_other_taxes > 0)
+                <cac:TaxSubtotal>
+                    <cbc:TaxableAmount currencyID="{{ $document->currency_type_code }}">{{ $row->total_base_other_taxes }}</cbc:TaxableAmount>
+                    <cbc:TaxAmount currencyID="{{ $document->currency_type_code }}">{{ $row->total_other_taxes }}</cbc:TaxAmount>
+                    <cac:TaxCategory>
+                        <cbc:Percent>{{ $row->percentage_other_taxes }}</cbc:Percent>
+                        <cac:TaxScheme>
+                            <cbc:ID>9999</cbc:ID>
+                            <cbc:Name>OTROS</cbc:Name>
+                            <cbc:TaxTypeCode>OTH</cbc:TaxTypeCode>
+                        </cac:TaxScheme>
+                    </cac:TaxCategory>
+                </cac:TaxSubtotal>
             @endif
-            @foreach($row->additional as $other)
-                <cac:AdditionalItemProperty>
-                    <cbc:Name><![CDATA[{{ $other->name }}]]></cbc:Name>
-                    <cbc:NameCode listName="SUNAT :Identificador de la propiedad del ítem"
-                                  listAgencyName="PE:SUNAT">{{ $other->code }}</cbc:NameCode>
-                    <cbc:Value>{{ $other->value }}</cbc:Value>
-                    @if($other->start_date || $other->end_date || $other->duration)
-                        <cac:UsabilityPeriod>
-                            @if($other->start_date)
-                                <cbc:StartDate>{{ $other->start_date }}</cbc:StartDate>
-                            @endif
-                            @if($other->end_date)
-                                <cbc:EndDate>{{ $other->end_date }}</cbc:EndDate>
-                            @endif
-                            @if($other->duration)
-                                <cbc:DurationMeasure unitCode="DAY">{{ $other->duration }}</cbc:DurationMeasure>
-                            @endif
-                        </cac:UsabilityPeriod>
-                    @endif
-                </cac:AdditionalItemProperty>
-            @endforeach
+        </cac:TaxTotal>
+        <cac:Item>
+            <cbc:Description><![CDATA[{{ $row->item_description }}]]></cbc:Description>
+            @if($row->internal_id)
+                <cac:SellersItemIdentification>
+                    <cbc:ID>{{ $row->internal_id }}</cbc:ID>
+                </cac:SellersItemIdentification>
+            @endif
             @if($row->item_code)
-            <cac:CommodityClassification>
-                <cbc:ItemClassificationCode listID="UNSPSC"
-                                            listAgencyName="GS1 US"
-                                            listName="Item Classification">{{ $row->item_code }}</cbc:ItemClassificationCode>
-            </cac:CommodityClassification>
+                <cac:CommodityClassification>
+                    <cbc:ItemClassificationCode>{{ $row->item_code }}</cbc:ItemClassificationCode>
+                </cac:CommodityClassification>
+            @endif
+            @if($row->item_code_gs1)
+                <cac:StandardItemIdentification>
+                    <cbc:ID>{{ $row->item_code_gs1 }}</cbc:ID>
+                </cac:StandardItemIdentification>
+            @endif
+            @if($row->attributes)
+                @foreach($row->attributes as $attribute)
+                    <cac:AdditionalItemProperty>
+                        <cbc:Name><![CDATA[{{ $attribute->name }}]]></cbc:Name>
+                        <cbc:NameCode>{{ $attribute->code }}</cbc:NameCode>
+                        @if($attribute->value)
+                            <cbc:Value>{{ $attribute->value }}</cbc:Value>
+                        @endif
+                        @if($attribute->start_date || $attribute->end_date || $attribute->duration)
+                            <cac:UsabilityPeriod>
+                                @if($attribute->start_date)
+                                    <cbc:StartDate>{{ $attribute->start_date }}</cbc:StartDate>
+                                @endif
+                                @if($attribute->end_date)
+                                    <cbc:EndDate>{{ $attribute->end_date }}</cbc:EndDate>
+                                @endif
+                                @if($attribute->duration)
+                                    <cbc:DurationMeasure unitCode="DAY">{{ $attribute->duration }}</cbc:DurationMeasure>
+                                @endif
+                            </cac:UsabilityPeriod>
+                        @endif
+                    </cac:AdditionalItemProperty>
+                @endforeach
             @endif
         </cac:Item>
         <cac:Price>

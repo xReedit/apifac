@@ -45,7 +45,7 @@ class CreateDocumentsTable extends Migration
             $table->json('customer');
             $table->json('legends');
             $table->json('guides')->nullable();
-            $table->json('additional_documents')->nullable();
+            $table->json('related_documents')->nullable();
             $table->json('optional')->nullable();
 
             $table->string('filename')->nullable();

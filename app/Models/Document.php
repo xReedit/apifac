@@ -36,7 +36,7 @@ class Document extends Model
         'establishment',
         'customer',
         'guides',
-        'additional_documents',
+        'related_documents',
         'legends',
         'optional',
         'filename',
@@ -81,14 +81,14 @@ class Document extends Model
         $this->attributes['guides'] = json_encode($value);
     }
 
-    public function getAdditionalDocumentsAttribute($value)
+    public function getRelatedDocumentsAttribute($value)
     {
         return (object) json_decode($value);
     }
 
-    public function setAdditionalDocumentsAttribute($value)
+    public function setRelatedDocumentsAttribute($value)
     {
-        $this->attributes['additional_documents'] = json_encode($value);
+        $this->attributes['related_documents'] = json_encode($value);
     }
 
     public function getLegendsAttribute($value)

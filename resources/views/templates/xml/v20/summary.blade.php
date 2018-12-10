@@ -28,7 +28,7 @@
                 <cbc:ID>{{ $company->number }}</cbc:ID>
             </cac:PartyIdentification>
             <cac:PartyName>
-                <cbc:Name><![CDATA[{{ $company->name }}]]></cbc:Name>
+                <cbc:Name><![CDATA[{{ $company->trade_name }}]]></cbc:Name>
             </cac:PartyName>
         </cac:SignatoryParty>
         <cac:DigitalSignatureAttachment>
@@ -57,9 +57,8 @@
             <cbc:ID>{{ $document->series }}-{{ $document->number }}</cbc:ID>
             <cac:AccountingCustomerParty>
                 <cbc:CustomerAssignedAccountID>{{ $document->customer->number }}</cbc:CustomerAssignedAccountID>
-                <cbc:AdditionalAccountID>{{ $document->customer->identity_document_type->code }}</cbc:AdditionalAccountID>
+                <cbc:AdditionalAccountID>{{ $document->customer->identity_document_type_code }}</cbc:AdditionalAccountID>
             </cac:AccountingCustomerParty>
-            {{--{% if det.docReferencia -%}--}}
             @if($isNote)
             <cac:BillingReference>
                 <cac:InvoiceDocumentReference>
@@ -68,54 +67,64 @@
                 </cac:InvoiceDocumentReference>
             </cac:BillingReference>
             @endif
-            {{--{% if det.percepcion -%}--}}
-            {{--{% set perc = det.percepcion -%}--}}
-            {{--<sac:SUNATPerceptionSummaryDocumentReference>--}}
-            {{--<sac:SUNATPerceptionSystemCode>{{ perc.codReg }}</sac:SUNATPerceptionSystemCode>--}}
-            {{--<sac:SUNATPerceptionPercent>{{ perc.tasa|n_format }}</sac:SUNATPerceptionPercent>--}}
-            {{--<cbc:TotalInvoiceAmount currencyID="PEN">{{ perc.mto|n_format }}</cbc:TotalInvoiceAmount>--}}
-            {{--<sac:SUNATTotalCashed currencyID="PEN">{{ perc.mtoTotal|n_format }}</sac:SUNATTotalCashed>--}}
-            {{--<cbc:TaxableAmount currencyID="PEN">{{ perc.mtoBase|n_format }}</cbc:TaxableAmount>--}}
-            {{--</sac:SUNATPerceptionSummaryDocumentReference>--}}
-            {{--{% endif -%}--}}
+            @if($isNote)
+                @php($perception = $document->note->perception)
+            @else
+                @php($perception = $document->invoice->perception)
+            @endif
+            <sac:SUNATPerceptionSummaryDocumentReference>
+                <sac:SUNATPerceptionSystemCode>{{ $perception->code }}</sac:SUNATPerceptionSystemCode>
+                <sac:SUNATPerceptionPercent>{{ $perception->percentage }}</sac:SUNATPerceptionPercent>
+                <cbc:TotalInvoiceAmount currencyID="PEN">{{ $perception->monto }}</cbc:TotalInvoiceAmount>
+                <sac:SUNATTotalCashed currencyID="PEN">{{ $perception->total }}</sac:SUNATTotalCashed>
+                <cbc:TaxableAmount currencyID="PEN">{{ $perception->base }}</cbc:TaxableAmount>
+            </sac:SUNATPerceptionSummaryDocumentReference>
             <cac:Status>
                 <cbc:ConditionCode>{{ $summary->process_type_id }}</cbc:ConditionCode>
             </cac:Status>
-            <sac:TotalAmount currencyID="PEN">{{ $document->total }}</sac:TotalAmount>
+            <sac:TotalAmount currencyID="{{ $document->currency_type_code }}">{{ $document->total }}</sac:TotalAmount>
             @if($document->total_taxed > 0)
                 <sac:BillingPayment>
-                    <cbc:PaidAmount currencyID="PEN">{{ $document->total_taxed }}</cbc:PaidAmount>
+                    <cbc:PaidAmount currencyID="{{ $document->currency_type_code }}">{{ $document->total_taxed }}</cbc:PaidAmount>
                     <cbc:InstructionID>01</cbc:InstructionID>
-                </sac:BillingPayment>
-            @endif
-            @if($document->total_unaffected > 0)
-                <sac:BillingPayment>
-                    <cbc:PaidAmount currencyID="PEN">{{ $document->total_unaffected }}</cbc:PaidAmount>
-                    <cbc:InstructionID>02</cbc:InstructionID>
                 </sac:BillingPayment>
             @endif
             @if($document->total_exonerated > 0)
                 <sac:BillingPayment>
-                    <cbc:PaidAmount currencyID="PEN">{{ $document->total_exonerated }}</cbc:PaidAmount>
+                    <cbc:PaidAmount currencyID="{{ $document->currency_type_code }}">{{ $document->total_exonerated }}</cbc:PaidAmount>
+                    <cbc:InstructionID>02</cbc:InstructionID>
+                </sac:BillingPayment>
+            @endif
+            @if($document->total_unaffected > 0)
+                <sac:BillingPayment>
+                    <cbc:PaidAmount currencyID="{{ $document->currency_type_code }}">{{ $document->total_unaffected }}</cbc:PaidAmount>
                     <cbc:InstructionID>03</cbc:InstructionID>
                 </sac:BillingPayment>
             @endif
-            {{--@if($document->total_free > 0)--}}
-            {{--<sac:BillingPayment>--}}
-            {{--<cbc:PaidAmount currencyID="PEN">{{ $document->total_free }}</cbc:PaidAmount>--}}
-            {{--<cbc:InstructionID>05</cbc:InstructionID>--}}
-            {{--</sac:BillingPayment>--}}
-            {{--@endif--}}
+            @if($document->total_exportation > 0)
+            <sac:BillingPayment>
+                <cbc:PaidAmount currencyID="{{ $document->currency_type_code }}">{{ $document->total_exportation }}</cbc:PaidAmount>
+                <cbc:InstructionID>04</cbc:InstructionID>
+            </sac:BillingPayment>
+            @endif
+            @if(!$isNote)
+                @if($document->invoice->total_free > 0)
+                    <sac:BillingPayment>
+                        <cbc:PaidAmount currencyID="{{ $document->currency_type_code }}">{{ $document->invoice->total_free }}</cbc:PaidAmount>
+                        <cbc:InstructionID>05</cbc:InstructionID>
+                    </sac:BillingPayment>
+                @endif
+            @endif
             @if($document->total_other_charges > 0)
                 <cac:AllowanceCharge>
                     <cbc:ChargeIndicator>true</cbc:ChargeIndicator>
-                    <cbc:Amount currencyID="PEN">{{ $document->total_other_charges }}</cbc:Amount>
+                    <cbc:Amount currencyID="{{ $document->currency_type_code }}">{{ $document->total_other_charges }}</cbc:Amount>
                 </cac:AllowanceCharge>
             @endif
             <cac:TaxTotal>
-                <cbc:TaxAmount currencyID="PEN">{{ $document->total_igv }}</cbc:TaxAmount>
+                <cbc:TaxAmount currencyID="{{ $document->currency_type_code }}">{{ $document->total_igv }}</cbc:TaxAmount>
                 <cac:TaxSubtotal>
-                    <cbc:TaxAmount currencyID="PEN">{{ $document->total_igv }}</cbc:TaxAmount>
+                    <cbc:TaxAmount currencyID="{{ $document->currency_type_code }}">{{ $document->total_igv }}</cbc:TaxAmount>
                     <cac:TaxCategory>
                         <cac:TaxScheme>
                             <cbc:ID>1000</cbc:ID>
@@ -127,9 +136,9 @@
             </cac:TaxTotal>
             @if($document->total_isc > 0)
                 <cac:TaxTotal>
-                    <cbc:TaxAmount currencyID="PEN">{{ $document->total_isc }}</cbc:TaxAmount>
+                    <cbc:TaxAmount currencyID="{{ $document->currency_type_code }}">{{ $document->total_isc }}</cbc:TaxAmount>
                     <cac:TaxSubtotal>
-                        <cbc:TaxAmount currencyID="PEN">{{$document->total_isc }}</cbc:TaxAmount>
+                        <cbc:TaxAmount currencyID="{{ $document->currency_type_code }}">{{$document->total_isc }}</cbc:TaxAmount>
                         <cac:TaxCategory>
                             <cac:TaxScheme>
                                 <cbc:ID>2000</cbc:ID>
@@ -142,9 +151,9 @@
             @endif
             @if($document->total_other_taxes > 0)
                 <cac:TaxTotal>
-                    <cbc:TaxAmount currencyID="PEN">{{ $document->total_other_taxes }}</cbc:TaxAmount>
+                    <cbc:TaxAmount currencyID="{{ $document->currency_type_code }}">{{ $document->total_other_taxes }}</cbc:TaxAmount>
                     <cac:TaxSubtotal>
-                        <cbc:TaxAmount currencyID="PEN">{{ $document->total_other_taxes }}</cbc:TaxAmount>
+                        <cbc:TaxAmount currencyID="{{ $document->currency_type_code }}">{{ $document->total_other_taxes }}</cbc:TaxAmount>
                         <cac:TaxCategory>
                             <cac:TaxScheme>
                                 <cbc:ID>9999</cbc:ID>
