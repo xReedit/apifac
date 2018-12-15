@@ -130,11 +130,11 @@ class TransformInput
             if(array_key_exists('detraccion', $inputs)) {
                 $data = $inputs['detraccion'];
                 $detraction = [
-                    'payment_method_id' => $data['codigo_metodo_pago'],
-                    'bank_account' => $data['cuenta_bancaria'],
-                    'detraction_type_id' => $data['codigo_tipo_detraccion'],
+                    'detraction_type_id' => $data['codigo'],
                     'percentage' => $data['porcentaje'],
                     'amount' => $data['monto'],
+                    'payment_method_id' => $data['codigo_metodo_pago'],
+                    'bank_account' => $data['cuenta_bancaria'],
                 ];
             }
 

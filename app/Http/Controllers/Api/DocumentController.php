@@ -64,7 +64,6 @@ class DocumentController extends Controller
                 return [
                     'success' => true,
                     'data' => [
-                        'id' => $document->id,
                         'number' => $document->number_full,
                         'hash' => $document->hash,
                         'qr' => $document->qr,
