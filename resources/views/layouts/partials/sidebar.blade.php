@@ -24,11 +24,11 @@
                             <i class="fas fa-receipt"></i><span>Comprobantes</span>
                         </a>
                     </li>
-                    <li class="{{ ($path[0] === 'summaries')?'nav-active':'' }}">
-                        <a class="nav-link" href="{{route('summaries.index')}}">
-                            <i class="fas fa-list"></i><span>Resúmenes</span>
-                        </a>
-                    </li>
+                    {{--<li class="{{ ($path[0] === 'summaries')?'nav-active':'' }}">--}}
+                        {{--<a class="nav-link" href="{{route('summaries.index')}}">--}}
+                            {{--<i class="fas fa-list"></i><span>Resúmenes</span>--}}
+                        {{--</a>--}}
+                    {{--</li>--}}
                     <li class="{{ ($path[0] === 'companies')?'nav-active':'' }}">
                         <a class="nav-link" href="{{route('companies.create')}}">
                             <i class="fas fa-building"></i><span>Empresa</span>

@@ -2,10 +2,12 @@
 
     Auth::routes();
 
+    Route::get('downloads/{type}/{external_id}', 'DocumentController@downloadExternal')->name('documents.download_external');
+
     Route::middleware('auth')->group(function() {
 
         Route::get('/', function () {
-            return redirect()->route('documents.create');
+            return redirect()->route('documents.index');
         });
         Route::get('dashboard', 'HomeController@index')->name('dashboard');
 

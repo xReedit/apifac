@@ -35,23 +35,13 @@ class CreateCatalogsTable extends Migration
         });
 
         DB::table('catalogs')->insert([
-//            ['id' => '01', 'description' => 'Código de tipo de documento'],
-//            ['id' => '02', 'description' => 'Códigos de tipo de monedas'],
-            ['id' => '03', 'description' => 'Códigos de tipo de unidad de medida comercial'],
-//            ['id' => '04', 'description' => 'Códigos de Países'],
             ['id' => '05', 'description' => 'Códigos de tipos de tributos'],
-            ['id' => '06', 'description' => 'Códigos de tipos de documentos de identidad'],
-//            ['id' => '07', 'description' => 'Códigos de tipo de afectación del IGV'],
-//            ['id' => '08', 'description' => 'Códigos de tipos de sistema de cálculo del ISC'],
-            ['id' => '09', 'description' => 'Códigos de tipo de nota de crédito electrónica'],
-            ['id' => '10', 'description' => 'Códigos de Tipo de nota de débito electrónica'],
+//            ['id' => '09', 'description' => 'Códigos de tipo de nota de crédito electrónica'],
+//            ['id' => '10', 'description' => 'Códigos de Tipo de nota de débito electrónica'],
             ['id' => '11', 'description' => 'Resumen diario de boletas de venta y notas electrónicas - Código de tipo de valor de venta'],
             ['id' => '12', 'description' => 'Códigos - Documentos relacionados tributarios'],
-            ['id' => '13', 'description' => 'Ubicación geográfica (UBIGEO)'],
             ['id' => '14', 'description' => 'Códigos - Otros conceptos tributarios'],
             ['id' => '15', 'description' => 'Códigos - Elementos adicionales en la Factura Electrónica y/o Boleta de Venta Electrónica'],
-//            ['id' => '16', 'description' => 'Códigos – Tipo de precio de venta unitario'],
-            ['id' => '17', 'description' => 'Códigos – Tipo de operación'],
             ['id' => '18', 'description' => 'Códigos – Modalidad de traslado'],
             ['id' => '19', 'description' => 'Resumen Diario de boletas de venta y notas electrónicas - Códigos de estado de ítem'],
             ['id' => '20', 'description' => 'Códigos – Motivos de traslado'],
@@ -62,7 +52,7 @@ class CreateCatalogsTable extends Migration
             ['id' => '25', 'description' => 'Código producto SUNAT'],
             ['id' => '26', 'description' => 'Tipo de préstamo'],
             ['id' => '27', 'description' => 'Indicador de primera vivienda '],
-            ['id' => '51', 'description' => 'Código de tipo de factura'],
+//            ['id' => '51', 'description' => 'Código de tipo de factura'],
             ['id' => '52', 'description' => 'Código de leyendas'],
             ['id' => '53', 'description' => 'Códigos de cargos o descuentos '],
             ['id' => '54', 'description' => 'Códigos de bienes y servicios sujetos a detracción'],
@@ -74,20 +64,6 @@ class CreateCatalogsTable extends Migration
         ]);
 
         DB::table('codes')->insert([
-            ['id' => '030000BX', 'catalog_id' => '03', 'code' => 'BX', 'description' => 'Caja', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '03000GLL', 'catalog_id' => '03', 'code' => 'GLL', 'description' => 'Galones', 'active' =>false, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '03000GRM', 'catalog_id' => '03', 'code' => 'GRM', 'description' => 'Gramos', 'active' =>false, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '03000KGM', 'catalog_id' => '03', 'code' => 'KGM', 'description' => 'Kilos', 'active' =>false, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '03000LTR', 'catalog_id' => '03', 'code' => 'LTR', 'description' => 'Litros', 'active' =>false, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '03000MTR', 'catalog_id' => '03', 'code' => 'MTR', 'description' => 'Metros', 'active' =>false, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '03000FOT', 'catalog_id' => '03', 'code' => 'FOT', 'description' => 'Pies', 'active' =>false, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '03000INH', 'catalog_id' => '03', 'code' => 'INH', 'description' => 'Pulgadas', 'active' =>false, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '03000NIU', 'catalog_id' => '03', 'code' => 'NIU', 'description' => 'Unidades', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '03000YRD', 'catalog_id' => '03', 'code' => 'YRD', 'description' => 'Yardas', 'active' =>false, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '03000HUR', 'catalog_id' => '03', 'code' => 'HUR', 'description' => 'Hora', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-
-
-
             ['id' => '05001000', 'catalog_id' => '05', 'code' => '1000', 'description' => 'Igv impuesto general a las ventas', 'active' =>true, 'tribute_code' => 'VAT', 'tribute_name' => 'IGV', 'rate' => null, 'level' => null, 'type' => null],
             ['id' => '05001016', 'catalog_id' => '05', 'code' => '1016', 'description' => 'Impuesto a la venta arroz pilado ', 'active' =>true, 'tribute_code' => 'VAT ', 'tribute_name' => 'IVAP', 'rate' => null, 'level' => null, 'type' => null],
             ['id' => '05002000', 'catalog_id' => '05', 'code' => '2000', 'description' => 'Isc impuesto selectivo al consumo', 'active' =>true, 'tribute_code' => 'EXC', 'tribute_name' => 'ISC', 'rate' => null, 'level' => null, 'type' => null],
@@ -97,35 +73,7 @@ class CreateCatalogsTable extends Migration
             ['id' => '05009998', 'catalog_id' => '05', 'code' => '9998', 'description' => 'Inafecto ', 'active' =>true, 'tribute_code' => 'FRE ', 'tribute_name' => 'INA', 'rate' => null, 'level' => null, 'type' => null],
             ['id' => '05009999', 'catalog_id' => '05', 'code' => '9999', 'description' => 'Otros conceptos de pago ', 'active' =>true, 'tribute_code' => 'OTH ', 'tribute_name' => 'OTR', 'rate' => null, 'level' => null, 'type' => null],
 
-            ['id' => '06000000', 'catalog_id' => '06', 'code' => '0', 'description' => 'Doc.trib.no.dom.sin.ruc', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '06000001', 'catalog_id' => '06', 'code' => '1', 'description' => 'DNI', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '06000004', 'catalog_id' => '06', 'code' => '4', 'description' => 'CE', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '06000006', 'catalog_id' => '06', 'code' => '6', 'description' => 'RUC', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '06000007', 'catalog_id' => '06', 'code' => '7', 'description' => 'Pasaporte', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '0600000A', 'catalog_id' => '06', 'code' => 'A', 'description' => 'Ced. Diplomática de identidad', 'active' =>false, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '0600000B', 'catalog_id' => '06', 'code' => 'B', 'description' => 'Documento identidad país residencia-no.d', 'active' =>false, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '0600000C', 'catalog_id' => '06', 'code' => 'C', 'description' => 'Tax Identification Number - TIN – Doc Trib PP.NN', 'active' =>false, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '0600000D', 'catalog_id' => '06', 'code' => 'D', 'description' => 'Identification Number - IN – Doc Trib PP. JJ', 'active' =>false, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '0600000E', 'catalog_id' => '06', 'code' => 'E', 'description' => 'TAM- Tarjeta Andina de Migración', 'active' =>false, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
 
-            ['id' => '09000001', 'catalog_id' => '09', 'code' => '01', 'description' => 'Anulación de la operación', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '09000002', 'catalog_id' => '09', 'code' => '02', 'description' => 'Anulación por error en el RUC', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '09000003', 'catalog_id' => '09', 'code' => '03', 'description' => 'Corrección por error en la descripción', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '09000004', 'catalog_id' => '09', 'code' => '04', 'description' => 'Descuento global', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '09000005', 'catalog_id' => '09', 'code' => '05', 'description' => 'Descuento por ítem', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '09000006', 'catalog_id' => '09', 'code' => '06', 'description' => 'Devolución total', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '09000007', 'catalog_id' => '09', 'code' => '07', 'description' => 'Devolución por ítem', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '09000008', 'catalog_id' => '09', 'code' => '08', 'description' => 'Bonificación', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '09000009', 'catalog_id' => '09', 'code' => '09', 'description' => 'Disminución en el valor', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '09000010', 'catalog_id' => '09', 'code' => '10', 'description' => 'Otros Conceptos', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '09000011', 'catalog_id' => '09', 'code' => '11', 'description' => 'Ajustes de operaciones de exportación', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '09000012', 'catalog_id' => '09', 'code' => '12', 'description' => 'Ajustes afectos al IVAP', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-
-            ['id' => '10000001', 'catalog_id' => '10', 'code' => '01', 'description' => 'Intereses por mora', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '10000002', 'catalog_id' => '10', 'code' => '02', 'description' => 'Aumento en el valor', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '10000003', 'catalog_id' => '10', 'code' => '03', 'description' => 'Penalidades/ otros conceptos', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '10000010', 'catalog_id' => '10', 'code' => '10', 'description' => 'Ajustes de operaciones de exportación', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '10000011', 'catalog_id' => '10', 'code' => '11', 'description' => 'Ajustes afectos al IVAP', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
 
             ['id' => '11000001', 'catalog_id' => '11', 'code' => '01', 'description' => 'Gravado', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
             ['id' => '11000002', 'catalog_id' => '11', 'code' => '02', 'description' => 'Exonerado', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
@@ -152,6 +100,7 @@ class CreateCatalogsTable extends Migration
             ['id' => '14002004', 'catalog_id' => '14', 'code' => '2004', 'description' => 'Bonificaciones', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
             ['id' => '14002005', 'catalog_id' => '14', 'code' => '2005', 'description' => 'Total descuentos', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
             ['id' => '14003001', 'catalog_id' => '14', 'code' => '3001', 'description' => 'FISE (Ley 29852) Fondo Inclusión Social Energético', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
+
             ['id' => '15001000', 'catalog_id' => '15', 'code' => '1000', 'description' => 'Monto en Letras', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
             ['id' => '15001002', 'catalog_id' => '15', 'code' => '1002', 'description' => 'Leyenda "TRANSFERENCIA GRATUITA DE UN BIEN Y/O SERVICIO PRESTADO GRATUITAMENTE"', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
             ['id' => '15002000', 'catalog_id' => '15', 'code' => '2000', 'description' => 'Leyenda “COMPROBANTE DE PERCEPCIÓN”', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
@@ -195,27 +144,6 @@ class CreateCatalogsTable extends Migration
             ['id' => '15007000', 'catalog_id' => '15', 'code' => '7000', 'description' => 'Primera venta de mercancía identificable entre usuarios de la zona comercial', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
             ['id' => '15007001', 'catalog_id' => '15', 'code' => '7001', 'description' => 'Venta exonerada del IGV-ISC-IPM. Prohibida la venta fuera de la zona comercial de Tacna', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
 
-            ['id' => '17000001', 'catalog_id' => '17', 'code' => '01', 'description' => 'Venta Interna', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '17000002', 'catalog_id' => '17', 'code' => '02', 'description' => 'Exportación de bienes', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '17000003', 'catalog_id' => '17', 'code' => '03', 'description' => 'No Domiciliados', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '17000004', 'catalog_id' => '17', 'code' => '04', 'description' => 'Venta Interna – Anticipos', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '17000005', 'catalog_id' => '17', 'code' => '05', 'description' => 'Venta Itinerante', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '17000006', 'catalog_id' => '17', 'code' => '06', 'description' => 'Factura Guía', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '17000007', 'catalog_id' => '17', 'code' => '07', 'description' => 'Venta Arroz Pilado', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '17000008', 'catalog_id' => '17', 'code' => '08', 'description' => 'Factura - Comprobante de Percepción', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '17000010', 'catalog_id' => '17', 'code' => '10', 'description' => 'Factura - Guía remitente', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '17000011', 'catalog_id' => '17', 'code' => '11', 'description' => 'Factura - Guía transportista', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '17000012', 'catalog_id' => '17', 'code' => '12', 'description' => 'Boleta de venta – Comprobante de Percepción.', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '17000013', 'catalog_id' => '17', 'code' => '13', 'description' => 'Gasto Deducible Persona Natural', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '17000014', 'catalog_id' => '17', 'code' => '14', 'description' => 'Exportación de servicios – prestación de servicios de hospedaje No Dom', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '17000015', 'catalog_id' => '17', 'code' => '15', 'description' => 'Exportación de servicios – Transporte de navieras', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '17000016', 'catalog_id' => '17', 'code' => '16', 'description' => 'Exportación de servicios – servicios a naves y aeronaves de bandera extranjera', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '17000017', 'catalog_id' => '17', 'code' => '17', 'description' => 'Exportación de servicios – RES', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '17000018', 'catalog_id' => '17', 'code' => '18', 'description' => 'Exportación de servicios - Servicios que conformen un Paquete Turístico', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '17000019', 'catalog_id' => '17', 'code' => '19', 'description' => 'Exportación de servicios – Servicios complementarios al transporte de carga', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '17000020', 'catalog_id' => '17', 'code' => '20', 'description' => 'Exportación de servicios – Suministro de energía eléctrica a favor de sujetos domiciliados en ZED', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '17000021', 'catalog_id' => '17', 'code' => '21', 'description' => 'Exportación de servicios – Prestación servicios realizados parcialmente en el extranjero', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-
             ['id' => '18000001', 'catalog_id' => '18', 'code' => '01', 'description' => 'Transporte público', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
             ['id' => '18000002', 'catalog_id' => '18', 'code' => '02', 'description' => 'Transporte privado', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
 
@@ -232,41 +160,44 @@ class CreateCatalogsTable extends Migration
             ['id' => '20000009', 'catalog_id' => '20', 'code' => '09', 'description' => 'Exportación', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
             ['id' => '20000019', 'catalog_id' => '20', 'code' => '19', 'description' => 'Traslado a zona primaria', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
             ['id' => '20000013', 'catalog_id' => '20', 'code' => '13', 'description' => 'Otros', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
+
             ['id' => '21000001', 'catalog_id' => '21', 'code' => '01', 'description' => 'Numeración DAM', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
             ['id' => '21000002', 'catalog_id' => '21', 'code' => '02', 'description' => 'Número de orden de entrega', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
             ['id' => '21000003', 'catalog_id' => '21', 'code' => '03', 'description' => 'Número SCOP', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
             ['id' => '21000004', 'catalog_id' => '21', 'code' => '04', 'description' => 'Número de manifiesto de carga', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
             ['id' => '21000005', 'catalog_id' => '21', 'code' => '05', 'description' => 'Número de constancia de detracción', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
             ['id' => '21000006', 'catalog_id' => '21', 'code' => '06', 'description' => 'Otros', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
+
             ['id' => '22000001', 'catalog_id' => '22', 'code' => '01', 'description' => 'Percepción venta interna ', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => 0.02, 'level' => null, 'type' => null],
             ['id' => '22000002', 'catalog_id' => '22', 'code' => '02', 'description' => 'Percepción a la adquisición de combustible', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => 0.01, 'level' => null, 'type' => null],
             ['id' => '22000003', 'catalog_id' => '22', 'code' => '03', 'description' => 'Percepción realizada al agente de percepción con tasa especial', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => 0.005, 'level' => null, 'type' => null],
+
             ['id' => '23000001', 'catalog_id' => '23', 'code' => '01', 'description' => '', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => 0.03, 'level' => null, 'type' => null],
 
-            ['id' => '51000101', 'catalog_id' => '51', 'code' => '0101', 'description' => 'Venta interna ', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '51000102', 'catalog_id' => '51', 'code' => '0102', 'description' => 'Venta Interna – Anticipos ', 'active' =>false, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '51000103', 'catalog_id' => '51', 'code' => '0103', 'description' => 'Venta interna - Itinerante ', 'active' =>false, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '51000110', 'catalog_id' => '51', 'code' => '0110', 'description' => 'Venta Interna - Sustenta Traslado de Mercadería - Remitente ', 'active' =>false, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '51000111', 'catalog_id' => '51', 'code' => '0111', 'description' => 'Venta Interna - Sustenta Traslado de Mercadería - Transportista ', 'active' =>false, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '51000112', 'catalog_id' => '51', 'code' => '0112', 'description' => 'Venta Interna - Sustenta Gastos Deducibles Persona Natural ', 'active' =>false, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '51000120', 'catalog_id' => '51', 'code' => '0120', 'description' => 'Venta Interna - Sujeta al IVAP ', 'active' =>false, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '51000121', 'catalog_id' => '51', 'code' => '0121', 'description' => 'Venta Interna - Sujeta al FISE ', 'active' =>false, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '51000122', 'catalog_id' => '51', 'code' => '0122', 'description' => 'Venta Interna - Sujeta a otros impuestos ', 'active' =>false, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '51000130', 'catalog_id' => '51', 'code' => '0130', 'description' => 'Venta Interna - Realizadas al Estado ', 'active' =>false, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '51000200', 'catalog_id' => '51', 'code' => '0200', 'description' => 'Exportación de Bienes ', 'active' =>false, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '51000201', 'catalog_id' => '51', 'code' => '0201', 'description' => 'Exportación de Servicios – Prestación servicios realizados íntegramente en el país', 'active' =>false, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '51000202', 'catalog_id' => '51', 'code' => '0202', 'description' => 'Exportación de Servicios – Prestación de servicios de hospedaje No Domiciliado ', 'active' =>false, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '51000203', 'catalog_id' => '51', 'code' => '0203', 'description' => 'Exportación de Servicios – Transporte de navieras ', 'active' =>false, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '51000204', 'catalog_id' => '51', 'code' => '0204', 'description' => 'Exportación de Servicios – Servicios a naves y aeronaves de bandera extranjera ', 'active' =>false, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '51000205', 'catalog_id' => '51', 'code' => '0205', 'description' => 'Exportación de Servicios - Servicios que conformen un Paquete Turístico ', 'active' =>false, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '51000206', 'catalog_id' => '51', 'code' => '0206', 'description' => 'Exportación de Servicios – Servicios complementarios al transporte de carga', 'active' =>false, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '51000207', 'catalog_id' => '51', 'code' => '0207', 'description' => 'Exportación de Servicios – Suministro de energía eléctrica a favor de sujetos domiciliados en ZED ', 'active' =>false, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '51000208', 'catalog_id' => '51', 'code' => '0208', 'description' => 'Exportación de Servicios – Prestación servicios realizados parcialmente en el extranjero ', 'active' =>false, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '51000301', 'catalog_id' => '51', 'code' => '0301', 'description' => 'Operaciones con Carta de porte aéreo (emitidas en el ámbito nacional) ', 'active' =>false, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '51000302', 'catalog_id' => '51', 'code' => '0302', 'description' => 'Operaciones de Transporte ferroviario de pasajeros ', 'active' =>false, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '51000303', 'catalog_id' => '51', 'code' => '0303', 'description' => 'Operaciones de Pago de regalía petrolera ', 'active' =>false, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '51001001', 'catalog_id' => '51', 'code' => '1001', 'description' => 'Operación Sujeta a Detracción ', 'active' =>false, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
-            ['id' => '51001002', 'catalog_id' => '51', 'code' => '1002', 'description' => 'Operación Sujeta a Detracción- Recursos Hidrobiológicos ', 'active' =>false, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
+//            ['id' => '51000101', 'catalog_id' => '51', 'code' => '0101', 'description' => 'Venta interna ', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
+//            ['id' => '51000102', 'catalog_id' => '51', 'code' => '0102', 'description' => 'Venta Interna – Anticipos ', 'active' =>false, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
+//            ['id' => '51000103', 'catalog_id' => '51', 'code' => '0103', 'description' => 'Venta interna - Itinerante ', 'active' =>false, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
+//            ['id' => '51000110', 'catalog_id' => '51', 'code' => '0110', 'description' => 'Venta Interna - Sustenta Traslado de Mercadería - Remitente ', 'active' =>false, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
+//            ['id' => '51000111', 'catalog_id' => '51', 'code' => '0111', 'description' => 'Venta Interna - Sustenta Traslado de Mercadería - Transportista ', 'active' =>false, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
+//            ['id' => '51000112', 'catalog_id' => '51', 'code' => '0112', 'description' => 'Venta Interna - Sustenta Gastos Deducibles Persona Natural ', 'active' =>false, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
+//            ['id' => '51000120', 'catalog_id' => '51', 'code' => '0120', 'description' => 'Venta Interna - Sujeta al IVAP ', 'active' =>false, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
+//            ['id' => '51000121', 'catalog_id' => '51', 'code' => '0121', 'description' => 'Venta Interna - Sujeta al FISE ', 'active' =>false, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
+//            ['id' => '51000122', 'catalog_id' => '51', 'code' => '0122', 'description' => 'Venta Interna - Sujeta a otros impuestos ', 'active' =>false, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
+//            ['id' => '51000130', 'catalog_id' => '51', 'code' => '0130', 'description' => 'Venta Interna - Realizadas al Estado ', 'active' =>false, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
+//            ['id' => '51000200', 'catalog_id' => '51', 'code' => '0200', 'description' => 'Exportación de Bienes ', 'active' =>false, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
+//            ['id' => '51000201', 'catalog_id' => '51', 'code' => '0201', 'description' => 'Exportación de Servicios – Prestación servicios realizados íntegramente en el país', 'active' =>false, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
+//            ['id' => '51000202', 'catalog_id' => '51', 'code' => '0202', 'description' => 'Exportación de Servicios – Prestación de servicios de hospedaje No Domiciliado ', 'active' =>false, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
+//            ['id' => '51000203', 'catalog_id' => '51', 'code' => '0203', 'description' => 'Exportación de Servicios – Transporte de navieras ', 'active' =>false, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
+//            ['id' => '51000204', 'catalog_id' => '51', 'code' => '0204', 'description' => 'Exportación de Servicios – Servicios a naves y aeronaves de bandera extranjera ', 'active' =>false, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
+//            ['id' => '51000205', 'catalog_id' => '51', 'code' => '0205', 'description' => 'Exportación de Servicios - Servicios que conformen un Paquete Turístico ', 'active' =>false, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
+//            ['id' => '51000206', 'catalog_id' => '51', 'code' => '0206', 'description' => 'Exportación de Servicios – Servicios complementarios al transporte de carga', 'active' =>false, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
+//            ['id' => '51000207', 'catalog_id' => '51', 'code' => '0207', 'description' => 'Exportación de Servicios – Suministro de energía eléctrica a favor de sujetos domiciliados en ZED ', 'active' =>false, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
+//            ['id' => '51000208', 'catalog_id' => '51', 'code' => '0208', 'description' => 'Exportación de Servicios – Prestación servicios realizados parcialmente en el extranjero ', 'active' =>false, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
+//            ['id' => '51000301', 'catalog_id' => '51', 'code' => '0301', 'description' => 'Operaciones con Carta de porte aéreo (emitidas en el ámbito nacional) ', 'active' =>false, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
+//            ['id' => '51000302', 'catalog_id' => '51', 'code' => '0302', 'description' => 'Operaciones de Transporte ferroviario de pasajeros ', 'active' =>false, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
+//            ['id' => '51000303', 'catalog_id' => '51', 'code' => '0303', 'description' => 'Operaciones de Pago de regalía petrolera ', 'active' =>false, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
+//            ['id' => '51001001', 'catalog_id' => '51', 'code' => '1001', 'description' => 'Operación Sujeta a Detracción ', 'active' =>false, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
+//            ['id' => '51001002', 'catalog_id' => '51', 'code' => '1002', 'description' => 'Operación Sujeta a Detracción- Recursos Hidrobiológicos ', 'active' =>false, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
 
             ['id' => '52001000', 'catalog_id' => '52', 'code' => '1000', 'description' => 'Monto en Letras', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
             ['id' => '52001002', 'catalog_id' => '52', 'code' => '1002', 'description' => 'Leyenda "TRANSFERENCIA GRATUITA DE UN BIEN Y/O SERVICIO PRESTADO GRATUITAMENTE"', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
@@ -279,13 +210,6 @@ class CreateCatalogsTable extends Migration
             ['id' => '52002006', 'catalog_id' => '52', 'code' => '2006', 'description' => 'Leyenda "Operación sujeta a detracción"', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
             ['id' => '52003000', 'catalog_id' => '52', 'code' => '3000', 'description' => 'Código interno generado por el software de Facturación', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
 
-            ['id' => '53000000', 'catalog_id' => '53', 'code' => '00', 'description' => 'Descuentos que afectan la base imponible del IGV ', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => 'item', 'type' => 'discount'],
-            ['id' => '53000001', 'catalog_id' => '53', 'code' => '01', 'description' => 'Descuentos que no afectan la base imponible del IGV ', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => 'item', 'type' => 'discount'],
-            ['id' => '53000002', 'catalog_id' => '53', 'code' => '02', 'description' => 'Descuentos globales que afectan la base imponible del IGV ', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => 'global', 'type' => 'discount'],
-            ['id' => '53000003', 'catalog_id' => '53', 'code' => '03', 'description' => 'Descuentos globales que no afectan la base imponible del IGV ', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => 'global', 'type' => 'discount'],
-            ['id' => '53000045', 'catalog_id' => '53', 'code' => '45', 'description' => 'FISE ', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => 'global', 'type' => 'charge'],
-            ['id' => '53000046', 'catalog_id' => '53', 'code' => '46', 'description' => 'Recargo al consumo y/o propinas ', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => 'global', 'type' => 'charge'],
-            ['id' => '53000047', 'catalog_id' => '53', 'code' => '47', 'description' => 'Cargos que afectan la base imponible del IGV ', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => 'item', 'type' => 'charge'],
 
             ['id' => '54000001', 'catalog_id' => '54', 'code' => '001', 'description' => 'Azúcar ', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => 0.1, 'level' => null, 'type' => null],
             ['id' => '54000003', 'catalog_id' => '54', 'code' => '003', 'description' => 'Alcohol etílico ', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => 0.1, 'level' => null, 'type' => null],
@@ -412,7 +336,6 @@ class CreateCatalogsTable extends Migration
             ['id' => '59000999', 'catalog_id' => '59', 'code' => '999', 'description' => 'Otros medios de pago', 'active' =>true, 'tribute_code' => null, 'tribute_name' => null, 'rate' => null, 'level' => null, 'type' => null],
         ]);
 
-
         Schema::create('currency_types', function (Blueprint $table) {
             $table->char('id', 3)->index();
             $table->string('description');
@@ -421,9 +344,9 @@ class CreateCatalogsTable extends Migration
         });
 
         DB::table('currency_types')->insert([
-            ['id' => 'PEN', 'description' => 'Soles', 'symbol' => 'S/', 'active' => true],
-            ['id' => 'USD', 'description' => 'Dólares Americanos', 'symbol' => '$', 'active' => true],
-            ['id' => 'EUR', 'description' => 'Euros', 'symbol' => '€', 'active' => false],
+            ['id' => 'PEN', 'description' => 'Soles',               'symbol' => 'S/', 'active' => true],
+            ['id' => 'USD', 'description' => 'Dólares Americanos',  'symbol' => '$',  'active' => true],
+            ['id' => 'EUR', 'description' => 'Euros',               'symbol' => '€',  'active' => false],
         ]);
 
         Schema::create('price_types', function (Blueprint $table) {
@@ -433,7 +356,7 @@ class CreateCatalogsTable extends Migration
         });
 
         DB::table('price_types')->insert([
-            ['id' => '01', 'description' => 'Precio unitario (incluye el IGV)', 'active' =>true],
+            ['id' => '01', 'description' => 'Precio unitario (incluye el IGV)',                      'active' =>true],
             ['id' => '02', 'description' => 'Valor referencial unitario en operaciones no onerosas', 'active' =>true],
         ]);
 
@@ -445,24 +368,24 @@ class CreateCatalogsTable extends Migration
         });
 
         DB::table('affectation_igv_types')->insert([
-            ['id' => '10', 'description' => 'Gravado - Operación Onerosa', 'active' =>true, 'free' => false],
-            ['id' => '11', 'description' => 'Gravado – Retiro por premio', 'active' =>true, 'free' => true],
-            ['id' => '12', 'description' => 'Gravado – Retiro por donación', 'active' =>true, 'free' => true],
-            ['id' => '13', 'description' => 'Gravado – Retiro', 'active' =>true, 'free' => true],
-            ['id' => '14', 'description' => 'Gravado – Retiro por publicidad', 'active' =>true, 'free' => true],
-            ['id' => '15', 'description' => 'Gravado – Bonificaciones', 'active' =>true, 'free' => true],
-            ['id' => '16', 'description' => 'Gravado – Retiro por entrega a trabajadores', 'active' =>true, 'free' => true],
-            ['id' => '17', 'description' => 'Gravado – IVAP', 'active' =>true, 'free' => true],
-            ['id' => '20', 'description' => 'Exonerado - Operación Onerosa', 'active' =>true, 'free' => false],
-            ['id' => '21', 'description' => 'Exonerado – Transferencia Gratuita', 'active' =>true, 'free' => true],
-            ['id' => '30', 'description' => 'Inafecto - Operación Onerosa', 'active' =>true, 'free' => false],
-            ['id' => '31', 'description' => 'Inafecto – Retiro por Bonificación', 'active' =>true, 'free' => true],
-            ['id' => '32', 'description' => 'Inafecto – Retiro', 'active' =>true, 'free' => true],
-            ['id' => '33', 'description' => 'Inafecto – Retiro por Muestras Médicas', 'active' =>true, 'free' => true],
-            ['id' => '34', 'description' => 'Inafecto - Retiro por Convenio Colectivo', 'active' =>true, 'free' => true],
-            ['id' => '35', 'description' => 'Inafecto – Retiro por premio', 'active' =>true, 'free' => true],
-            ['id' => '36', 'description' => 'Inafecto - Retiro por publicidad', 'active' =>true, 'free' => true],
-            ['id' => '40', 'description' => 'Exportación de bienes o servicios', 'active' =>true, 'free' => false],
+            ['id' => '10', 'description' => 'Gravado - Operación Onerosa',                  'free' => false, 'active' => true],
+            ['id' => '11', 'description' => 'Gravado – Retiro por premio',                  'free' => true,  'active' => true],
+            ['id' => '12', 'description' => 'Gravado – Retiro por donación',                'free' => true,  'active' => true],
+            ['id' => '13', 'description' => 'Gravado – Retiro',                             'free' => true,  'active' => true],
+            ['id' => '14', 'description' => 'Gravado – Retiro por publicidad',              'free' => true,  'active' => true],
+            ['id' => '15', 'description' => 'Gravado – Bonificaciones',                     'free' => true,  'active' => true],
+            ['id' => '16', 'description' => 'Gravado – Retiro por entrega a trabajadores',  'free' => true,  'active' => true],
+            ['id' => '17', 'description' => 'Gravado – IVAP',                               'free' => true,  'active' => false],
+            ['id' => '20', 'description' => 'Exonerado - Operación Onerosa',                'free' => false, 'active' => true],
+            ['id' => '21', 'description' => 'Exonerado – Transferencia Gratuita',           'free' => true,  'active' => true],
+            ['id' => '30', 'description' => 'Inafecto - Operación Onerosa',                 'free' => false, 'active' => true],
+            ['id' => '31', 'description' => 'Inafecto – Retiro por Bonificación',           'free' => true,  'active' => true],
+            ['id' => '32', 'description' => 'Inafecto – Retiro',                            'free' => true,  'active' => true],
+            ['id' => '33', 'description' => 'Inafecto – Retiro por Muestras Médicas',       'free' => true,  'active' => true],
+            ['id' => '34', 'description' => 'Inafecto - Retiro por Convenio Colectivo',     'free' => true,  'active' => true],
+            ['id' => '35', 'description' => 'Inafecto – Retiro por premio',                 'free' => true,  'active' => true],
+            ['id' => '36', 'description' => 'Inafecto - Retiro por publicidad',             'free' => true,  'active' => true],
+            ['id' => '40', 'description' => 'Exportación de bienes o servicios',            'free' => false, 'active' => true],
         ]);
 
         Schema::create('system_isc_types', function (Blueprint $table) {
@@ -472,46 +395,201 @@ class CreateCatalogsTable extends Migration
         });
 
         DB::table('system_isc_types')->insert([
-            ['id' => '01', 'description' => 'Sistema al valor', 'active' =>true],
-            ['id' => '02', 'description' => 'Aplicación del Monto Fijo', 'active' =>true],
-            ['id' => '03', 'description' => 'Sistema de Precios de Venta al Público', 'active' =>true],
+            ['id' => '01', 'description' => 'Sistema al valor',                         'active' =>true],
+            ['id' => '02', 'description' => 'Aplicación del Monto Fijo',                'active' =>true],
+            ['id' => '03', 'description' => 'Sistema de Precios de Venta al Público',   'active' =>true],
         ]);
 
         Schema::create('document_types', function (Blueprint $table) {
             $table->char('id', 2)->index();
             $table->string('description');
-            $table->string('short');
+            $table->string('short')->nullable();
             $table->boolean('active');
         });
 
         DB::table('document_types')->insert([
-            ['id' => '01', 'description' => 'FACTURA ELECTRÓNICA', 'short' => 'FT', 'active' =>true],
-            ['id' => '03', 'description' => 'BOLETA DE VENTA ELECTRÓNICA', 'short' => 'BV', 'active' =>true],
-            ['id' => '06', 'description' => 'Carta de porte aéreo', 'short' => '', 'active' =>false],
-            ['id' => '07', 'description' => 'NOTA DE CRÉDITO', 'short' => 'NC', 'active' =>true],
-            ['id' => '08', 'description' => 'NOTA DE DÉBITO', 'short' => 'ND', 'active' =>true],
-            ['id' => '09', 'description' => 'Guia de remisión remitente', 'short' => '', 'active' =>false],
-            ['id' => '12', 'description' => 'Ticket de maquina registradora', 'short' => '', 'active' =>false],
-            ['id' => '13', 'description' => 'Documento emitido por bancos, instituciones financieras, crediticias y de seguros que se encuentren bajo el control de la superintendencia de banca y seguros', 'short' => '', 'active' =>false],
-            ['id' => '14', 'description' => 'Recibo de servicios públicos', 'short' => '', 'active' =>false],
-            ['id' => '15', 'description' => 'Boletos emitidos por el servicio de transporte terrestre regular urbano de pasajeros y el ferroviario público de pasajeros prestado en vía férrea local.', 'short' => '', 'active' =>false],
-            ['id' => '16', 'description' => 'Boleto de viaje emitido por las empresas de transporte público interprovincial de pasajeros', 'short' => '', 'active' =>false],
-            ['id' => '18', 'description' => 'Documentos emitidos por las afp', 'short' => '', 'active' =>false],
-            ['id' => '20', 'description' => 'Comprobante de retencion', 'short' => '', 'active' =>false],
-            ['id' => '21', 'description' => 'Conocimiento de embarque por el servicio de transporte de carga marítima', 'short' => '', 'active' =>false],
-            ['id' => '24', 'description' => 'Certificado de pago de regalías emitidas por perupetro s.a.', 'short' => '', 'active' =>false],
-            ['id' => '31', 'description' => 'Guía de remisión transportista', 'short' => '', 'active' =>false],
-            ['id' => '37', 'description' => 'Documentos que emitan los concesionarios del servicio de revisiones técnicas', 'short' => '', 'active' =>false],
-            ['id' => '40', 'description' => 'Comprobante de percepción', 'short' => '', 'active' =>false],
-            ['id' => '41', 'description' => 'Comprobante de percepción – venta interna (físico - formato impreso)', 'short' => '', 'active' =>false],
-            ['id' => '43', 'description' => 'Boleto de compañias de aviación transporte aéreo no regular', 'short' => '', 'active' =>false],
-            ['id' => '45', 'description' => 'Documentos emitidos por centros educativos y culturales, universidades, asociaciones y fundaciones.', 'short' => '', 'active' =>false],
-            ['id' => '56', 'description' => 'Comprobante de pago seae', 'short' => '', 'active' =>false],
-            ['id' => '71', 'description' => 'Guia de remisión remitente complementaria', 'short' => '', 'active' =>false],
-            ['id' => '72', 'description' => 'Guia de remisión transportista complementaria', 'short' => '', 'active' =>false],
+            ['id' => '01', 'description' => 'FACTURA ELECTRÓNICA',                                          'short' => 'FT', 'active' => true],
+            ['id' => '03', 'description' => 'BOLETA DE VENTA ELECTRÓNICA',                                  'short' => 'BV', 'active' => true],
+            ['id' => '06', 'description' => 'Carta de porte aéreo',                                         'short' => null, 'active' => false],
+            ['id' => '07', 'description' => 'NOTA DE CRÉDITO',                                              'short' => 'NC', 'active' => true],
+            ['id' => '08', 'description' => 'NOTA DE DÉBITO',                                               'short' => 'ND', 'active' => true],
+            ['id' => '09', 'description' => 'Guia de remisión remitente',                                   'short' => null, 'active' => false],
+            ['id' => '12', 'description' => 'Ticket de maquina registradora',                               'short' => null, 'active' => false],
+            ['id' => '13', 'description' => 'Documento emitido por bancos, instituciones financieras, 
+                                             crediticias y de seguros que se encuentren bajo el control 
+                                             de la superintendencia de banca y seguros',                    'short' => null, 'active' => false],
+            ['id' => '14', 'description' => 'Recibo de servicios públicos',                                 'short' => null, 'active' => false],
+            ['id' => '15', 'description' => 'Boletos emitidos por el servicio de transporte terrestre
+                                             regular urbano de pasajeros y el ferroviario público de
+                                             pasajeros prestado en vía férrea local.',                      'short' => null, 'active' => false],
+            ['id' => '16', 'description' => 'Boleto de viaje emitido por las empresas de transporte
+                                             público interprovincial de pasajeros',                         'short' => null, 'active' => false],
+            ['id' => '18', 'description' => 'Documentos emitidos por las afp',                              'short' => null, 'active' => false],
+            ['id' => '20', 'description' => 'Comprobante de retencion',                                     'short' => null, 'active' => false],
+            ['id' => '21', 'description' => 'Conocimiento de embarque por el servicio de transporte de
+                                             carga marítima',                                               'short' => null, 'active' => false],
+            ['id' => '24', 'description' => 'Certificado de pago de regalías emitidas por perupetro s.a.',  'short' => null, 'active' => false],
+            ['id' => '31', 'description' => 'Guía de remisión transportista',                               'short' => null, 'active' => false],
+            ['id' => '37', 'description' => 'Documentos que emitan los concesionarios del servicio de
+                                             revisiones técnicas',                                          'short' => null, 'active' => false],
+            ['id' => '40', 'description' => 'Comprobante de percepción',                                    'short' => null, 'active' => false],
+            ['id' => '41', 'description' => 'Comprobante de percepción – venta interna
+                                             (físico - formato impreso)',                                   'short' => null, 'active' => false],
+            ['id' => '43', 'description' => 'Boleto de compañias de aviación transporte aéreo no regular',  'short' => null, 'active' => false],
+            ['id' => '45', 'description' => 'Documentos emitidos por centros educativos y culturales, 
+                                             universidades, asociaciones y fundaciones.',                   'short' => null, 'active' => false],
+            ['id' => '56', 'description' => 'Comprobante de pago seae',                                     'short' => null, 'active' => false],
+            ['id' => '71', 'description' => 'Guia de remisión remitente complementaria',                    'short' => null, 'active' => false],
+            ['id' => '72', 'description' => 'Guia de remisión transportista complementaria',                'short' => null, 'active' => false],
+        ]);
+
+        Schema::create('identity_document_types', function (Blueprint $table) {
+            $table->char('id', 1)->index();
+            $table->string('description');
+            $table->boolean('active');
+        });
+
+        DB::table('identity_document_types')->insert([
+            ['id' => '0', 'description' => 'Doc.trib.no.dom.sin.ruc',                           'active' =>true],
+            ['id' => '1', 'description' => 'DNI',                                               'active' => true],
+            ['id' => '4', 'description' => 'CE',                                                'active' => true],
+            ['id' => '6', 'description' => 'RUC',                                               'active' => true],
+            ['id' => '7', 'description' => 'Pasaporte',                                         'active' => true],
+            ['id' => 'A', 'description' => 'Ced. Diplomática de identidad',                     'active' => false],
+            ['id' => 'B', 'description' => 'Documento identidad país residencia-no.d',          'active' => false],
+            ['id' => 'C', 'description' => 'Tax Identification Number - TIN – Doc Trib PP.NN',  'active' => false],
+            ['id' => 'D', 'description' => 'Identification Number - IN – Doc Trib PP. JJ',      'active' => false],
+            ['id' => 'E', 'description' => 'TAM- Tarjeta Andina de Migración',                  'active' => false],
+        ]);
+
+        Schema::create('unit_types', function (Blueprint $table) {
+            $table->string('id', 3)->index();
+            $table->string('description');
+            $table->string('symbol')->nullable();
+            $table->boolean('active');
+        });
+
+        DB::table('unit_types')->insert([
+            ['id' => 'ZZ',  'description' => 'Servicio',    'symbol' => null, 'active' => true],
+            ['id' => 'BX',  'description' => 'Caja',        'symbol' => null, 'active' => true],
+            ['id' => 'GLL', 'description' => 'Galones',     'symbol' => null, 'active' => true],
+            ['id' => 'GRM', 'description' => 'Gramos',      'symbol' => null, 'active' => true],
+            ['id' => 'KGM', 'description' => 'Kilos',       'symbol' => null, 'active' => true],
+            ['id' => 'LTR', 'description' => 'Litros',      'symbol' => null, 'active' => true],
+            ['id' => 'MTR', 'description' => 'Metros',      'symbol' => null, 'active' => true],
+            ['id' => 'FOT', 'description' => 'Pies',        'symbol' => null, 'active' => true],
+            ['id' => 'INH', 'description' => 'Pulgadas',    'symbol' => null, 'active' => true],
+            ['id' => 'NIU', 'description' => 'Unidades',    'symbol' => null, 'active' => true],
+            ['id' => 'YRD', 'description' => 'Yardas',      'symbol' => null, 'active' => true],
+            ['id' => 'HUR', 'description' => 'Hora',        'symbol' => null, 'active' => true],
+        ]);
+
+        Schema::create('note_credit_types', function (Blueprint $table) {
+            $table->string('id', 2)->index();
+            $table->string('description');
+            $table->boolean('active');
+        });
+
+        DB::table('note_credit_types')->insert([
+            ['id' => '01', 'description' => 'Anulación de la operación',              'active' =>true],
+            ['id' => '02', 'description' => 'Anulación por error en el RUC',          'active' =>true],
+            ['id' => '03', 'description' => 'Corrección por error en la descripción', 'active' =>true],
+            ['id' => '04', 'description' => 'Descuento global',                       'active' =>true],
+            ['id' => '05', 'description' => 'Descuento por ítem',                     'active' =>true],
+            ['id' => '06', 'description' => 'Devolución total',                       'active' =>true],
+            ['id' => '07', 'description' => 'Devolución por ítem',                    'active' =>true],
+            ['id' => '08', 'description' => 'Bonificación',                           'active' =>true],
+            ['id' => '09', 'description' => 'Disminución en el valor',                'active' =>true],
+            ['id' => '10', 'description' => 'Otros Conceptos',                        'active' =>true],
+            ['id' => '11', 'description' => 'Ajustes de operaciones de exportación',  'active' =>true],
+            ['id' => '12', 'description' => 'Ajustes afectos al IVAP',                'active' =>true],
+        ]);
+
+        Schema::create('note_debit_types', function (Blueprint $table) {
+            $table->string('id', 2)->index();
+            $table->string('description');
+            $table->boolean('active');
+        });
+
+        DB::table('note_debit_types')->insert([
+            ['id' => '01', 'description' => 'Intereses por mora',                    'active' =>true],
+            ['id' => '02', 'description' => 'Aumento en el valor',                   'active' =>true],
+            ['id' => '03', 'description' => 'Penalidades/ otros conceptos',          'active' =>true],
+            ['id' => '10', 'description' => 'Ajustes de operaciones de exportación', 'active' =>true],
+            ['id' => '11', 'description' => 'Ajustes afectos al IVAP',               'active' =>true],
+        ]);
+
+        Schema::create('operation_types', function (Blueprint $table) {
+            $table->string('id', 4)->index();
+            $table->string('description');
+            $table->boolean('active');
+        });
+
+        DB::table('operation_types')->insert([
+            ['id' => '0101', 'description' => 'Venta interna',                                                  'active' => true],
+            ['id' => '0102', 'description' => 'Venta Interna – Anticipos',                                      'active' => false],
+            ['id' => '0103', 'description' => 'Venta interna - Itinerante',                                     'active' => false],
+            ['id' => '0110', 'description' => 'Venta Interna - Sustenta Traslado de Mercadería - Remitente ',   'active' => false],
+            ['id' => '0111', 'description' => 'Venta Interna - Sustenta Traslado de Mercadería-Transportista',  'active' => false],
+            ['id' => '0112', 'description' => 'Venta Interna - Sustenta Gastos Deducibles Persona Natural',     'active' => false],
+            ['id' => '0120', 'description' => 'Venta Interna - Sujeta al IVAP',                                 'active' => false],
+            ['id' => '0121', 'description' => 'Venta Interna - Sujeta al FISE',                                 'active' => false],
+            ['id' => '0122', 'description' => 'Venta Interna - Sujeta a otros impuestos',                       'active' => false],
+            ['id' => '0130', 'description' => 'Venta Interna - Realizadas al Estado',                           'active' => false],
+            ['id' => '0200', 'description' => 'Exportación de Bienes',                                          'active' => false],
+            ['id' => '0201', 'description' => 'Exportación de Servicios – Prestación servicios
+                                               realizados íntegramente en el país',                             'active' => false],
+            ['id' => '0202', 'description' => 'Exportación de Servicios – Prestación de
+                                               servicios de hospedaje No Domiciliado',                          'active' => false],
+            ['id' => '0203', 'description' => 'Exportación de Servicios – Transporte de navieras',              'active' => false],
+            ['id' => '0204', 'description' => 'Exportación de Servicios – Servicios a naves
+                                              y aeronaves de bandera extranjera',                               'active' => false],
+            ['id' => '0205', 'description' => 'Exportación de Servicios - Servicios que
+                                               conformen un Paquete Turístico',                                 'active' => false],
+            ['id' => '0206', 'description' => 'Exportación de Servicios – Servicios
+                                               complementarios al transporte de carga',                         'active' => false],
+            ['id' => '0207', 'description' => 'Exportación de Servicios – Suministro
+                                               de energía eléctrica a favor de sujetos domiciliados en ZED',    'active' => false],
+            ['id' => '0208', 'description' => 'Exportación de Servicios – Prestación
+                                               servicios realizados parcialmente en el extranjero',             'active' => false],
+            ['id' => '0301', 'description' => 'Operaciones con Carta de porte aéreo
+                                               (emitidas en el ámbito nacional)',                               'active' => false],
+            ['id' => '0302', 'description' => 'Operaciones de Transporte ferroviario de pasajeros',             'active' => false],
+            ['id' => '0303', 'description' => 'Operaciones de Pago de regalía petrolera',                       'active' => false],
+            ['id' => '1001', 'description' => 'Operación Sujeta a Detracción',                                  'active' => false],
+            ['id' => '1002', 'description' => 'Operación Sujeta a Detracción- Recursos Hidrobiológicos',        'active' => false],
+        ]);
+
+        Schema::create('process_types', function (Blueprint $table) {
+            $table->char('id', 1)->index();
+            $table->string('description');
+        });
+
+        DB::table('process_types')->insert([
+            ['id' => '1', 'description' => 'Adicionar'],
+            ['id' => '2', 'description' => 'Modificar'],
+            ['id' => '3', 'description' => 'Anulado'],
+        ]);
+
+        Schema::create('charge_discount_types', function (Blueprint $table) {
+            $table->char('id', 2)->index();
+            $table->string('description');
+            $table->boolean('base');
+            $table->enum('type', ['discount', 'charge']);
+            $table->enum('level', ['item', 'global']);
+            $table->boolean('active');
+        });
+
+        DB::table('charge_discount_types')->insert([
+            ['id' => '00', 'description' => 'Descuentos que afectan la base imponible del IGV - Item',               'base' => true,  'level' => 'item',   'type' => 'discount', 'active' =>true],
+            ['id' => '01', 'description' => 'Descuentos que no afectan la base imponible del IGV - Item',            'base' => false, 'level' => 'item',   'type' => 'discount', 'active' =>true],
+            ['id' => '02', 'description' => 'Descuentos globales que afectan la base imponible del IGV - Global',    'base' => true,  'level' => 'global', 'type' => 'discount', 'active' =>true],
+            ['id' => '03', 'description' => 'Descuentos globales que no afectan la base imponible del IGV - Global', 'base' => false, 'level' => 'global', 'type' => 'discount', 'active' =>true],
+            ['id' => '45', 'description' => 'FISE - Global',                                                         'base' => true,  'level' => 'global', 'type' => 'charge',   'active' =>false],
+            ['id' => '46', 'description' => 'Recargo al consumo y/o propinas - Global',                              'base' => false, 'level' => 'global', 'type' => 'charge',   'active' =>true],
+            ['id' => '47', 'description' => 'Cargos que afectan la base imponible del IGV - Item',                   'base' => true,  'level' => 'item',   'type' => 'charge',   'active' =>true],
         ]);
     }
-
     /**
      * Reverse the migrations.
      *
@@ -519,6 +597,10 @@ class CreateCatalogsTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('charge_discount_types');
+        Schema::dropIfExists('operation_types');
+        Schema::dropIfExists('unit_types');
+        Schema::dropIfExists('identity_document_types');
         Schema::dropIfExists('document_types');
         Schema::dropIfExists('system_isc_types');
         Schema::dropIfExists('affectation_types');

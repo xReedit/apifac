@@ -2,23 +2,28 @@
 
 namespace App\Models;
 
+use App\Models\Catalogs\OperationType;
 use Illuminate\Database\Eloquent\Model;
 
 class Invoice extends Model
 {
+    protected $with = ['operation_type'];
     public $timestamps = false;
 
     protected $fillable = [
-        'operation_type_code',
+        'document_id',
+        'operation_type_id',
         'date_of_due',
-        'base_global_discount',
-        'percentage_global_discount',
-        'total_global_discount',
         'total_free',
+        'total_discount',
+        'total_charge',
         'total_prepayment',
-        'purchase_order',
-        'detraction',
+        'total_value',
+
+        'charges',
+        'discounts',
         'perception',
+        'detraction',
         'prepayments'
     ];
 
@@ -26,38 +31,63 @@ class Invoice extends Model
         'date_of_due' => 'date',
     ];
 
-    public function getDetractionAttribute($value)
+    public function getChargesAttribute($value)
     {
-        return (object) json_decode($value);
+        return (is_null($value))?null:(object) json_decode($value);
     }
 
-    public function setDetractionAttribute($value)
+    public function setChargesAttribute($value)
     {
-        $this->attributes['detraction'] = json_encode($value);
+        $this->attributes['charges'] = (is_null($value))?null:json_encode($value);
+    }
+
+    public function getDiscountsAttribute($value)
+    {
+        return (is_null($value))?null:(object) json_decode($value);
+    }
+
+    public function setDiscountsAttribute($value)
+    {
+        $this->attributes['discounts'] = (is_null($value))?null:json_encode($value);
     }
 
     public function getPerceptionAttribute($value)
     {
-        return (object) json_decode($value);
+        return (is_null($value))?null:(object) json_decode($value);
     }
 
     public function setPerceptionAttribute($value)
     {
-        $this->attributes['perception'] = json_encode($value);
+        $this->attributes['perception'] = (is_null($value))?null:json_encode($value);
+    }
+
+    public function getDetractionAttribute($value)
+    {
+        return (is_null($value))?null:(object) json_decode($value);
+    }
+
+    public function setDetractionAttribute($value)
+    {
+        $this->attributes['detraction'] = (is_null($value))?null:json_encode($value);
     }
 
     public function getPrepaymentsAttribute($value)
     {
-        return (object) json_decode($value);
+        return (is_null($value))?null:(object) json_decode($value);
     }
 
     public function setPrepaymentsAttribute($value)
     {
-        $this->attributes['prepayments'] = json_encode($value);
+        $this->attributes['prepayments'] = (is_null($value))?null:json_encode($value);
     }
 
     public function document()
     {
         return $this->hasOne(Document::class);
+    }
+
+    public function operation_type()
+    {
+        return $this->belongsTo(OperationType::class);
     }
 }

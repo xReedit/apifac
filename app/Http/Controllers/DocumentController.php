@@ -1,17 +1,13 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\Core\Builder\Documents\SummaryBuilder;
-use App\Core\Builder\Documents\VoidedBuilder;
-use App\Core\Builder\XmlBuilder;
-use App\Core\Helpers\StorageDocument;
+use App\CoreFacturalo\Helpers\StorageDocument;
 use App\Http\Requests\DocumentVoidedRequest;
 use App\Http\Resources\DocumentCollection;
 use App\Models\Company;
 use App\Models\Document;
 use Exception;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 
 class DocumentController extends Controller
@@ -38,7 +34,7 @@ class DocumentController extends Controller
                             ->orderBy('series')
                             ->orderBy('number', 'desc');
 
-        return new DocumentCollection($records->paginate(env('ITEMS_PER_PAGE', 5)));
+        return new DocumentCollection($records->paginate(env('ITEMS_PER_PAGE', 10)));
     }
 
 //    public function create()
@@ -171,14 +167,15 @@ class DocumentController extends Controller
                 break;
             case 'cdr':
                 $folder = 'cdr';
-                $extension = 'xml';
+                $extension = 'zip';
                 $filename = 'R-'.$document->filename;
                 break;
             default:
                 throw new Exception('Tipo de archivo a descargar es inválido');
         }
 
-        return $this->downloadStorage($folder, $filename, $extension);
+        $company = Company::byUser();
+        return $this->downloadStorage($company->number, $folder, $filename, $extension);
     }
 
     public function to_print($id)

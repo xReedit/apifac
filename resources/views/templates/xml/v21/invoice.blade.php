@@ -304,8 +304,8 @@
         @endif
         @if($document->total_other_taxes > 0)
         <cac:TaxSubtotal>
-            <cbc:TaxableAmount currencyID="{{ $document->currency_type_code }}">{{ $document->total_base_other_taxes }}</cbc:TaxableAmount>
-            <cbc:TaxAmount currencyID="{{ $document->currency_type_code }}">{{ $document->total_other_taxes }}</cbc:TaxAmount>
+            <cbc:TaxableAmount currencyID="{{ $document->currency_type_code }}">{{ $document->total_other_taxes }}</cbc:TaxableAmount>
+            <cbc:TaxAmount currencyID="{{ $document->currency_type_code }}">{{ $document->total_base_other_taxes }}</cbc:TaxAmount>
             <cac:TaxCategory>
                 <cac:TaxScheme>
                     <cbc:ID>9999</cbc:ID>
@@ -344,7 +344,7 @@
             @foreach($row->charges as $charge)
                 <cac:AllowanceCharge>
                     <cbc:ChargeIndicator>true</cbc:ChargeIndicator>
-                    <cbc:AllowanceChargeReasonCode>{{ $charge->charge_type_code }}</cbc:AllowanceChargeReasonCode>
+                    <cbc:AllowanceChargeReasonCode>{{ $charge->code }}</cbc:AllowanceChargeReasonCode>
                     <cbc:MultiplierFactorNumeric>{{ $charge->percentage }}</cbc:MultiplierFactorNumeric>
                     <cbc:Amount currencyID="{{ $document->currency_type_code }}">{{ $charge->total }}</cbc:Amount>
                     <cbc:BaseAmount currencyID="{{ $document->currency_type_code }}">{{ $charge->total_base }}</cbc:BaseAmount>

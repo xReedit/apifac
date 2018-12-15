@@ -113,7 +113,7 @@
                 this.errors = {}
                 this.form = {
                     id: null,
-                    identity_document_type_id: '06000006',
+                    identity_document_type_id: '6',
                     number: null,
                     name: null,
                     trade_name: null,

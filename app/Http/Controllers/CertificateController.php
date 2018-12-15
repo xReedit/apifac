@@ -1,8 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\Core\WS\Signed\Certificate\X509Certificate;
-use App\Core\WS\Signed\Certificate\X509ContentType;
+use App\CoreFacturalo\Util;
 use App\Models\Company;
 use Exception;
 use Illuminate\Http\Request;
@@ -21,15 +20,14 @@ class CertificateController extends Controller
     public function uploadFile(Request $request)
     {
         $company = Company::byUser();
-        if ($company) {
-            if ($request->hasFile('file')) {
-                try {
+        try {
+            if ($company) {
+                if ($request->hasFile('file')) {
                     $company = Company::byUser();
                     $password = $request->input('password');
                     $file = $request->file('file');
                     $pfx = file_get_contents($file);
-                    $certificate = new X509Certificate($pfx, $password);
-                    $pem = $certificate->export(X509ContentType::PEM);
+                    $pem = Util::generateCertificatePEM($pfx, $password);
                     $name = 'certificate_'.$company->number.'.pem';
                     if(!file_exists(storage_path('app'.DIRECTORY_SEPARATOR.'certificates'))) {
                         mkdir(storage_path('app'.DIRECTORY_SEPARATOR.'certificates'));
@@ -42,22 +40,29 @@ class CertificateController extends Controller
                         'success' => true,
                         'message' =>  __('app.actions.upload.success'),
                     ];
-                } catch (Exception $e) {
-                    return [
-                        'success' => false,
-                        'message' =>  $e->getMessage()
-                    ];
+                } else {
+                    throw new Exception("Archivo no encontrado.");
                 }
+            } else {
+                throw new Exception("Empresa aún no creada.");
             }
+        } catch (Exception $e) {
             return [
                 'success' => false,
-                'message' =>  __('app.actions.upload.error'),
-            ];
-        } else {
-            return [
-                'success' => false,
-                'message' =>  'La empresa aún no ha sido creada',
+                'message' =>  $e->getMessage(),
             ];
         }
+    }
+
+    public function destroy()
+    {
+        $company = Company::byUser();
+        $company->certificate = null;
+        $company->save();
+
+        return [
+            'success' => true,
+            'message' => 'Certificado eliminado con éxito'
+        ];
     }
 }

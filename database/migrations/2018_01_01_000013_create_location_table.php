@@ -17,6 +17,7 @@ class CreateLocationTable extends Migration
         Schema::create('countries', function (Blueprint $table) {
             $table->char('id', 2)->index();
             $table->string('description');
+            $table->boolean('active')->default(true);
         });
 
         DB::table('countries')->insert([
@@ -259,46 +260,49 @@ class CreateLocationTable extends Migration
             ['id' => 'EH', 'description' => 'WESTERN SAHARA'],
             ['id' => 'YE', 'description' => 'YEMEN'],
             ['id' => 'ZM', 'description' => 'ZAMBIA'],
-            ['id' => 'ZW', 'description' => 'ZIMBABWE'],
+            ['id' => 'ZW', 'description' => 'ZIMBABWE']
         ]);
 
         Schema::create('departments', function (Blueprint $table) {
             $table->char('id', 2)->index();
             $table->string('description');
+            $table->boolean('active')->default(true);
         });
 
         DB::table('departments')->insert([
-            ['id' => '01', 'description' => 'Amazonas'],
-            ['id' => '02', 'description' => 'Áncash'],
-            ['id' => '03', 'description' => 'Apurímac'],
-            ['id' => '04', 'description' => 'Arequipa'],
-            ['id' => '05', 'description' => 'Ayacucho'],
-            ['id' => '06', 'description' => 'Cajamarca'],
-            ['id' => '07', 'description' => 'Callao'],
-            ['id' => '08', 'description' => 'Cusco'],
-            ['id' => '09', 'description' => 'Huancavelica'],
-            ['id' => '10', 'description' => 'Huánuco'],
-            ['id' => '11', 'description' => 'Ica'],
-            ['id' => '12', 'description' => 'Junín'],
-            ['id' => '13', 'description' => 'La Libertad'],
-            ['id' => '14', 'description' => 'Lambayeque'],
-            ['id' => '15', 'description' => 'Lima'],
-            ['id' => '16', 'description' => 'Loreto'],
-            ['id' => '17', 'description' => 'Madre de Dios'],
-            ['id' => '18', 'description' => 'Moquegua'],
-            ['id' => '19', 'description' => 'Pasco'],
-            ['id' => '20', 'description' => 'Piura'],
-            ['id' => '21', 'description' => 'Puno'],
-            ['id' => '22', 'description' => 'San Martín'],
-            ['id' => '23', 'description' => 'Tacna'],
-            ['id' => '24', 'description' => 'Tumbes'],
-            ['id' => '25', 'description' => 'Ucayali'],
+            ['id' => '01', 'description' => 'AMAZONAS'],
+            ['id' => '02', 'description' => 'ÁNCASH'],
+            ['id' => '03', 'description' => 'APURIMAC'],
+            ['id' => '04', 'description' => 'AREQUIPA'],
+            ['id' => '05', 'description' => 'AYACUCHO'],
+            ['id' => '06', 'description' => 'CAJAMARCA'],
+            ['id' => '07', 'description' => 'CALLAO'],
+            ['id' => '08', 'description' => 'CUSCO'],
+            ['id' => '09', 'description' => 'HUANCAVELICA'],
+            ['id' => '10', 'description' => 'HUÁNUCO'],
+            ['id' => '11', 'description' => 'ICA'],
+            ['id' => '12', 'description' => 'JUNÍN'],
+            ['id' => '13', 'description' => 'LA LIBERTAD'],
+            ['id' => '14', 'description' => 'LAMBAYEQUE'],
+            ['id' => '15', 'description' => 'LIMA'],
+            ['id' => '16', 'description' => 'LORETO'],
+            ['id' => '17', 'description' => 'MADRE DE DIOS'],
+            ['id' => '18', 'description' => 'MOQUEGUA'],
+            ['id' => '19', 'description' => 'PASCO'],
+            ['id' => '20', 'description' => 'PIURA'],
+            ['id' => '21', 'description' => 'PUNO'],
+            ['id' => '22', 'description' => 'SAN MARTIN'],
+            ['id' => '23', 'description' => 'TACNA'],
+            ['id' => '24', 'description' => 'TUMBES'],
+            ['id' => '25', 'description' => 'UCAYALI'],
         ]);
 
         Schema::create('provinces', function (Blueprint $table) {
             $table->char('id', 4)->index();
             $table->char('department_id', 2);
             $table->string('description');
+            $table->boolean('active')->default(true);
+
             $table->foreign('department_id')->references('id')->on('departments');
         });
 
@@ -505,6 +509,8 @@ class CreateLocationTable extends Migration
             $table->char('id', 6)->index();
             $table->char('province_id', 4);
             $table->string('description');
+            $table->boolean('active')->default(true);
+
             $table->foreign('province_id')->references('id')->on('provinces');
         });
 
@@ -2104,15 +2110,15 @@ class CreateLocationTable extends Migration
             ['id' => '200407', 'description' => 'San Juan de Bigote', 'province_id' => '2004'],
             ['id' => '200408', 'description' => 'Santa Catalina de Mossa', 'province_id' => '2004'],
             ['id' => '200409', 'description' => 'Santo Domingo', 'province_id' => '2004'],
-            ['id' => '200410', 'description' => 'Yamango', 'province_id' => '2004'],
-            ['id' => '200501', 'description' => 'Paita', 'province_id' => '2005'],
-            ['id' => '200502', 'description' => 'Amotape', 'province_id' => '2005'],
-            ['id' => '200503', 'description' => 'Arenal', 'province_id' => '2005'],
-            ['id' => '200504', 'description' => 'Colan', 'province_id' => '2005'],
-            ['id' => '200505', 'description' => 'La Huaca', 'province_id' => '2005'],
+            ['id' => '200410', 'description' => 'YAMANGO', 'province_id' => '2004'],
+            ['id' => '200501', 'description' => 'PAITA', 'province_id' => '2005'],
+            ['id' => '200502', 'description' => 'AMOTAPE', 'province_id' => '2005'],
+            ['id' => '200503', 'description' => 'ARENAL', 'province_id' => '2005'],
+            ['id' => '200504', 'description' => 'COLAN', 'province_id' => '2005'],
+            ['id' => '200505', 'description' => 'LA HUACA', 'province_id' => '2005'],
             ['id' => '200506', 'description' => 'Tamarindo', 'province_id' => '2005'],
             ['id' => '200507', 'description' => 'Vichayal', 'province_id' => '2005'],
-            ['id' => '200601', 'description' => 'Sullana', 'province_id' => '2006'],
+            ['id' => '200601', 'description' => 'SULLANA', 'province_id' => '2006'],
             ['id' => '200602', 'description' => 'Bellavista', 'province_id' => '2006'],
             ['id' => '200603', 'description' => 'Ignacio Escudero', 'province_id' => '2006'],
             ['id' => '200604', 'description' => 'Lancones', 'province_id' => '2006'],
@@ -2120,15 +2126,15 @@ class CreateLocationTable extends Migration
             ['id' => '200606', 'description' => 'Miguel Checa', 'province_id' => '2006'],
             ['id' => '200607', 'description' => 'Querecotillo', 'province_id' => '2006'],
             ['id' => '200608', 'description' => 'Salitral', 'province_id' => '2006'],
-            ['id' => '200701', 'description' => 'Pariñas', 'province_id' => '2007'],
-            ['id' => '200702', 'description' => 'El Alto', 'province_id' => '2007'],
-            ['id' => '200703', 'description' => 'La Brea', 'province_id' => '2007'],
-            ['id' => '200704', 'description' => 'Lobitos', 'province_id' => '2007'],
+            ['id' => '200701', 'description' => 'PARIÑAS', 'province_id' => '2007'],
+            ['id' => '200702', 'description' => 'EL ALTO', 'province_id' => '2007'],
+            ['id' => '200703', 'description' => 'LA BREA', 'province_id' => '2007'],
+            ['id' => '200704', 'description' => 'LOBITOS', 'province_id' => '2007'],
             ['id' => '200705', 'description' => 'Los Organos', 'province_id' => '2007'],
-            ['id' => '200706', 'description' => 'Mancora', 'province_id' => '2007'],
-            ['id' => '200801', 'description' => 'Sechura', 'province_id' => '2008'],
+            ['id' => '200706', 'description' => 'MANCORA', 'province_id' => '2007'],
+            ['id' => '200801', 'description' => 'SECHURA', 'province_id' => '2008'],
             ['id' => '200802', 'description' => 'Bellavista de la Unión', 'province_id' => '2008'],
-            ['id' => '200803', 'description' => 'Bernal', 'province_id' => '2008'],
+            ['id' => '200803', 'description' => 'BERNAL', 'province_id' => '2008'],
             ['id' => '200804', 'description' => 'Cristo Nos Valga', 'province_id' => '2008'],
             ['id' => '200805', 'description' => 'Vice', 'province_id' => '2008'],
             ['id' => '200806', 'description' => 'Rinconada Llicuar', 'province_id' => '2008'],
@@ -2389,5 +2395,6 @@ class CreateLocationTable extends Migration
         Schema::dropIfExists('districts');
         Schema::dropIfExists('provinces');
         Schema::dropIfExists('departments');
+        Schema::dropIfExists('countries');
     }
 }

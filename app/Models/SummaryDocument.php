@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class SummaryDocument extends Model
 {
+    protected $with = ['document'];
     public $timestamps = false;
 
     protected $fillable = [

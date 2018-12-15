@@ -96262,7 +96262,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
             this.errors = {};
             this.form = {
                 id: null,
-                identity_document_type_id: '06000006',
+                identity_document_type_id: '6',
                 number: null,
                 name: null,
                 trade_name: null,
@@ -98003,12 +98003,8 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__partials_voided_vue__ = __webpack_require__(207);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__partials_voided_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__partials_voided_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__partials_options_vue__ = __webpack_require__(49);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__partials_options_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__partials_options_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_DataTable_vue__ = __webpack_require__(81);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_DataTable_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components_DataTable_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_DataTable_vue__ = __webpack_require__(81);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_DataTable_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_DataTable_vue__);
 //
 //
 //
@@ -98064,46 +98060,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    components: { DocumentsVoided: __WEBPACK_IMPORTED_MODULE_0__partials_voided_vue___default.a, DocumentOptions: __WEBPACK_IMPORTED_MODULE_1__partials_options_vue___default.a, DataTable: __WEBPACK_IMPORTED_MODULE_2__components_DataTable_vue___default.a },
+    components: { DataTable: __WEBPACK_IMPORTED_MODULE_0__components_DataTable_vue___default.a },
     data: function data() {
         return {
             showDialogVoided: false,
@@ -98115,305 +98077,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     created: function created() {},
 
     methods: {
-        clickVoided: function clickVoided() {
-            var recordId = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-
-            this.recordId = recordId;
-            this.showDialogVoided = true;
-        },
-        clickTicket: function clickTicket(voided_id, group_id) {
-            var _this = this;
-
-            this.$http.get('/voided/ticket/' + voided_id + '/' + group_id).then(function (response) {
-                if (response.data.success) {
-                    _this.$message.success(response.data.message);
-                    _this.$eventHub.$emit('reloadData');
-                } else {
-                    _this.$message.error(response.data.message);
-                }
-            }).catch(function (error) {
-                _this.$message.error(error.response.data.message);
-            });
-        },
         clickDownload: function clickDownload(download) {
             window.open(download, '_blank');
-        },
-        clickResend: function clickResend(document_id) {
-            var _this2 = this;
-
-            this.$http.get('/' + this.resource + '/send_xml/' + document_id).then(function (response) {
-                if (response.data.success) {
-                    _this2.$message.success('Se reenvio el archivo xml correctamente');
-                    _this2.$eventHub.$emit('reloadData');
-                } else {
-                    _this2.$message.error('Error al reenviar el archivo xml');
-                }
-            }).catch(function (error) {
-                _this2.$message.error(error.response.data.message);
-            });
-        },
-        clickOptions: function clickOptions() {
-            var recordId = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-
-            this.recordId = recordId;
-            this.showDialogOptions = true;
         }
     }
 });
 
 /***/ }),
-/* 207 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var normalizeComponent = __webpack_require__(2)
-/* script */
-var __vue_script__ = __webpack_require__(208)
-/* template */
-var __vue_template__ = __webpack_require__(209)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/js/views/documents/partials/voided.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-4242d5ec", Component.options)
-  } else {
-    hotAPI.reload("data-v-4242d5ec", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 208 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['showDialog', 'recordId', 'showClose', 'urlContinue'],
-    data: function data() {
-        return {
-            titleDialog: null,
-            loading_submit: false,
-            resource: 'documents',
-            errors: {},
-            form: {}
-        };
-    },
-    created: function created() {
-        this.initForm();
-    },
-
-    methods: {
-        initForm: function initForm() {
-            this.errors = {};
-            this.form = {
-                id: null,
-                number: null,
-                voided_description: null
-            };
-        },
-        create: function create() {
-            var _this = this;
-
-            this.$http.get('/' + this.resource + '/record/' + this.recordId).then(function (response) {
-                _this.form.id = response.data.data.id;
-                _this.form.number = response.data.data.number;
-                _this.titleDialog = 'Comprobante: ' + _this.form.number;
-            });
-        },
-        submit: function submit() {
-            var _this2 = this;
-
-            this.loading_submit = true;
-            this.$http.post('/' + this.resource + '/voided', this.form).then(function (response) {
-                if (response.data.success) {
-                    _this2.$eventHub.$emit('reloadData');
-                    _this2.$message.success(response.data.message);
-                    _this2.close();
-                } else {
-                    _this2.$message.error(response.data.message);
-                }
-            }).catch(function (error) {
-                if (error.response.status === 422) {
-                    _this2.errors = error.response.data.errors;
-                } else {
-                    _this2.$message.error(error.response.data.message);
-                }
-            }).then(function () {
-                _this2.loading_submit = false;
-            });
-        },
-        close: function close() {
-            this.$emit('update:showDialog', false);
-            this.initForm();
-        }
-    }
-});
-
-/***/ }),
-/* 209 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "el-dialog",
-    {
-      attrs: { title: _vm.titleDialog, visible: _vm.showDialog },
-      on: { close: _vm.close, open: _vm.create }
-    },
-    [
-      _c(
-        "form",
-        {
-          attrs: { autocomplete: "off" },
-          on: {
-            submit: function($event) {
-              $event.preventDefault()
-              return _vm.submit($event)
-            }
-          }
-        },
-        [
-          _c("div", { staticClass: "form-body" }, [
-            _c("div", { staticClass: "row" }, [
-              _c("div", { staticClass: "col-md-12" }, [
-                _c(
-                  "div",
-                  {
-                    staticClass: "form-group",
-                    class: { "has-danger": _vm.errors.voided_description }
-                  },
-                  [
-                    _c("label", { staticClass: "control-label" }, [
-                      _vm._v("Descripción del motivo de anulación")
-                    ]),
-                    _vm._v(" "),
-                    _c("el-input", {
-                      model: {
-                        value: _vm.form.voided_description,
-                        callback: function($$v) {
-                          _vm.$set(_vm.form, "voided_description", $$v)
-                        },
-                        expression: "form.voided_description"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _vm.errors.voided_description
-                      ? _c("small", {
-                          staticClass: "form-control-feedback",
-                          domProps: {
-                            textContent: _vm._s(
-                              _vm.errors.voided_description[0]
-                            )
-                          }
-                        })
-                      : _vm._e()
-                  ],
-                  1
-                )
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "form-actions text-right mt-4" },
-            [
-              _c(
-                "el-button",
-                {
-                  on: {
-                    click: function($event) {
-                      $event.preventDefault()
-                      _vm.close()
-                    }
-                  }
-                },
-                [_vm._v("Cancelar")]
-              ),
-              _vm._v(" "),
-              _c(
-                "el-button",
-                {
-                  attrs: {
-                    type: "danger",
-                    "native-type": "submit",
-                    loading: _vm.loading_submit
-                  }
-                },
-                [_vm._v("Anular")]
-              )
-            ],
-            1
-          )
-        ]
-      )
-    ]
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-4242d5ec", module.exports)
-  }
-}
-
-/***/ }),
+/* 207 */,
+/* 208 */,
+/* 209 */,
 /* 210 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -99628,350 +99301,168 @@ var render = function() {
   return _c("div", [
     _vm._m(0),
     _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "card mb-0" },
-      [
-        _c(
-          "div",
-          { staticClass: "card-body" },
-          [
-            _c(
-              "data-table",
-              {
-                attrs: { resource: _vm.resource },
-                scopedSlots: _vm._u([
-                  {
-                    key: "default",
-                    fn: function(ref) {
-                      var index = ref.index
-                      var row = ref.row
-                      return _c(
-                        "tr",
-                        {
-                          class: { "text-danger": row.state_type_id === "11" }
-                        },
-                        [
-                          _c("td", [_vm._v(_vm._s(index))]),
+    _c("div", { staticClass: "card mb-0" }, [
+      _c(
+        "div",
+        { staticClass: "card-body" },
+        [
+          _c(
+            "data-table",
+            {
+              attrs: { resource: _vm.resource },
+              scopedSlots: _vm._u([
+                {
+                  key: "default",
+                  fn: function(ref) {
+                    var index = ref.index
+                    var row = ref.row
+                    return _c(
+                      "tr",
+                      { class: { "text-danger": row.state_type_id === "11" } },
+                      [
+                        _c("td", [_vm._v(_vm._s(index))]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "text-center" }, [
+                          _vm._v(_vm._s(row.date_of_issue))
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(row.customer_name))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(row.customer_number))]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(_vm._s(row.document_type_short)),
+                          _c("br")
+                        ]),
+                        _c("td", [
+                          _vm._v(_vm._s(row.number)),
+                          _c("br"),
                           _vm._v(" "),
-                          _c("td", { staticClass: "text-center" }, [
-                            _vm._v(_vm._s(row.date_of_issue))
-                          ]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _vm._v(_vm._s(row.customer_name)),
-                            _c("br"),
-                            _c("small", {
-                              domProps: {
-                                textContent: _vm._s(row.customer_number)
+                          row.affected_document
+                            ? _c("small", {
+                                domProps: {
+                                  textContent: _vm._s(row.affected_document)
+                                }
+                              })
+                            : _vm._e()
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "text-right" }, [
+                          _vm._v(_vm._s(row.total_free))
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "text-right" }, [
+                          _vm._v(_vm._s(row.total_unaffected))
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "text-right" }, [
+                          _vm._v(_vm._s(row.total_exonerated))
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "text-right" }, [
+                          _vm._v(_vm._s(row.total_taxed))
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "text-right" }, [
+                          _vm._v(_vm._s(row.total_igv))
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "text-right" }, [
+                          _vm._v(_vm._s(row.total))
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "text-center" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass:
+                                "btn waves-effect waves-light btn-xs btn-info",
+                              attrs: { type: "button" },
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  _vm.clickDownload(row.download_external_xml)
+                                }
                               }
-                            })
-                          ]),
+                            },
+                            [_vm._v("XML")]
+                          ),
                           _vm._v(" "),
-                          _c("td", [
-                            _vm._v(_vm._s(row.number)),
-                            _c("br"),
-                            _vm._v(" "),
-                            _c("small", {
-                              domProps: {
-                                textContent: _vm._s(
-                                  row.document_type_description
-                                )
+                          _c(
+                            "button",
+                            {
+                              staticClass:
+                                "btn waves-effect waves-light btn-xs btn-info",
+                              attrs: { type: "button" },
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  _vm.clickDownload(row.download_external_pdf)
+                                }
                               }
-                            }),
-                            _c("br"),
-                            _vm._v(" "),
-                            row.affected_document
-                              ? _c("small", {
-                                  domProps: {
-                                    textContent: _vm._s(row.affected_document)
-                                  }
-                                })
-                              : _vm._e()
-                          ]),
+                            },
+                            [_vm._v("PDF")]
+                          ),
                           _vm._v(" "),
-                          _c("td", [
-                            _vm._v(_vm._s(row.state_type_description))
-                          ]),
-                          _vm._v(" "),
-                          _c("td", { staticClass: "text-right" }, [
-                            _vm._v(_vm._s(row.total_exonerated))
-                          ]),
-                          _vm._v(" "),
-                          _c("td", { staticClass: "text-right" }, [
-                            _vm._v(_vm._s(row.total_taxed))
-                          ]),
-                          _vm._v(" "),
-                          _c("td", { staticClass: "text-right" }, [
-                            _vm._v(_vm._s(row.total_igv))
-                          ]),
-                          _vm._v(" "),
-                          _c("td", { staticClass: "text-right" }, [
-                            _vm._v(_vm._s(row.total))
-                          ]),
-                          _vm._v(" "),
-                          _c("td", { staticClass: "text-center" }, [
-                            row.has_xml
-                              ? _c(
-                                  "button",
-                                  {
-                                    staticClass:
-                                      "btn waves-effect waves-light btn-xs btn-info",
-                                    attrs: { type: "button" },
-                                    on: {
-                                      click: function($event) {
-                                        $event.preventDefault()
-                                        _vm.clickDownload(row.download_xml)
-                                      }
-                                    }
-                                  },
-                                  [_vm._v("XML")]
-                                )
-                              : _vm._e(),
-                            _vm._v(" "),
-                            row.has_pdf
-                              ? _c(
-                                  "button",
-                                  {
-                                    staticClass:
-                                      "btn waves-effect waves-light btn-xs btn-info",
-                                    attrs: { type: "button" },
-                                    on: {
-                                      click: function($event) {
-                                        $event.preventDefault()
-                                        _vm.clickDownload(row.download_pdf)
-                                      }
-                                    }
-                                  },
-                                  [_vm._v("PDF")]
-                                )
-                              : _vm._e(),
-                            _vm._v(" "),
-                            row.has_cdr
-                              ? _c(
-                                  "button",
-                                  {
-                                    staticClass:
-                                      "btn waves-effect waves-light btn-xs btn-info",
-                                    attrs: { type: "button" },
-                                    on: {
-                                      click: function($event) {
-                                        $event.preventDefault()
-                                        _vm.clickDownload(row.download_cdr)
-                                      }
-                                    }
-                                  },
-                                  [_vm._v("CDR")]
-                                )
-                              : _vm._e()
-                          ]),
-                          _vm._v(" "),
-                          _c("td", { staticClass: "text-center" }, [
-                            row.has_xml_voided
-                              ? _c(
-                                  "button",
-                                  {
-                                    staticClass:
-                                      "btn waves-effect waves-light btn-xs btn-danger",
-                                    attrs: { type: "button" },
-                                    on: {
-                                      click: function($event) {
-                                        $event.preventDefault()
-                                        _vm.clickDownload(
-                                          row.download_xml_voided
-                                        )
-                                      }
-                                    }
-                                  },
-                                  [_vm._v("XML")]
-                                )
-                              : _vm._e(),
-                            _vm._v(" "),
-                            row.has_cdr_voided
-                              ? _c(
-                                  "button",
-                                  {
-                                    staticClass:
-                                      "btn waves-effect waves-light btn-xs btn-danger",
-                                    attrs: { type: "button" },
-                                    on: {
-                                      click: function($event) {
-                                        $event.preventDefault()
-                                        _vm.clickDownload(
-                                          row.download_cdr_voided
-                                        )
-                                      }
-                                    }
-                                  },
-                                  [_vm._v("CDR")]
-                                )
-                              : _vm._e(),
-                            _vm._v(" "),
-                            row.btn_ticket
-                              ? _c(
-                                  "button",
-                                  {
-                                    staticClass:
-                                      "btn waves-effect waves-light btn-xs btn-warning",
-                                    attrs: { type: "button" },
-                                    on: {
-                                      click: function($event) {
-                                        $event.preventDefault()
-                                        _vm.clickTicket(
-                                          row.voided.id,
-                                          row.group_id
-                                        )
-                                      }
-                                    }
-                                  },
-                                  [_vm._v("Consultar")]
-                                )
-                              : _vm._e()
-                          ]),
-                          _vm._v(" "),
-                          _c("td", { staticClass: "text-right" }, [
-                            row.btn_voided
-                              ? _c(
-                                  "button",
-                                  {
-                                    staticClass:
-                                      "btn waves-effect waves-light btn-xs btn-danger",
-                                    attrs: { type: "button" },
-                                    on: {
-                                      click: function($event) {
-                                        $event.preventDefault()
-                                        _vm.clickVoided(row.id)
-                                      }
-                                    }
-                                  },
-                                  [_vm._v("Anular")]
-                                )
-                              : _vm._e(),
-                            _vm._v(" "),
-                            row.btn_note
-                              ? _c(
-                                  "a",
-                                  {
-                                    staticClass:
-                                      "btn waves-effect waves-light btn-xs btn-warning",
-                                    attrs: {
-                                      href:
-                                        "/" + _vm.resource + "/note/" + row.id
-                                    }
-                                  },
-                                  [_vm._v("Nota")]
-                                )
-                              : _vm._e(),
-                            _vm._v(" "),
-                            row.btn_note
-                              ? _c(
-                                  "button",
-                                  {
-                                    staticClass:
-                                      "btn waves-effect waves-light btn-xs btn-info",
-                                    attrs: { type: "button" },
-                                    on: {
-                                      click: function($event) {
-                                        $event.preventDefault()
-                                        _vm.clickOptions(row.id)
-                                      }
-                                    }
-                                  },
-                                  [_vm._v("Opciones")]
-                                )
-                              : _vm._e(),
-                            _vm._v(" "),
-                            row.btn_resend
-                              ? _c(
-                                  "button",
-                                  {
-                                    staticClass:
-                                      "btn waves-effect waves-light btn-xs btn-info",
-                                    attrs: { type: "button" },
-                                    on: {
-                                      click: function($event) {
-                                        $event.preventDefault()
-                                        _vm.clickResend(row.id)
-                                      }
-                                    }
-                                  },
-                                  [_vm._v("Reenviar")]
-                                )
-                              : _vm._e()
-                          ])
-                        ]
-                      )
-                    }
+                          _c(
+                            "button",
+                            {
+                              staticClass:
+                                "btn waves-effect waves-light btn-xs btn-info",
+                              attrs: { type: "button" },
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  _vm.clickDownload(row.download_external_cdr)
+                                }
+                              }
+                            },
+                            [_vm._v("CDR")]
+                          )
+                        ])
+                      ]
+                    )
                   }
-                ])
-              },
-              [
-                _c("tr", { attrs: { slot: "heading" }, slot: "heading" }, [
-                  _c("th", [_vm._v("#")]),
-                  _vm._v(" "),
-                  _c("th", { staticClass: "text-center" }, [
-                    _vm._v("Fecha Emisión")
-                  ]),
-                  _vm._v(" "),
-                  _c("th", [_vm._v("Cliente")]),
-                  _vm._v(" "),
-                  _c("th", [_vm._v("Número")]),
-                  _vm._v(" "),
-                  _c("th", [_vm._v("Estado")]),
-                  _vm._v(" "),
-                  _c("th", { staticClass: "text-right" }, [
-                    _vm._v("T.Exonerado")
-                  ]),
-                  _vm._v(" "),
-                  _c("th", { staticClass: "text-right" }, [
-                    _vm._v("T.Gravado")
-                  ]),
-                  _vm._v(" "),
-                  _c("th", { staticClass: "text-right" }, [_vm._v("T.Igv")]),
-                  _vm._v(" "),
-                  _c("th", { staticClass: "text-right" }, [_vm._v("Total")]),
-                  _vm._v(" "),
-                  _c("th", { staticClass: "text-center" }, [
-                    _vm._v("Descargas")
-                  ]),
-                  _vm._v(" "),
-                  _c("th", { staticClass: "text-center" }, [
-                    _vm._v("Anulación")
-                  ]),
-                  _vm._v(" "),
-                  _c("th", { staticClass: "text-right" }, [_vm._v("Acciones")])
+                }
+              ])
+            },
+            [
+              _c("tr", { attrs: { slot: "heading" }, slot: "heading" }, [
+                _c("th", [_vm._v("#")]),
+                _vm._v(" "),
+                _c("th", { staticClass: "text-center" }, [
+                  _vm._v("Fecha Emisión")
                 ]),
-                _c("tr")
-              ]
-            )
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c("documents-voided", {
-          attrs: { showDialog: _vm.showDialogVoided, recordId: _vm.recordId },
-          on: {
-            "update:showDialog": function($event) {
-              _vm.showDialogVoided = $event
-            }
-          }
-        }),
-        _vm._v(" "),
-        _c("document-options", {
-          attrs: {
-            showDialog: _vm.showDialogOptions,
-            recordId: _vm.recordId,
-            showClose: true
-          },
-          on: {
-            "update:showDialog": function($event) {
-              _vm.showDialogOptions = $event
-            }
-          }
-        })
-      ],
-      1
-    )
+                _vm._v(" "),
+                _c("th", { attrs: { colspan: "2" } }, [_vm._v("Cliente")]),
+                _vm._v(" "),
+                _c("th", [_vm._v("Tipo")]),
+                _vm._v(" "),
+                _c("th", [_vm._v("Número")]),
+                _vm._v(" "),
+                _c("th", { staticClass: "text-right" }, [_vm._v("T.Gratuito")]),
+                _vm._v(" "),
+                _c("th", { staticClass: "text-right" }, [_vm._v("T.Inafecto")]),
+                _vm._v(" "),
+                _c("th", { staticClass: "text-right" }, [
+                  _vm._v("T.Exonerado")
+                ]),
+                _vm._v(" "),
+                _c("th", { staticClass: "text-right" }, [_vm._v("T.Gravado")]),
+                _vm._v(" "),
+                _c("th", { staticClass: "text-right" }, [_vm._v("T.Igv")]),
+                _vm._v(" "),
+                _c("th", { staticClass: "text-right" }, [_vm._v("Total")]),
+                _vm._v(" "),
+                _c("th", { staticClass: "text-center" }, [_vm._v("Descargas")])
+              ]),
+              _c("tr")
+            ]
+          )
+        ],
+        1
+      )
+    ])
   ])
 }
 var staticRenderFns = [

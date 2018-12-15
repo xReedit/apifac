@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CompanyRequest;
 use App\Http\Resources\CompanyResource;
 use App\Models\Company;
-use App\Models\SoapType;
+use App\Models\System\SoapType;
 use Illuminate\Http\Request;
 
 class CompanyController extends Controller

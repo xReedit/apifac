@@ -28,7 +28,7 @@ class CreateCompaniesTable extends Migration
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('identity_document_type_id')->references('id')->on('codes');
+            $table->foreign('identity_document_type_id')->references('id')->on('identity_document_types');
             $table->foreign('soap_type_id')->references('id')->on('soap_types');
         });
     }

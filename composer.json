@@ -21,6 +21,7 @@
         "mockery/mockery": "^1.0",
         "nunomaduro/collision": "^2.0",
         "phpunit/phpunit": "^7.0",
+        "robrichards/xmlseclibs": "3.0.*",
         "milon/barcode": "5.3.*"
     },
     "config": {

@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
-use App\Models\Catalogs\Code;
+use App\Models\Catalogs\IdentityDocumentType;
 use Illuminate\Database\Eloquent\Model;
 
 class Company extends Model
 {
+    protected $with = ['identity_document_type'];
     protected $fillable = [
         'user_id',
         'identity_document_type_id',
@@ -22,7 +23,7 @@ class Company extends Model
 
     public function identity_document_type()
     {
-        return $this->belongsTo(Code::class, 'identity_document_type_id');
+        return $this->belongsTo(IdentityDocumentType::class);
     }
 
     public static function byUser()

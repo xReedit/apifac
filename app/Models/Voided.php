@@ -2,11 +2,14 @@
 
 namespace App\Models;
 
+use App\Models\System\SoapType;
+use App\Models\System\StateType;
 use Illuminate\Database\Eloquent\Model;
 
 class Voided extends Model
 {
     protected $table = 'voided';
+    protected $with = ['user', 'soap_type', 'state_type'];
 
     protected $fillable = [
         'user_id',
@@ -17,8 +20,8 @@ class Voided extends Model
         'date_of_reference',
         'identifier',
         'filename',
-        'has_ticket',
         'ticket',
+        'has_ticket',
         'has_cdr',
     ];
 
@@ -32,19 +35,19 @@ class Voided extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function soap_type()
+    {
+        return $this->belongsTo(SoapType::class);
+    }
+
     public function state_type()
     {
         return $this->belongsTo(StateType::class);
     }
 
-    public function documents()
-    {
-        return $this->hasMany(VoidedDocument::class);
-    }
-
     public function scopeWhereUser($query)
     {
-        return $query->where('user_id', cache('selected_user_id'));
+        return $query->where('user_id', auth()->id());
     }
 
     public function getDownloadCdrAttribute()
