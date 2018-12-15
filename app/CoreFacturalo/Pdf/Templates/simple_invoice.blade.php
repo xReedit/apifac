@@ -146,10 +146,12 @@
 <body>
 <table class="voucher-company">
     <tr>
+        @if($company->logo)
         <td width="25%">
             <img src="{{ asset('storage/uploads/logos/'.$company->logo) }}" class="company_logo">
         </td>
-        <td width="45%">
+        @endif
+        <td width="100%">
             <table class="voucher-company-left">
                 <tbody>
                 <tr><td class="text-left font-xxlg font-bold">{{ $company->name }}</td></tr>
