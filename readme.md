@@ -10,7 +10,7 @@ Para conocer el proceso de instalación de la api, visite la [documentación](ht
 
 ## Manejo de la API
 
-Para conocer acerca de nuestra API, visite la [documentación]( "Clic")
+Para conocer acerca de nuestra API, visite la [documentación](https://drive.google.com/open?id=1OoFNTASGXuWgP-PpbyAWzhfO8KnQe9Br "Clic")
  
  ## Collection POSTMAN
 
