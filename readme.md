@@ -14,7 +14,7 @@ Para conocer acerca de nuestra API, visite la [documentación](https://docs.goog
  
  ## Collection POSTMAN
 
-Puede descargar el [postman collection](https://drive.google.com/open?id=1yfwColz9lZB6N7t6TFovFVvfRMLMTJM2 "Clic") para que realice las pruebas
+Puede descargar el [postman collection](https://drive.google.com/open?id=191eAe7_mhD5aVQt_eqekl25SDg-FYYh5 "Clic") para que realice las pruebas
  
 ## DEMO
 
