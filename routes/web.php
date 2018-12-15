@@ -7,7 +7,11 @@
     Route::middleware('auth')->group(function() {
 
         Route::get('/', function () {
-            return redirect()->route('documents.index');
+            if(auth()->user()->role === 'user') {
+                return redirect()->route('documents.index');
+            } else {
+                return redirect()->route('users.index');
+            }
         });
         Route::get('dashboard', 'HomeController@index')->name('dashboard');
 
