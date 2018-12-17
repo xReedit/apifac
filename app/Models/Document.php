@@ -250,4 +250,29 @@ class Document extends Model
         $document_type = Code::byCatalogAndCode('01', $this->document_type_code);
         return $document_type->description;
     }
+
+    public static function setNumber($data)
+    {
+        $number = $data['number'];
+        $series = $data['series'];
+        $document_type_id = $data['document_type_id'];
+        $soap_type_id = $data['soap_type_id'];
+        if ($data['number'] === '#') {
+            $document = Document::select('number')
+                ->where('series', $series)
+                ->where('document_type_id', $document_type_id)
+                ->where('soap_type_id', $soap_type_id)
+                ->where('user_id', auth()->id())
+                ->orderBy('number', 'desc')
+                ->first();
+            $number = ($document)?(int)$document->number+1:1;
+        }
+        return $number;
+    }
+
+    public static function setFilename($data)
+    {
+        $company = Company::byUser();
+        return join('-', [$company->number, $data['document_type_id'], $data['series'], $data['number']]);
+    }
 }

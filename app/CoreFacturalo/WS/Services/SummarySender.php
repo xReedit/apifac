@@ -2,14 +2,13 @@
 
 namespace App\CoreFacturalo\WS\Services;
 
-use App\CoreFacturalo\Interfaces\SenderInterface;
 use App\CoreFacturalo\WS\Response\BaseResult;
 use App\CoreFacturalo\WS\Response\SummaryResult;
 
 /**
  * Class SummarySender.
  */
-class SummarySender extends BaseSunat implements SenderInterface
+class SummarySender extends BaseSunat
 {
     /**
      * @param string $filename

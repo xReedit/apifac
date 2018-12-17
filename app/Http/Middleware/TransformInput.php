@@ -228,6 +228,7 @@ class TransformInput
 
             $document_base = [];
             $group_id = null;
+            $type = null;
             // Invoice Variables
             $operation_type_id = array_key_exists('codigo_tipo_operacion', $inputs)?$inputs['codigo_tipo_operacion']:null;
             // Note Variables
@@ -260,6 +261,7 @@ class TransformInput
                     'prepayments' => $prepayments,
                 ];
                 $group_id = ($document_type_id === '01')?'01':'02';
+                $type = 'invoice';
             }
 
             /*
@@ -270,10 +272,12 @@ class TransformInput
                     $note_type = 'credit';
                     $note_credit_type_id = $note_credit_or_debit_type_id;
                     $note_debit_type_id = null;
+                    $type = 'credit';
                 } else {
                     $note_type = 'debit';
                     $note_credit_type_id = null;
                     $note_debit_type_id = $note_credit_or_debit_type_id;
+                    $type = 'debit';
                 }
 
                 $affected_document = Document::where('document_type_id', $affected_document_type_id)
@@ -324,6 +328,7 @@ class TransformInput
 
 //            dd($document_base);
             $original_attributes = [
+                'type' => $type,
                 'document' => [
                     'user_id' => auth()->id(),
                     'establishment' => $this->setEstablishment($establishment),
@@ -366,7 +371,7 @@ class TransformInput
                 ],
                 'document_base' => $document_base,
                 'actions' => $actions,
-                'success' => true
+                'success' => true,
             ];
 
             return $original_attributes;

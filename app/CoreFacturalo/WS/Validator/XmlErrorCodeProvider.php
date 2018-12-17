@@ -2,12 +2,10 @@
 
 namespace App\CoreFacturalo\WS\Validator;
 
-use App\CoreFacturalo\Interfaces\ErrorCodeProviderInterface;
-
 /**
  * Class XmlErrorCodeProvider.
  */
-class XmlErrorCodeProvider implements ErrorCodeProviderInterface
+class XmlErrorCodeProvider
 {
     private $xmlErrorFile;
 

@@ -1,11 +1,7 @@
 <?php
 namespace App\Http\Controllers\Api;
 
-use App\CoreFacturalo\Documents\InvoiceBuilder;
-use App\CoreFacturalo\Documents\NoteCreditBuilder;
-use App\CoreFacturalo\Helpers\HashXml;
-use App\CoreFacturalo\Helpers\StorageDocument;
-use App\CoreFacturalo\Util;
+use App\CoreFacturalo\Facturalo;
 use App\Http\Controllers\Controller;
 use App\Models\Company;
 use Exception;
@@ -14,8 +10,6 @@ use Illuminate\Support\Facades\DB;
 
 class DocumentController extends Controller
 {
-    use StorageDocument;
-
     public function __construct()
     {
         $this->middleware('transform.input', ['only' => ['store']]);
@@ -23,61 +17,35 @@ class DocumentController extends Controller
 
     public function store(Request $request)
     {
-        $document_type_id = ($request->has('document'))?$request->input('document.document_type_id'):
-                                                          $request->input('document_type_code');
-
-        DB::beginTransaction();
         try {
-            if($document_type_id === '08') {
-//                $builder = new NoteDebitBuilder();
-            } elseif ($document_type_id === '07') {
-                $builder = new NoteCreditBuilder();
-            } else {
-                $builder = new InvoiceBuilder();
-            }
+            $facturalo = new Facturalo($request->all(), Company::byUser());
 
-            $builder->save($request->all());
-            $document = $builder->getDocument();
+            DB::transaction(function () use($facturalo) {
+                $facturalo->save();
+                $facturalo->createXmlAndSign();
+                $facturalo->createPdf();
+            });
 
-            $util = new Util();
-            $cpeUtil = $util->getCpeBuilder();
-            $xmlSigned = $cpeUtil->getXmlSigned($builder);
-
-            $company = Company::byUser();
-            $this->uploadStorage($company->number, 'signed', $xmlSigned, $document->filename);
-
-            $res = $cpeUtil->sendXml(get_class($builder), $builder->getDocument()->filename, $xmlSigned);
-
-            if(!$res->isSuccess()) {
-                throw new Exception("Code: {$res->getError()->getCode()}; Description: {$res->getError()->getMessage()}");
-            } else {
-                $hashXml = new HashXml();
-                $document->hash = $hashXml->getHashSign($xmlSigned);
-                $document->qr = $util->getQr($document->id);
-                $document->save();
-
-                $this->uploadStorage($company->number, 'cdr', $res->getCdrZip(), 'R-'.$document->filename, 'zip');
-
-                $util->createPdf($document->id);
-
-                DB::commit();
-                return [
-                    'success' => true,
-                    'data' => [
-                        'number' => $document->number_full,
-                        'hash' => $document->hash,
-                        'qr' => $document->qr,
-                        'filename' => $document->filename,
-                        'external_id' => $document->external_id,
-                        'number_to_letter' => $document->number_to_letter,
-                        'link_xml' => $document->download_external_xml,
-                        'link_pdf' => $document->download_external_pdf,
-                        'link_cdr' => $document->download_external_cdr,
-                    ]
-                ];
-            }
+            $res = $facturalo->sendXml($facturalo->getXmlSigned());
+            $document = $facturalo->getDocument();
+            return [
+                'success' => true,
+                'data' => [
+                    'number' => $document->number_full,
+                    'filename' => $document->filename,
+                    'external_id' => $document->external_id,
+                    'number_to_letter' => $document->number_to_letter,
+                    'hash' => $document->hash,
+                    'qr' => $document->qr,
+                ],
+                'links' => [
+                    'xml' => $document->download_external_xml,
+                    'pdf' => $document->download_external_pdf,
+                    'cdr' => $document->download_external_cdr,
+                ],
+                'response' => $res
+            ];
         } catch (Exception $e) {
-            DB::rollback();
             return [
                 'success' => false,
                 'message' => $e->getMessage(),

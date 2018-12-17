@@ -2,20 +2,14 @@
 
 namespace App\CoreFacturalo\WS\Services;
 
-use App\CoreFacturalo\Interfaces\ErrorCodeProviderInterface;
-use App\CoreFacturalo\WS\Reader\CdrReaderInterface;
+use App\CoreFacturalo\Helpers\Zip\ZipFileDecompress;
+use App\CoreFacturalo\Helpers\Zip\ZipFly;
+use App\CoreFacturalo\WS\Client\WsClient;
 use App\CoreFacturalo\WS\Reader\DomCdrReader;
 use App\CoreFacturalo\WS\Response\BillResult;
 use App\CoreFacturalo\WS\Response\CdrResponse;
 use App\CoreFacturalo\WS\Response\Error;
-use App\CoreFacturalo\WS\Services\SoapClient\WsClientInterface;
-use App\CoreFacturalo\WS\Zip\ZipFileDecompress;
-use App\CoreFacturalo\WS\Zip\ZipFly;
-
-//use App\CoreBuilder\Zip\CompressInterface;
-//use App\CoreBuilder\Zip\DecompressInterface;
-//use App\CoreBuilder\Zip\ZipFileDecompress;
-//use App\CoreBuilder\Zip\ZipFly;
+use App\CoreFacturalo\WS\Validator\XmlErrorCodeProvider;
 
 /**
  * Class BaseSunat.
@@ -35,24 +29,24 @@ class BaseSunat
     private $decompressor;
 
     /**
-     * @var CdrReaderInterface
+     * @var DomCdrReader
      */
     private $cdrReader;
 
     /**
-     * @var WsClientInterface
+     * @var WsClient
      */
     private $client;
 
     /**
-     * @var ErrorCodeProviderInterface
+     * @var XmlErrorCodeProvider
      */
     private $codeProvider;
 
     /**
-     * @param ErrorCodeProviderInterface $codeProvider
+     * @param XmlErrorCodeProvider $codeProvider
      */
-    public function setCodeProvider(ErrorCodeProviderInterface $codeProvider)
+    public function setCodeProvider(XmlErrorCodeProvider $codeProvider)
     {
         $this->codeProvider = $codeProvider;
     }
@@ -68,7 +62,7 @@ class BaseSunat
     }
 
     /**
-     * @return WsClientInterface
+     * @return WsClient
      */
     public function getClient()
     {
@@ -76,7 +70,7 @@ class BaseSunat
     }
 
     /**
-     * @param WsClientInterface $client
+     * @param WsClient $client
      *
      * @return BaseSunat
      */

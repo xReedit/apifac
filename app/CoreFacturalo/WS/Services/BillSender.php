@@ -2,13 +2,12 @@
 
 namespace App\CoreFacturalo\WS\Services;
 
-use App\CoreFacturalo\Interfaces\SenderInterface;
 use App\CoreFacturalo\WS\Response\BillResult;
 
 /**
  * Class BillSender.
  */
-class BillSender extends BaseSunat implements SenderInterface
+class BillSender extends BaseSunat
 {
     /**
      * @param string $filename

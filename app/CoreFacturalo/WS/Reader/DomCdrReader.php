@@ -7,7 +7,7 @@ use App\CoreFacturalo\WS\Response\CdrResponse;
 /**
  * Class DomCdrReader.
  */
-class DomCdrReader implements CdrReaderInterface
+class DomCdrReader
 {
     /**
      * Get Cdr using DomDocument.
