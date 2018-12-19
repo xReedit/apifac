@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CompanyRequest;
 use App\Http\Resources\CompanyResource;
 use App\Models\Company;
-use App\Models\System\SoapType;
+use App\Models\SoapType;
 use Illuminate\Http\Request;
 
 class CompanyController extends Controller
@@ -53,7 +53,7 @@ class CompanyController extends Controller
     {
         if ($request->hasFile('file')) {
 
-            $company = Company::byUser();
+            $company = Company::active();
 
             $type = $request->input('type');
             $file = $request->file('file');
