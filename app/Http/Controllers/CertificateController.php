@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\CoreFacturalo\Util;
+use App\CoreFacturalo\Helpers\Certificate\GenerateCertificate;
 use App\Models\Company;
 use Exception;
 use Illuminate\Http\Request;
@@ -10,7 +10,7 @@ class CertificateController extends Controller
 {
     public function record()
     {
-        $company = Company::byUser();
+        $company = Company::active();
 
         return [
             'certificate' => optional($company)->certificate
@@ -19,15 +19,14 @@ class CertificateController extends Controller
 
     public function uploadFile(Request $request)
     {
-        $company = Company::byUser();
+        $company = Company::active();
         try {
             if ($company) {
                 if ($request->hasFile('file')) {
-                    $company = Company::byUser();
                     $password = $request->input('password');
                     $file = $request->file('file');
                     $pfx = file_get_contents($file);
-                    $pem = Util::generateCertificatePEM($pfx, $password);
+                    $pem = GenerateCertificate::typePEM($pfx, $password);
                     $name = 'certificate_'.$company->number.'.pem';
                     if(!file_exists(storage_path('app'.DIRECTORY_SEPARATOR.'certificates'))) {
                         mkdir(storage_path('app'.DIRECTORY_SEPARATOR.'certificates'));
@@ -56,7 +55,7 @@ class CertificateController extends Controller
 
     public function destroy()
     {
-        $company = Company::byUser();
+        $company = Company::active();
         $company->certificate = null;
         $company->save();
 
