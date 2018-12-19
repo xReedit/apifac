@@ -23,7 +23,7 @@ class CompanyController extends Controller
 
     public function record()
     {
-        $company = Company::byUser();
+        $company = Company::active();
         if ($company) {
             $record = new CompanyResource($company);
         } else {
