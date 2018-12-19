@@ -7,6 +7,7 @@ use App\CoreFacturalo\Documents\NoteCreditBuilder;
 use App\CoreFacturalo\Documents\NoteDebitBuilder;
 use App\CoreFacturalo\Documents\SummaryBuilder;
 use App\CoreFacturalo\Documents\VoidedBuilder;
+use App\CoreFacturalo\Helpers\QrCode\QrCodeGenerate;
 use App\CoreFacturalo\Helpers\Xml\XmlFormat;
 use App\CoreFacturalo\Helpers\Xml\XmlHash;
 use App\CoreFacturalo\Helpers\Storage\StorageDocument;
@@ -128,10 +129,9 @@ class Facturalo
             $hash
         ]);
 
-        $temp = tempnam(sys_get_temp_dir(), 'qrCode_');
-        $qrCode = new  QrCode($text);
-        $qrCode->displayPNG(120, [255, 255, 255], [0, 0, 0], $temp);
-        return base64_encode(file_get_contents($temp));
+        $qrCode = new QrCodeGenerate();
+        $qr = $qrCode->displayPNGBase64($text);
+        return $qr;
     }
 
     public function createXml()
