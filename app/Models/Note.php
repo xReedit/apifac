@@ -18,20 +18,7 @@ class Note extends Model
         'note_debit_type_id',
         'description',
         'affected_document_id',
-        'total_prepayment',
-
-        'perception'
     ];
-
-    public function getPerceptionAttribute($value)
-    {
-        return (object) json_decode($value);
-    }
-
-    public function setPerceptionAttribute($value)
-    {
-        $this->attributes['perception'] = json_encode($value);
-    }
 
     public function document()
     {

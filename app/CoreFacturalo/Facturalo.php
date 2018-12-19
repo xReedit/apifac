@@ -16,7 +16,6 @@ use App\CoreFacturalo\WS\Services\SummarySender;
 use App\CoreFacturalo\WS\Services\SunatEndpoints;
 use App\CoreFacturalo\WS\Signed\XmlSigned;
 use Exception;
-use Milon\Barcode\DNS2D;
 use Mpdf\Mpdf;
 
 class Facturalo
@@ -115,7 +114,7 @@ class Facturalo
     private function getQr($hash)
     {
         $customer = $this->document->customer;
-        $arr = join('|', [
+        $text = join('|', [
             $this->company->number,
             $this->document->document_type_id,
             $this->document->series,
@@ -128,7 +127,10 @@ class Facturalo
             $hash
         ]);
 
-        return DNS2D::getBarcodePNG($arr, "QRCODE", 3 , 3);
+        $temp = tempnam(sys_get_temp_dir(), 'qrCode_');
+        $qrCode = new  \Mpdf\QrCode\QrCode($text);
+        $qrCode->displayPNG(120, [255, 255, 255], [0, 0, 0], $temp);
+        return base64_encode(file_get_contents($temp));
     }
 
     public function createXml()

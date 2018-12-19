@@ -245,9 +245,11 @@
             <td>{{ $row->item->unit_type_id }}</td>
             <td>
                 {!! $row->item->description !!}
-                @foreach($row->attributes as $attr)
-                    <br/>{!! $attr->name !!} : {{ $attr->value }}
-                @endforeach
+                @if($row->attributes)
+                    @foreach($row->attributes as $attr)
+                        <br/>{!! $attr->name !!} : {{ $attr->value }}
+                    @endforeach
+                @endif
             </td>
             <td  class="text-right" >{{ number_format($row->unit_price, 2) }}</td>
             <td class="text-right">{{ number_format($row->total, 2) }}</td>
@@ -266,8 +268,10 @@
         <td width="35%">
             <table class="voucher-totals-left">
                 {{--<tbody>--}}
-                <tr><td class="text-center">
-                        <img class="qr_code" src="data:image/png;base64, {{ $document->qr }}" /></td>
+                <tr>
+                    <td class="text-center">
+                        <img class="qr_code" src="data:image/png;base64, {{ $document->qr }}" />
+                    </td>
                 </tr>
                 <tr><td class="text-center">Código Hash</td></tr>
                 <tr><td class="text-center">{{ $document->hash }}</td></tr>
@@ -277,10 +281,10 @@
         <td width="65%">
             <table class="voucher-totals-right">
                 <tbody>
-                @if($document_base->total_free > 0)
+                @if($document->total_free > 0)
                     <tr>
                         <td class="text-right font-lg font-bold" width="70%">OP. GRATUITAS: {{ $document->currency_type->symbol }}</td>
-                        <td class="text-right font-lg font-bold" width="30%">{{ number_format($document_base->total_free, 2) }}</td>
+                        <td class="text-right font-lg font-bold" width="30%">{{ number_format($document->total_free, 2) }}</td>
                     </tr>
                 @endif
                 @if($document->total_unaffected > 0)

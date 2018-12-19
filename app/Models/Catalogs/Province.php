@@ -11,9 +11,9 @@ class Province extends Model
 
     static function idByDescription($description)
     {
-        $code = static::where('description', $description)->get();
-        if (count($code) > 0) {
-            return $code[0]->id;
+        $province = Province::where('description', $description)->first();
+        if ($province) {
+            return $province->id;
         }
         return '1501';
     }

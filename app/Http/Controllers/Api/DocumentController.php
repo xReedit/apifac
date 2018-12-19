@@ -17,8 +17,15 @@ class DocumentController extends Controller
 
     public function store(Request $request)
     {
+        if(!$request->input('success')) {
+            return [
+                'success' => false,
+                'message' => $request->input('message'),
+                'code' => $request->input('code')
+            ];
+        }
         try {
-            $facturalo = new Facturalo($request->all(), Company::byUser());
+            $facturalo = new Facturalo($request->all(), Company::active());
 
             DB::transaction(function () use($facturalo) {
                 $facturalo->save();

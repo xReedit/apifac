@@ -3,8 +3,6 @@
 namespace App\Models;
 
 use App\Models\Catalogs\ProcessType;
-use App\Models\System\SoapType;
-use App\Models\System\StateType;
 use Illuminate\Database\Eloquent\Model;
 
 class Summary extends Model

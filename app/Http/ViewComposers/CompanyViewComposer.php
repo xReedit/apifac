@@ -8,6 +8,6 @@ class CompanyViewComposer
 {
     public function compose($view)
     {
-        $view->vc_company = Company::byUser();
+        $view->vc_company = Company::active();
     }
 }

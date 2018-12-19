@@ -1,6 +1,6 @@
 <?php
 
-namespace App\CoreFacturalo\Helpers\Zip;
+namespace App\CoreFacturalo\WS\Zip;
 
 /**
  * Class ZipFileDecompress.

@@ -2,12 +2,8 @@
 
 namespace App\Models;
 
-use App\Models\Catalogs\Code;
 use App\Models\Catalogs\CurrencyType;
 use App\Models\Catalogs\DocumentType;
-use App\Models\System\Group;
-use App\Models\System\SoapType;
-use App\Models\System\StateType;
 use Illuminate\Database\Eloquent\Model;
 
 class Document extends Model
@@ -30,8 +26,12 @@ class Document extends Model
         'time_of_issue',
         'customer',
         'currency_type_id',
-        'total_other_charges',
+        'purchase_order',
+        'total_prepayment',
+        'total_discount',
+        'total_charge',
         'total_exportation',
+        'total_free',
         'total_taxed',
         'total_unaffected',
         'total_exonerated',
@@ -41,12 +41,17 @@ class Document extends Model
         'total_base_other_taxes',
         'total_other_taxes',
         'total_taxes',
+        'total_value',
         'total',
-        'purchase_order',
 
-        'legends',
+        'charges',
+        'discounts',
+        'prepayments',
         'guides',
-        'related_documents',
+        'related',
+        'perception',
+        'detraction',
+        'legends',
         'optional',
 
         'filename',
@@ -62,6 +67,16 @@ class Document extends Model
         'date_of_issue' => 'date',
     ];
 
+    public function getEstablishmentAttribute($value)
+    {
+        return (is_null($value))?null:(object) json_decode($value);
+    }
+
+    public function setEstablishmentAttribute($value)
+    {
+        $this->attributes['establishment'] = (is_null($value))?null:json_encode($value);
+    }
+
     public function getCustomerAttribute($value)
     {
         return (is_null($value))?null:(object) json_decode($value);
@@ -72,14 +87,34 @@ class Document extends Model
         $this->attributes['customer'] = (is_null($value))?null:json_encode($value);
     }
 
-    public function getEstablishmentAttribute($value)
+    public function getChargesAttribute($value)
     {
         return (is_null($value))?null:(object) json_decode($value);
     }
 
-    public function setEstablishmentAttribute($value)
+    public function setChargesAttribute($value)
     {
-        $this->attributes['establishment'] = (is_null($value))?null:json_encode($value);
+        $this->attributes['charges'] = (is_null($value))?null:json_encode($value);
+    }
+
+    public function getDiscountsAttribute($value)
+    {
+        return (is_null($value))?null:(object) json_decode($value);
+    }
+
+    public function setDiscountsAttribute($value)
+    {
+        $this->attributes['discounts'] = (is_null($value))?null:json_encode($value);
+    }
+
+    public function getPrepaymentsAttribute($value)
+    {
+        return (is_null($value))?null:(object) json_decode($value);
+    }
+
+    public function setPrepaymentsAttribute($value)
+    {
+        $this->attributes['prepayments'] = (is_null($value))?null:json_encode($value);
     }
 
     public function getGuidesAttribute($value)
@@ -92,14 +127,34 @@ class Document extends Model
         $this->attributes['guides'] = (is_null($value))?null:json_encode($value);
     }
 
-    public function getRelatedDocumentsAttribute($value)
+    public function getRelatedAttribute($value)
     {
         return (is_null($value))?null:(object) json_decode($value);
     }
 
     public function setRelatedDocumentsAttribute($value)
     {
-        $this->attributes['related_documents'] = (is_null($value))?null:json_encode($value);
+        $this->attributes['related'] = (is_null($value))?null:json_encode($value);
+    }
+
+    public function getPerceptionAttribute($value)
+    {
+        return (is_null($value))?null:(object) json_decode($value);
+    }
+
+    public function setPerceptionAttribute($value)
+    {
+        $this->attributes['perception'] = (is_null($value))?null:json_encode($value);
+    }
+
+    public function getDetractionAttribute($value)
+    {
+        return (is_null($value))?null:(object) json_decode($value);
+    }
+
+    public function setDetractionAttribute($value)
+    {
+        $this->attributes['detraction'] = (is_null($value))?null:json_encode($value);
     }
 
     public function getLegendsAttribute($value)
@@ -120,18 +175,6 @@ class Document extends Model
     public function setOptionalAttribute($value)
     {
         $this->attributes['optional'] = (is_null($value))?null:json_encode($value);
-    }
-
-    public function getNumberFullAttribute()
-    {
-        return $this->series.'-'.$this->number;
-    }
-
-    public function getNumberToLetterAttribute()
-    {
-        $legends = $this->legends;
-        $legend = collect($legends)->where('code', '1000')->first();
-        return $legend->value;
     }
 
     public function user()
@@ -179,40 +222,16 @@ class Document extends Model
         return $this->hasMany(Detail::class);
     }
 
-    public function logs()
+    public function getNumberFullAttribute()
     {
-        return $this->hasMany(Log::class);
+        return $this->series.'-'.$this->number;
     }
 
-    public function scopeWhereUser($query)
+    public function getNumberToLetterAttribute()
     {
-        return $query->where('user_id', auth()->id());
-    }
-
-    public function getVoidedAttribute()
-    {
-        if ($this->group_id === '01') {
-            return Voided::whereHas('documents', function ($query) {
-                                $query->where('document_id', $this->id);
-                            })
-                            ->whereIn('state_type_id', ['03', '05'])
-                            ->first();
-        }
-
-        return Summary::whereHas('documents', function ($query) {
-                            $query->where('document_id', $this->id);
-                        })
-                        ->whereIn('state_type_id', ['03', '05'])
-                        ->where('process_type_id', 3)
-                        ->first();
-    }
-
-    public function scopeWhereProcessType($query, $process_type_id)
-    {
-        if($process_type_id === 1) {
-            return $query->where('state_type_id', '01');
-        }
-        return $query->where('state_type_id', '13');
+        $legends = $this->legends;
+        $legend = collect($legends)->where('code', '1000')->first();
+        return $legend->value;
     }
 
     public function getDownloadXmlAttribute()
@@ -245,34 +264,28 @@ class Document extends Model
         return route('documents.download_external', ['type' => 'cdr', 'external_id' => $this->external_id]);
     }
 
-    public function getDocumentTypeDescriptionAttribute()
+    public function scopeWhereUser($query)
     {
-        $document_type = Code::byCatalogAndCode('01', $this->document_type_code);
-        return $document_type->description;
+        return $query->where('user_id', auth()->id());
     }
 
-    public static function setNumber($data)
+    public static function lastDocument($soap_type_id, $document_type_id, $series)
     {
-        $number = $data['number'];
-        $series = $data['series'];
-        $document_type_id = $data['document_type_id'];
-        $soap_type_id = $data['soap_type_id'];
-        if ($data['number'] === '#') {
-            $document = Document::select('number')
-                ->where('series', $series)
-                ->where('document_type_id', $document_type_id)
-                ->where('soap_type_id', $soap_type_id)
-                ->where('user_id', auth()->id())
-                ->orderBy('number', 'desc')
-                ->first();
-            $number = ($document)?(int)$document->number+1:1;
-        }
-        return $number;
+        return Document::where('soap_type_id', $soap_type_id)
+                        ->where('document_type_id', $document_type_id)
+                        ->where('series', $series)
+                        ->where('user_id', auth()->id())
+                        ->orderBy('number', 'desc')
+                        ->first();
     }
 
-    public static function setFilename($data)
+    public static function findDocument($soap_type_id, $document_type_id, $series, $number)
     {
-        $company = Company::byUser();
-        return join('-', [$company->number, $data['document_type_id'], $data['series'], $data['number']]);
+        return Document::where('soap_type_id', $soap_type_id)
+                        ->where('document_type_id', $document_type_id)
+                        ->where('series', $series)
+                        ->where('number', $number)
+                        ->where('user_id', auth()->id())
+                        ->first();
     }
 }

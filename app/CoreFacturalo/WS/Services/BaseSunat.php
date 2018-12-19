@@ -2,8 +2,8 @@
 
 namespace App\CoreFacturalo\WS\Services;
 
-use App\CoreFacturalo\Helpers\Zip\ZipFileDecompress;
-use App\CoreFacturalo\Helpers\Zip\ZipFly;
+use App\CoreFacturalo\WS\Zip\ZipFileDecompress;
+use App\CoreFacturalo\WS\Zip\ZipFly;
 use App\CoreFacturalo\WS\Client\WsClient;
 use App\CoreFacturalo\WS\Reader\DomCdrReader;
 use App\CoreFacturalo\WS\Response\BillResult;

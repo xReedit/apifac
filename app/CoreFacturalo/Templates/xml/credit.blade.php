@@ -47,8 +47,8 @@
     </cac:DespatchDocumentReference>
     @endforeach
     @endif
-    @if($document->related_documents)
-    @foreach($document->related_documents as $rel)
+    @if($document->related)
+    @foreach($document->related as $rel)
     <cac:AdditionalDocumentReference>
         <cbc:ID>{{ $rel->number }}</cbc:ID>
         <cbc:DocumentTypeCode>{{ $rel->document_type_id }}</cbc:DocumentTypeCode>
@@ -239,8 +239,8 @@
         @endif
     </cac:TaxTotal>
     <cac:LegalMonetaryTotal>
-        @if($document->total_other_charges > 0)
-        <cbc:ChargeTotalAmount currencyID="{{ $document->currency_type_id }}">{{ $document->total_other_charges }}</cbc:ChargeTotalAmount>
+        @if($document->total_charges > 0)
+        <cbc:ChargeTotalAmount currencyID="{{ $document->currency_type_id }}">{{ $document->total_charges }}</cbc:ChargeTotalAmount>
         @endif
         <cbc:PayableAmount currencyID="{{ $document->currency_type_id }}">{{ $document->total }}</cbc:PayableAmount>
     </cac:LegalMonetaryTotal>
@@ -278,7 +278,7 @@
                 <cac:TaxCategory>
                     <cbc:Percent>{{ $detail->percentage_igv }}</cbc:Percent>
                     <cbc:TaxExemptionReasonCode>{{ $detail->affectation_igv_type_id }}</cbc:TaxExemptionReasonCode>
-                    @php($affectation = \App\CoreFacturalo\Helpers\Functions\FunctionTribute::getByAffectation($detail->affectation_igv_type_id))
+                    @php($affectation = \App\CoreFacturalo\Templates\FunctionTribute::getByAffectation($detail->affectation_igv_type_id))
                     <cac:TaxScheme>
                         <cbc:ID>{{ $affectation['id'] }}</cbc:ID>
                         <cbc:Name>{{ $affectation['name'] }}</cbc:Name>

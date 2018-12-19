@@ -1,6 +1,6 @@
 <?php
 
-namespace App\CoreFacturalo\Transform\Partials;
+namespace App\CoreFacturalo\Transforms\Partials;
 
 use App\Models\Catalogs\Country;
 use App\Models\Catalogs\Department;
@@ -9,15 +9,17 @@ use App\Models\Catalogs\Province;
 
 class EstablishmentInput
 {
-    public static function transform($data)
+    public static function transform($inputs)
     {
-        $country_id = $data['codigo_pais'];
-        $district_id = $data['ubigeo'];
-        $urbanization = array_key_exists('urbanizacion', $data)?$data['urbanizacion']:null;
-        $address = $data['direccion'];
-        $email = $data['correo_electronico'];
-        $telephone = $data['telefono'];
-        $code = $data['codigo_del_domicilio_fiscal'];
+        $establishment = $inputs['datos_del_emisor'];
+
+        $country_id = $establishment['codigo_pais'];
+        $district_id = $establishment['ubigeo'];
+        $urbanization = array_key_exists('urbanizacion', $establishment)?$establishment['urbanizacion']:null;
+        $address = $establishment['direccion'];
+        $email = $establishment['correo_electronico'];
+        $telephone = $establishment['telefono'];
+        $code = $establishment['codigo_del_domicilio_fiscal'];
 
         $department_id = null;
         $province_id = null;

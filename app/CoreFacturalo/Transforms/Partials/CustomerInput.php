@@ -1,6 +1,6 @@
 <?php
 
-namespace App\CoreFacturalo\Transform\Partials;
+namespace App\CoreFacturalo\Transforms\Partials;
 
 use App\Models\Catalogs\Country;
 use App\Models\Catalogs\Department;
@@ -10,17 +10,19 @@ use App\Models\Catalogs\Province;
 
 class CustomerInput
 {
-    public static function transform($data)
+    public static function transform($inputs)
     {
-        $identity_document_type_id = $data['codigo_tipo_documento_identidad'];
-        $number = $data['numero_documento'];
-        $name = $data['apellidos_y_nombres_o_razon_social'];
-        $trade_name = array_key_exists('nombre_comercial', $data)?$data['nombre_comercial']:null;
-        $country_id = array_key_exists('codigo_pais', $data)?$data['codigo_pais']:null;
-        $district_id = array_key_exists('ubigeo', $data)?$data['ubigeo']:null;
-        $address = array_key_exists('direccion', $data)?$data['direccion']:null;
-        $email = array_key_exists('correo_electronico', $data)?$data['correo_electronico']:null;
-        $telephone = array_key_exists('telephone', $data)?$data['telefono']:null;
+        $customer = $inputs['datos_del_cliente_o_receptor'];
+
+        $identity_document_type_id = $customer['codigo_tipo_documento_identidad'];
+        $number = $customer['numero_documento'];
+        $name = $customer['apellidos_y_nombres_o_razon_social'];
+        $trade_name = array_key_exists('nombre_comercial', $customer)?$customer['nombre_comercial']:null;
+        $country_id = array_key_exists('codigo_pais', $customer)?$customer['codigo_pais']:null;
+        $district_id = array_key_exists('ubigeo', $customer)?$customer['ubigeo']:null;
+        $address = array_key_exists('direccion', $customer)?$customer['direccion']:null;
+        $email = array_key_exists('correo_electronico', $customer)?$customer['correo_electronico']:null;
+        $telephone = array_key_exists('telephone', $customer)?$customer['telefono']:null;
 
         $department_id = null;
         $province_id = null;

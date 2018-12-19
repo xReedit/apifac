@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\System\SoapType;
-use App\Models\System\StateType;
 use Illuminate\Database\Eloquent\Model;
 
 class Voided extends Model

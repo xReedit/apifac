@@ -40,16 +40,16 @@
     </cac:DespatchDocumentReference>
     @endforeach
     @endif
-    @if($document->related_documents)
-    @foreach($document->related_documents as $rel)
+    @if($document->related)
+    @foreach($document->related as $rel)
     <cac:AdditionalDocumentReference>
         <cbc:ID>{{ $rel->number }}</cbc:ID>
         <cbc:DocumentTypeCode>{{ $rel->document_type_id }}</cbc:DocumentTypeCode>
     </cac:AdditionalDocumentReference>
     @endforeach
     @endif
-    @if($invoice->prepayments)
-    @foreach($invoice->prepayments as $prepayment)
+    @if($document->prepayments)
+    @foreach($document->prepayments as $prepayment)
     <cac:AdditionalDocumentReference>
         <cbc:ID>{{ $prepayment->number }}</cbc:ID>
         <cbc:DocumentTypeCode>{{ $prepayment->document_type_id }}</cbc:DocumentTypeCode>
@@ -151,8 +151,8 @@
             @endif
         </cac:Party>
     </cac:AccountingCustomerParty>
-    @if($invoice->detraction)
-        @php($detraction = $invoice->detraction)
+    @if($document->detraction)
+        @php($detraction = $document->detraction)
         <cac:PaymentMeans>
             <cbc:PaymentMeansCode>{{ $detraction->payment_method_id }}</cbc:PaymentMeansCode>
             <cac:PayeeFinancialAccount>
@@ -165,23 +165,23 @@
             <cbc:Amount currencyID="PEN">{{ $detraction->amount }}</cbc:Amount>
         </cac:PaymentTerms>
     @endif
-    @if($invoice->perception)
-    @php($perception = $invoice->perception)
+    @if($document->perception)
+    @php($perception = $document->perception)
     <cac:PaymentTerms>
         <cbc:ID>Percepcion</cbc:ID>
         <cbc:Amount currencyID="PEN">{{ $perception->amount }}</cbc:Amount>
     </cac:PaymentTerms>
     @endif
-    @if($invoice->prepayments)
-    @foreach($invoice->prepayments as $prepayment)
+    @if($document->prepayments)
+    @foreach($document->prepayments as $prepayment)
     <cac:PrepaidPayment>
         <cbc:ID>{{ $loop->iteration }}</cbc:ID>
         <cbc:PaidAmount currencyID="{{ $document->currency_type_id }}">{{ $prepayment->amount }}</cbc:PaidAmount>
     </cac:PrepaidPayment>
     @endforeach
     @endif
-    @if($invoice->charges)
-    @foreach($invoice->charges as $charge)
+    @if($document->charges)
+    @foreach($document->charges as $charge)
     <cac:AllowanceCharge>
         <cbc:ChargeIndicator>true</cbc:ChargeIndicator>
         <cbc:AllowanceChargeReasonCode>{{ $charge->code }}</cbc:AllowanceChargeReasonCode>
@@ -191,8 +191,8 @@
     </cac:AllowanceCharge>
     @endforeach
     @endif
-    @if($invoice->discounts)
-    @foreach($invoice->discounts as $discount)
+    @if($document->discounts)
+    @foreach($document->discounts as $discount)
     <cac:AllowanceCharge>
         <cbc:ChargeIndicator>false</cbc:ChargeIndicator>
         <cbc:AllowanceChargeReasonCode>{{ $discount->code }}</cbc:AllowanceChargeReasonCode>
@@ -202,8 +202,8 @@
     </cac:AllowanceCharge>
     @endforeach
     @endif
-    @if($invoice->perception)
-    @php($perception = $invoice->perception)
+    @if($document->perception)
+    @php($perception = $document->perception)
     <cac:AllowanceCharge>
         <cbc:ChargeIndicator>true</cbc:ChargeIndicator>
         <cbc:AllowanceChargeReasonCode>{{ $perception->code }}</cbc:AllowanceChargeReasonCode>
@@ -266,9 +266,9 @@
             </cac:TaxCategory>
         </cac:TaxSubtotal>
         @endif
-        @if($invoice->total_free > 0)
+        @if($document->total_free > 0)
         <cac:TaxSubtotal>
-            <cbc:TaxableAmount currencyID="{{ $document->currency_type_id }}">{{ $invoice->total_free }}</cbc:TaxableAmount>
+            <cbc:TaxableAmount currencyID="{{ $document->currency_type_id }}">{{ $document->total_free }}</cbc:TaxableAmount>
             <cbc:TaxAmount currencyID="{{ $document->currency_type_id }}">0</cbc:TaxAmount>
             <cac:TaxCategory>
                 <cac:TaxScheme>
@@ -307,7 +307,7 @@
         @endif
     </cac:TaxTotal>
     <cac:LegalMonetaryTotal>
-        <cbc:LineExtensionAmount currencyID="{{ $document->currency_type_id }}">{{ $invoice->total_value }}</cbc:LineExtensionAmount>
+        <cbc:LineExtensionAmount currencyID="{{ $document->currency_type_id }}">{{ $document->total_value }}</cbc:LineExtensionAmount>
         @if($document->total_discount > 0)
         <cbc:AllowanceTotalAmount currencyID="{{ $document->currency_type_id }}">{{ $document->total_discount }}</cbc:AllowanceTotalAmount>
         @endif
@@ -375,7 +375,7 @@
                 <cac:TaxCategory>
                     <cbc:Percent>{{ $detail->percentage_igv }}</cbc:Percent>
                     <cbc:TaxExemptionReasonCode>{{ $detail->affectation_igv_type_id }}</cbc:TaxExemptionReasonCode>
-                    @php($affectation = \App\CoreFacturalo\Helpers\Functions\FunctionTribute::getByAffectation($detail->affectation_igv_type_id))
+                    @php($affectation = \App\CoreFacturalo\Templates\FunctionTribute::getByAffectation($detail->affectation_igv_type_id))
                     <cac:TaxScheme>
                         <cbc:ID>{{ $affectation['id'] }}</cbc:ID>
                         <cbc:Name>{{ $affectation['name'] }}</cbc:Name>

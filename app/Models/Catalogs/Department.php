@@ -11,9 +11,9 @@ class Department extends Model
 
     static function idByDescription($description)
     {
-        $code = static::where('description', $description)->get();
-        if (count($code) > 0) {
-            return $code[0]->id;
+        $department = Department::where('description', $description)->first();
+        if ($department) {
+            return $department->id;
         }
         return '15';
     }
