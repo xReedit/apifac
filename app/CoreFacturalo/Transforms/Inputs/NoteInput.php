@@ -9,10 +9,11 @@ class NoteInput
 {
     public static function transform($inputs, $document)
     {
-        $affected_document_series = $inputs['serie_de_documento_afectado'];
-        $affected_document_number = $inputs['numero_de_documento_afectado'];
-        $affected_document_type_id = $inputs['tipo_de_documento_afectado'];
-        $note_credit_or_debit_type_id = $inputs['tipo_de_operacion'];
+        $affected_document = $inputs['documento_afectado'];
+        $affected_document_series = $affected_document['serie_de_documento'];
+        $affected_document_number = $affected_document['numero_de_documento'];
+        $affected_document_type_id = $affected_document['tipo_de_documento'];
+        $note_credit_or_debit_type_id = $inputs['codigo_tipo_nota'];
         $description = $inputs['motivo_o_sustento_de_la_nota'];
 
         if ($document['document_type_id'] === '07') {

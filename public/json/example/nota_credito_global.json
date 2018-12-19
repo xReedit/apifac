@@ -3,11 +3,16 @@
   "numero_documento": "#",
   "fecha_de_emision": "2018-10-09",
   "hora_de_emision": "10:11:11",
-  "codigo_tipo_operacion": "0101",
-  "codigo_tipo_documento":"01",
+  "codigo_tipo_documento":"07",
+  "codigo_tipo_nota": "01",
+  "motivo_o_sustento_de_la_nota": "Error al emitir comprobante",
   "codigo_tipo_moneda": "PEN",
-  "fecha_de_vencimiento":"2018-08-30",
   "numero_orden_de_compra": "0045467898",
+  "documento_afectado": {
+    "serie_documento": "F001",
+    "numero_documento": "1",
+    "codigo_tipo_documento": "07"
+  },
   "datos_del_emisor": {
     "codigo_pais": "PE",
     "ubigeo": "150101",

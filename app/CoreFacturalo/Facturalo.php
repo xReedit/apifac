@@ -17,6 +17,7 @@ use App\CoreFacturalo\WS\Services\SunatEndpoints;
 use App\CoreFacturalo\WS\Signed\XmlSigned;
 use Exception;
 use Mpdf\Mpdf;
+use Mpdf\QrCode\QrCode;
 
 class Facturalo
 {
@@ -128,7 +129,7 @@ class Facturalo
         ]);
 
         $temp = tempnam(sys_get_temp_dir(), 'qrCode_');
-        $qrCode = new  \Mpdf\QrCode\QrCode($text);
+        $qrCode = new  QrCode($text);
         $qrCode->displayPNG(120, [255, 255, 255], [0, 0, 0], $temp);
         return base64_encode(file_get_contents($temp));
     }

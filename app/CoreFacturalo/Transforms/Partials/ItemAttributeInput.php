@@ -1,6 +1,6 @@
 <?php
 
-namespace App\CoreFacturalo\Transform\Partials;
+namespace App\CoreFacturalo\Transforms\Partials;
 
 class ItemAttributeInput
 {

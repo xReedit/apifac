@@ -1,6 +1,6 @@
 <?php
 
-namespace App\CoreFacturalo\Transform;
+namespace App\CoreFacturalo\Transforms;
 
 use App\CoreFacturalo\Transforms\Inputs\DocumentInput;
 use App\CoreFacturalo\Transforms\Inputs\InvoiceInput;
