@@ -6,6 +6,9 @@ class Template
 {
     public function pdf($template, $company, $document)
     {
+        if($template === 'credit' || $template === 'debit') {
+            $template = 'note';
+        }
         return self::render('pdf.'.$template, $company, $document);
     }
 

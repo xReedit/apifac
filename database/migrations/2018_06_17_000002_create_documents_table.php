@@ -16,8 +16,8 @@ class CreateDocumentsTable extends Migration
         Schema::create('documents', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id');
-            $table->json('establishment');
             $table->uuid('external_id');
+            $table->json('establishment');
             $table->char('soap_type_id', 2);
             $table->char('state_type_id', 2);
             $table->string('ubl_version');

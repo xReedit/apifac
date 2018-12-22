@@ -37,7 +37,9 @@ class DocumentController extends Controller
     public function downloadExternal($type, $external_id)
     {
         $document = Document::where('external_id', $external_id)->first();
-
+        if(!$document) {
+            throw new Exception("El código {$external_id} es inválido, no se encontro documento relacionado");
+        }
         return $this->download($type, $document);
     }
 

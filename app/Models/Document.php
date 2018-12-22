@@ -13,8 +13,8 @@ class Document extends Model
 
     protected $fillable = [
         'user_id',
-        'establishment',
         'external_id',
+        'establishment',
         'soap_type_id',
         'state_type_id',
         'ubl_version',
@@ -267,25 +267,5 @@ class Document extends Model
     public function scopeWhereUser($query)
     {
         return $query->where('user_id', auth()->id());
-    }
-
-    public static function lastDocument($soap_type_id, $document_type_id, $series)
-    {
-        return Document::where('soap_type_id', $soap_type_id)
-                        ->where('document_type_id', $document_type_id)
-                        ->where('series', $series)
-                        ->where('user_id', auth()->id())
-                        ->orderBy('number', 'desc')
-                        ->first();
-    }
-
-    public static function findDocument($soap_type_id, $document_type_id, $series, $number)
-    {
-        return Document::where('soap_type_id', $soap_type_id)
-                        ->where('document_type_id', $document_type_id)
-                        ->where('series', $series)
-                        ->where('number', $number)
-                        ->where('user_id', auth()->id())
-                        ->first();
     }
 }

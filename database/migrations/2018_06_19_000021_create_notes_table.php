@@ -21,11 +21,12 @@ class CreateNotesTable extends Migration
             $table->char('note_credit_type_id', 2)->nullable();
             $table->char('note_debit_type_id', 2)->nullable();
             $table->string('description');
-            $table->json('affected_document');
+            $table->unsignedInteger('affected_document_id');
 
             $table->foreign('document_id')->references('id')->on('documents')->onDelete('cascade');
             $table->foreign('note_credit_type_id')->references('id')->on('note_credit_types');
             $table->foreign('note_debit_type_id')->references('id')->on('note_debit_types');
+            $table->foreign('affected_document_id')->references('id')->on('documents');
         });
     }
 

@@ -2,20 +2,21 @@
 
 namespace App\CoreFacturalo\Transforms\Inputs;
 
-use App\CoreFacturalo\Transforms\Functions;
-use App\CoreFacturalo\Transforms\Partials\ActionInput;
-use App\CoreFacturalo\Transforms\Partials\ChargeInput;
-use App\CoreFacturalo\Transforms\Partials\CustomerInput;
-use App\CoreFacturalo\Transforms\Partials\DetractionInput;
-use App\CoreFacturalo\Transforms\Partials\DiscountInput;
-use App\CoreFacturalo\Transforms\Partials\EstablishmentInput;
-use App\CoreFacturalo\Transforms\Partials\GuideInput;
-use App\CoreFacturalo\Transforms\Partials\ItemInput;
-use App\CoreFacturalo\Transforms\Partials\LegendInput;
-use App\CoreFacturalo\Transforms\Partials\OptionalInput;
-use App\CoreFacturalo\Transforms\Partials\PerceptionInput;
-use App\CoreFacturalo\Transforms\Partials\PrepaymentInput;
-use App\CoreFacturalo\Transforms\Partials\RelatedInput;
+use App\CoreFacturalo\Transforms\Inputs\Partials\ActionInput;
+use App\CoreFacturalo\Transforms\Inputs\Partials\ChargeInput;
+use App\CoreFacturalo\Transforms\Inputs\Partials\CustomerInput;
+use App\CoreFacturalo\Transforms\Inputs\Partials\DetractionInput;
+use App\CoreFacturalo\Transforms\Inputs\Partials\DiscountInput;
+use App\CoreFacturalo\Transforms\Inputs\Partials\EstablishmentInput;
+use App\CoreFacturalo\Transforms\Inputs\Partials\GuideInput;
+use App\CoreFacturalo\Transforms\Inputs\Partials\ItemInput;
+use App\CoreFacturalo\Transforms\Inputs\Partials\LegendInput;
+use App\CoreFacturalo\Transforms\Inputs\Partials\OptionalInput;
+use App\CoreFacturalo\Transforms\Inputs\Partials\PerceptionInput;
+use App\CoreFacturalo\Transforms\Inputs\Partials\PrepaymentInput;
+use App\CoreFacturalo\Transforms\Inputs\Partials\RelatedInput;
+use App\Models\Company;
+use App\Models\Document;
 use Exception;
 use Illuminate\Support\Str;
 
@@ -23,19 +24,20 @@ class DocumentInput
 {
     public static function transform($inputs)
     {
-        $soap_type_id = Functions::soapTypeId();
+        $soap_type_id = Company::active()->soap_type_id;
         $document_type_id = $inputs['codigo_tipo_documento'];
+
+        self::validateDocumentTypeId($document_type_id);
+
         $series = $inputs['serie_documento'];
-        $number = $inputs['numero_documento'];
+        $number = self::number($soap_type_id, $document_type_id, $series, $inputs['numero_documento']);
+
+        self::validateUniqueDocument($soap_type_id, $document_type_id, $series, $number);
 
         $date_of_issue = $inputs['fecha_de_emision'];
         $time_of_issue = $inputs['hora_de_emision'];
         $currency_type_id = $inputs['codigo_tipo_moneda'];
         $purchase_order = array_key_exists('numero_orden_de_compra', $inputs)?$inputs['numero_orden_de_compra']:null;
-
-        if(!in_array($document_type_id, ['01', '03', '07', '08'])) {
-            throw new Exception("El código tipo de documento {$document_type_id} es incorrecto.");
-        }
 
         $totals = $inputs['totales'];
         $total_prepayment = array_key_exists('total_anticipos', $totals)?$totals['total_anticipos']:0;
@@ -55,16 +57,14 @@ class DocumentInput
         $total_value = array_key_exists('total_valor', $totals)?$totals['total_valor']:0;
         $total = $totals['total_venta'];
 
-        $number = Functions::newNumber(compact('soap_type_id', 'document_type_id', 'series', 'number'));
-        Functions::validateUniqueDocument(compact('soap_type_id', 'document_type_id', 'series', 'number'));
-        $filename = Functions::filename(compact('document_type_id', 'series', 'number'));
+        $filename = self::filename($document_type_id, $series, $number);
 
         return [
             'actions' => ActionInput::transform($inputs),
             'document' => [
                 'user_id' => auth()->id(),
-                'establishment' => EstablishmentInput::transform($inputs),
                 'external_id' => Str::uuid(),
+                'establishment' => EstablishmentInput::transform($inputs),
                 'soap_type_id' => $soap_type_id,
                 'state_type_id' => '01',
                 'ubl_version' => '2.1',
@@ -106,5 +106,48 @@ class DocumentInput
                 'items' => ItemInput::transform($inputs)
             ]
         ];
+    }
+
+    private static function number($soap_type_id, $document_type_id, $series, $number)
+    {
+        if ($number === '#') {
+            $document = Document::select('number')
+                                ->where('soap_type_id', $soap_type_id)
+                                ->where('document_type_id', $document_type_id)
+                                ->where('series', $series)
+                                ->orderBy('number', 'desc')
+                                ->first();
+            $number = ($document)?(int)$document->number+1:1;
+        }
+        return $number;
+    }
+
+    private static function filename($document_type_id, $series, $number)
+    {
+        $company = Company::active();
+        return join('-', [$company->number, $document_type_id, $series, $number]);
+    }
+
+    private static function validateDocumentTypeId($document_type_id)
+    {
+        if(!in_array($document_type_id, ['01', '03', '07', '08'])) {
+            throw new Exception("El código tipo de documento {$document_type_id} es incorrecto.");
+        }
+
+        return true;
+    }
+
+    private static function validateUniqueDocument($soap_type_id, $document_type_id, $series, $number)
+    {
+        $document = Document::where('soap_type_id', $soap_type_id)
+                            ->where('document_type_id', $document_type_id)
+                            ->where('series', $series)
+                            ->where('number', $number)
+                            ->first();
+        if($document) {
+            throw new Exception("El documento: {$document_type_id} {$series}-{$number} ya se encuentra registrado.");
+        }
+
+        return true;
     }
 }

@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Voided extends Model
 {
     protected $table = 'voided';
-    protected $with = ['user', 'soap_type', 'state_type'];
+    protected $with = ['user', 'soap_type', 'state_type', 'details'];
 
     protected $fillable = [
         'user_id',
+        'external_id',
         'soap_type_id',
         'state_type_id',
         'ubl_version',
@@ -43,18 +44,28 @@ class Voided extends Model
         return $this->belongsTo(StateType::class);
     }
 
+    public function details()
+    {
+        return $this->hasMany(VoidedDetail::class);
+    }
+
     public function scopeWhereUser($query)
     {
         return $query->where('user_id', auth()->id());
     }
 
-    public function getDownloadCdrAttribute()
+    public function getDownloadExternalXmlAttribute()
     {
-        return route('tenant.voided.download', ['type' => 'cdr', 'id' => $this->id]);
+        return route('voided.download_external', ['type' => 'xml', 'external_id' => $this->external_id]);
     }
 
-    public function getDownloadXmlAttribute()
+    public function getDownloadExternalPdfAttribute()
     {
-        return route('tenant.voided.download', ['type' => 'xml', 'id' => $this->id]);
+        return route('voided.download_external', ['type' => 'pdf', 'external_id' => $this->external_id]);
+    }
+
+    public function getDownloadExternalCdrAttribute()
+    {
+        return route('voided.download_external', ['type' => 'cdr', 'external_id' => $this->external_id]);
     }
 }

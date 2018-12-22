@@ -26,19 +26,13 @@ class Company extends Model
         return $this->belongsTo(IdentityDocumentType::class);
     }
 
-
-//    public static function byUser()
-//    {
-//        return Company::where('user_id', auth()->id())->first();
-//    }
-
-//    public static function getSoapType()
-//    {
-//        return self::active()->soap_type_id;
-//    }
-
     public static function active()
     {
         return Company::where('user_id', auth()->id())->first();
+    }
+
+    public static function getSoapTypeId()
+    {
+        return auth()->user()->company->soap_type_id;
     }
 }

@@ -61,10 +61,8 @@
         components: {DataTable},
         data() {
             return {
-                showDialogVoided: false,
                 resource: 'documents',
                 recordId: null,
-                showDialogOptions: false
             }
         },
         created() {

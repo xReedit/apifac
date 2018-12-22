@@ -25,9 +25,6 @@ Vue.component('companies-form', require('./views/companies/form.vue'));
 Vue.component('certificates-index', require('./views/certificates/index.vue'));
 Vue.component('certificates-form', require('./views/certificates/form.vue'));
 Vue.component('documents-index', require('./views/documents/index.vue'));
-Vue.component('documents-invoice', require('./views/documents/invoice.vue'));
-Vue.component('documents-note', require('./views/documents/note.vue'));
-Vue.component('summaries-index', require('./views/summaries/index.vue'));
 Vue.component('options-form', require('./views/options/form.vue'));
 Vue.component('users-index', require('./views/users/index.vue'));
 

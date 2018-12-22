@@ -37,8 +37,7 @@ class CreateDetailsTable extends Migration
             $table->decimal('total_taxes', 12, 2);
 
             $table->char('price_type_id', 2);
-            $table->decimal('unit_price', 12, 2)->default(0);
-            $table->decimal('unit_value_free', 12, 2)->default(0);
+            $table->decimal('unit_price', 12, 2);
 
             $table->decimal('total_value', 12, 2);
             $table->decimal('total', 12, 2);

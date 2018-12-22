@@ -16,12 +16,6 @@ class DocumentCollection extends ResourceCollection
     {
         return $this->collection->transform(function($row, $key) {
 
-            if(in_array($row->document_type_id, ['07', '08'])) {
-                $total_free = 0;
-            } else {
-                $total_free = $row->invoice->total_free;
-            }
-
             return [
                 'id' => $row->id,
                 'group_id' => $row->group_id,
@@ -31,7 +25,7 @@ class DocumentCollection extends ResourceCollection
                 'number' => $row->number_full,
                 'customer_name' => $row->customer->name,
                 'customer_number' => $row->customer->identity_document_type->description.' '.$row->customer->number,
-                'total_free' => $total_free,
+                'total_free' => $row->total_free,
                 'total_unaffected' => $row->total_unaffected,
                 'total_exonerated' => $row->total_exonerated,
                 'total_taxed' => $row->total_taxed,

@@ -24,9 +24,9 @@
     @endforeach
     <cbc:DocumentCurrencyCode>{{ $document->currency_type_id }}</cbc:DocumentCurrencyCode>
     <cac:DiscrepancyResponse>
-        <cbc:ReferenceID>{{ $document->note->affected_document->series.'-'.$document->note->affected_document->number }}</cbc:ReferenceID>
-        <cbc:ResponseCode>{{ $document->note->note_credit_type_id }}</cbc:ResponseCode>
-        <cbc:Description>{{ $document->note->description }}</cbc:Description>
+        <cbc:ReferenceID>{{ $note->affected_document->series.'-'.$note->affected_document->number }}</cbc:ReferenceID>
+        <cbc:ResponseCode>{{ $note->note_credit_type_id }}</cbc:ResponseCode>
+        <cbc:Description>{{ $note->description }}</cbc:Description>
     </cac:DiscrepancyResponse>
     @if($document->purchase_order)
     <cac:OrderReference>
@@ -35,8 +35,8 @@
     @endif
     <cac:BillingReference>
         <cac:InvoiceDocumentReference>
-            <cbc:ID>{{ $document->note->affected_document->series.'-'.$document->note->affected_document->number }}</cbc:ID>
-            <cbc:DocumentTypeCode>{{ $document->note->affected_document->document_type_id }}</cbc:DocumentTypeCode>
+            <cbc:ID>{{ $note->affected_document->series.'-'.$note->affected_document->number }}</cbc:ID>
+            <cbc:DocumentTypeCode>{{ $note->affected_document->document_type_id }}</cbc:DocumentTypeCode>
         </cac:InvoiceDocumentReference>
     </cac:BillingReference>
     @if($document->guides)

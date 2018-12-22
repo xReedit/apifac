@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Note extends Model
 {
-    protected $with = ['note_type'];
+    protected $with = ['affected_document', 'note_credit_type', 'note_debit_type'];
     public $timestamps = false;
 
     protected $fillable = [

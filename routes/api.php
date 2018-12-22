@@ -2,6 +2,10 @@
 
 Route::middleware('auth:api')->group(function() {
     Route::post('documents', 'Api\DocumentController@store');
+    Route::post('summaries/status', 'Api\SummaryController@status');
+    Route::post('summaries', 'Api\SummaryController@store');
+    Route::post('voided/status', 'Api\VoidedController@status');
+    Route::post('voided', 'Api\VoidedController@store');
     Route::get('services/ruc/{number}', 'Api\ServiceController@ruc');
     Route::get('services/dni/{number}', 'Api\ServiceController@dni');
 });

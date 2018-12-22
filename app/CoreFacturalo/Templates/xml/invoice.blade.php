@@ -311,8 +311,8 @@
         @if($document->total_discount > 0)
         <cbc:AllowanceTotalAmount currencyID="{{ $document->currency_type_id }}">{{ $document->total_discount }}</cbc:AllowanceTotalAmount>
         @endif
-        @if($document->total_other_charges > 0)
-        <cbc:ChargeTotalAmount currencyID="{{ $document->currency_type_id }}">{{ $document->total_other_charges }}</cbc:ChargeTotalAmount>
+        @if($document->total_charges > 0)
+        <cbc:ChargeTotalAmount currencyID="{{ $document->currency_type_id }}">{{ $document->total_charges }}</cbc:ChargeTotalAmount>
         @endif
         @if($document->total_prepayment > 0)
         <cbc:PrepaidAmount currencyID="{{ $document->currency_type_id }}">{{ $document->total_prepayment }}</cbc:PrepaidAmount>
