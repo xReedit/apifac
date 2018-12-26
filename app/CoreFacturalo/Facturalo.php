@@ -102,7 +102,7 @@ class Facturalo
 
     public function loadAndSendXml()
     {
-        $content = $this->getStorage($this->document->filename, 'signed');
+        $content = $this->getStorage($this->document->filename, 'signed', $this->company->number);
         return $this->sendXml($content);
     }
     public function sendXml($content)
