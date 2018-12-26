@@ -34,7 +34,8 @@ class DocumentController extends Controller
         });
 
         $send = ($request->input('document.group_id') === '01')?true:false;
-        $res = ($send && $request->input('actions.send_xml_signed'))?$facturalo->sendXml($facturalo->getXmlSigned()):[];
+        $send = $send && $request->input('actions.send_xml_signed');
+        $res = ($send)?$facturalo->sendXml($facturalo->getXmlSigned()):[];
 
         $document = $facturalo->getDocument();
         return [
