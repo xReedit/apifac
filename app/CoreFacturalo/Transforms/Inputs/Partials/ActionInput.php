@@ -16,6 +16,9 @@ class ActionInput
                 'send_xml_signed' => $send_xml_signed
             ];
         }
-        return null;
+
+        return [
+            'send_xml_signed' => true
+        ];
     }
 }
