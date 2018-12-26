@@ -20,7 +20,6 @@ class WsClient
             $wsdl = __DIR__.DIRECTORY_SEPARATOR.'Resources'.
                             DIRECTORY_SEPARATOR.'wsdl'.
                             DIRECTORY_SEPARATOR.'billService.wsdl';
-            dd($wsdl);
         }
         $this->client = new SoapClient($wsdl, $parameters);
     }
