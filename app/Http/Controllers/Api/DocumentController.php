@@ -56,4 +56,11 @@ class DocumentController extends Controller
             'response' => $res
         ];
     }
+
+    public function send(Request $request)
+    {
+        if($request->has('external_id')) {
+            $facturalo = new Facturalo(Company::active());
+        }
+    }
 }
