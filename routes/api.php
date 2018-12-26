@@ -2,6 +2,7 @@
 
 Route::middleware('auth:api')->group(function() {
     Route::post('documents', 'Api\DocumentController@store');
+    Route::post('send', 'Api\DocumentController@send');
     Route::post('summaries/status', 'Api\SummaryController@status');
     Route::post('summaries', 'Api\SummaryController@store');
     Route::post('voided/status', 'Api\VoidedController@status');

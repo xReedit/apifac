@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 use App\CoreFacturalo\Facturalo;
 use App\Http\Controllers\Controller;
 use App\Models\Company;
+use App\Models\Document;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -61,6 +62,21 @@ class DocumentController extends Controller
     {
         if($request->has('external_id')) {
             $facturalo = new Facturalo(Company::active());
+            $document = Document::where('external_id', $request->input('external_id'))->first();
+            $facturalo->setDocument($document);
+            $res = $facturalo->loadAndSendXml();
+            return [
+                'success' => true,
+                'data' => [
+                    'number' => $document->number_full,
+                    'filename' => $document->filename,
+                    'external_id' => $document->external_id,
+                ],
+                'links' => [
+                    'cdr' => $document->download_external_cdr,
+                ],
+                'response' => $res
+            ];
         }
     }
 }
