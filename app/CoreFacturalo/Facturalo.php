@@ -183,7 +183,7 @@ class Facturalo
             $this->pathCertificate = storage_path('app'.DIRECTORY_SEPARATOR.'certificates'.DIRECTORY_SEPARATOR.$this->company->certificate);
             $this->endpoint = SunatEndpoints::FE_PRODUCCION;
         }
-        dd($this->soapUsername, $this->soapPassword);
+        dd($this->endpoint);
         $this->wsClient->setCredentials($this->soapUsername, $this->soapPassword);
         $this->wsClient->setService($this->endpoint);
     }
