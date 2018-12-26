@@ -180,7 +180,7 @@ class Facturalo
         } else {
             $this->soapUsername = $this->company->soap_username;
             $this->soapPassword = $this->company->soap_password;
-            $this->pathCertificate = storage_path('app'.DIRECTORY_SEPARATOR.'certificates'.$this->company->certificate);
+            $this->pathCertificate = storage_path('app'.DIRECTORY_SEPARATOR.'certificates'.DIRECTORY_SEPARATOR.$this->company->certificate);
             $this->endpoint = SunatEndpoints::FE_PRODUCCION;
         }
 
