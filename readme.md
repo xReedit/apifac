@@ -6,7 +6,7 @@ Estamos enfocados en crear herramientas y soluciones para desarrolladores de sof
 
 ## Instalación de la API
 
-Para conocer el proceso de instalación de la api, visite la [documentación](https://drive.google.com/open?id=1oFoSQOIUrz2rWMTFOlbmdiFltSBwT_xg "Clic")
+Para conocer el proceso de instalación de la api, visite la [documentación](https://drive.google.com/open?id=1wUeMnARJ8nUupUW7i7xFbQixNUTbCCMn "Clic")
 
 ## Manejo de la API
 
