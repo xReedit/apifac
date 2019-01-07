@@ -1,4 +1,85 @@
 {
-  "fecha_de_emision_de_documentos": "2018-10-10",
-  "codigo_tipo_proceso": "1"
+  "serie_documento": "F001",
+  "numero_documento": "#",
+  "fecha_de_emision": "2019-01-05",
+  "hora_de_emision": "09:29:29",
+  "codigo_tipo_operacion": "01",
+  "codigo_tipo_documento": "01",
+  "codigo_tipo_moneda": "PEN",
+  "fecha_de_vencimiento": "2019-01-6",
+  "numero_orden_de_compra": 20,
+  "datos_del_emisor": {
+    "codigo_pais": "PE",
+    "ubigeo": "150101",
+    "direccion": "Av. 2 de Mayo",
+    "correo_electronico": "demo@gmail.com",
+    "telefono": "427-1148",
+    "codigo_del_domicilio_fiscal": "0000"
+  },
+  "datos_del_cliente_o_receptor": {
+    "codigo_tipo_documento_identidad": "6",
+    "numero_documento": "10451727631",
+    "apellidos_y_nombres_o_razon_social": "Luis Carlos",
+    "codigo_pais": "PE",
+    "ubigeo": "150101",
+    "direccion": "Av. 2 de Mayo",
+    "correo_electronico": "demo@gmail.com",
+    "telefono": "427-1148"
+  },
+  "items": [
+    {
+      "codigo_interno": "00120",
+      "descripcion": "Thalia pvc JBG   ",
+      "codigo_producto_sunat": "00120",
+      "codigo_producto_gsl": "00120",
+      "unidad_de_medida": "DOC",
+      "cantidad": "3.00",
+      "valor_unitario": 15.25,
+      "codigo_tipo_precio": "01",
+      "precio_unitario": "18.00",
+      "codigo_tipo_afectacion_igv": "10",
+      "total_base_igv": 8.24,
+      "porcentaje_igv": 18,
+      "total_igv": 45.76,
+      "total_impuestos": 45.76,
+      "total_valor_item": 8.24,
+      "total_item": 54
+    }
+  ],
+  "totales": {
+    "total_exportacion": "0.00",
+    "total_operaciones_gravadas": 45.76,
+    "total_operaciones_inafectas": 0,
+    "total_operaciones_exoneradas": 0,
+    "total_operaciones_gratuitas": 0,
+    "total_igv": 8.24,
+    "total_impuestos": 8.24,
+    "total_valor": 45.76,
+    "total_venta": 54
+  },
+  "detraccion": {
+    "cuenta_bancaria": "192999821",
+    "codigo": "004",
+    "porcentaje": 100,
+    "monto": 200,
+    "codigo_metodo_pago": "efectivo"
+  },
+  "informacion_adicional_anticipos": {
+    "informacion_prepagado_o_anticipado": {
+      "serie_y_numero_de_documento_que_se_realizo_el_anticipo": "123-123",
+      "tipo_de_comprobante_que_se_realizo_el_anticipo": "",
+      "tipo_de_documento_del_emisor_del_anticipo": ""
+    },
+    "total_anticipos": "0"
+  },
+  "informacion_adicional": {
+    "tipo_de_operacion": "0101",
+    "leyendas": []
+  },
+  "extras": {
+    "forma_de_pago": "Efectivo",
+    "observaciones": "probando",
+    "vendedor": "Juan",
+    "caja": "Caja 1"
+  }
 }

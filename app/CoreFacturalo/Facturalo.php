@@ -105,6 +105,7 @@ class Facturalo
         $content = $this->getStorage($this->document->filename, 'signed', $this->company->number);
         return $this->sendXml($content);
     }
+
     public function sendXml($content)
     {
         $sender = in_array($this->type, ['summary', 'voided'])?new SummarySender():new BillSender();

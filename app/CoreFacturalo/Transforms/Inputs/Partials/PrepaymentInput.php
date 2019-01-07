@@ -11,7 +11,7 @@ class PrepaymentInput
             foreach ($inputs['anticipos'] as $row)
             {
                 $number = $row['numero'];
-                $document_type_id = $row['tipo_de_documento'];
+                $document_type_id = $row['codigo_tipo_documento'];
                 $amount = $row['monto'];
 
                 $prepayments[] = [
