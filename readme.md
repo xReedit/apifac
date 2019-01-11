@@ -8,6 +8,10 @@ Estamos enfocados en crear herramientas y soluciones para desarrolladores de sof
 
 Para conocer el proceso de instalación de la api, visite la [documentación](https://drive.google.com/open?id=1wUeMnARJ8nUupUW7i7xFbQixNUTbCCMn "Clic")
 
+## Manual de Usuario API
+
+Para conocer el manejo de la API, visite el [manual](https://docs.google.com/document/d/1OEPbabrJd-w9ZqyMDv6xJ_LdwwA0emzajxiYPtVR5Zw/edit "Clic")
+
 ## Manejo de la API
 
 Para conocer acerca de nuestra API, visite la [documentación](https://drive.google.com/open?id=1mYVpSGqEwvg0m1S-xi6hFifzTrfr17tl "Clic")
