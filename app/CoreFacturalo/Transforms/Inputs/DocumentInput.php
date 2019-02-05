@@ -115,6 +115,7 @@ class DocumentInput
                                 ->where('soap_type_id', $soap_type_id)
                                 ->where('document_type_id', $document_type_id)
                                 ->where('series', $series)
+                                ->where('user_id', auth()->id())
                                 ->orderBy('number', 'desc')
                                 ->first();
             $number = ($document)?(int)$document->number+1:1;
