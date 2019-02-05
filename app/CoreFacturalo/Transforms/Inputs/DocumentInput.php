@@ -143,6 +143,7 @@ class DocumentInput
                             ->where('document_type_id', $document_type_id)
                             ->where('series', $series)
                             ->where('number', $number)
+                            ->where('user_id', auth()->id())
                             ->first();
         if($document) {
             throw new Exception("El documento: {$document_type_id} {$series}-{$number} ya se encuentra registrado.");

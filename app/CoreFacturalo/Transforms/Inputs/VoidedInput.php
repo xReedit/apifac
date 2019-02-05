@@ -41,6 +41,7 @@ class VoidedInput
     {
         $voided = Voided::where('soap_type_id', $soap_type_id)
                             ->where('date_of_issue', $date_of_issue)
+                            ->where('user_id', auth()->id())
                             ->get();
         $numeration = count($voided) + 1;
 
@@ -65,6 +66,7 @@ class VoidedInput
                                 ->where('external_id', $external_id)
                                 ->where('group_id', '01')
                                 ->where('date_of_issue', $date_of_reference)
+                                ->where('user_id', auth()->id())
                                 ->first();
             if(!$document) {
                 throw new Exception("El documento con codigo externo {$external_id} no es encontró");

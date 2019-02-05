@@ -49,6 +49,7 @@ class SummaryInput
     {
         $summaries = Summary::where('soap_type_id', $soap_type_id)
                             ->where('date_of_issue', $date_of_issue)
+                            ->where('user_id', auth()->id())
                             ->get();
         $numeration = count($summaries) + 1;
 
@@ -66,6 +67,7 @@ class SummaryInput
         $documents = Document::where('soap_type_id', $soap_type_id)
                             ->where('date_of_issue', $date_of_reference)
                             ->where('group_id', '02')
+                            ->where('user_id', auth()->id())
                             ->get();
 
         if(count($documents) === 0) {
@@ -94,6 +96,7 @@ class SummaryInput
                                 ->where('external_id', $external_id)
                                 ->where('group_id', '02')
                                 ->where('date_of_issue', $date_of_reference)
+                                ->where('user_id', auth()->id())
                                 ->first();
             if(!$document) {
                 throw new Exception("El documento con codigo externo {$external_id} no es encontró");
