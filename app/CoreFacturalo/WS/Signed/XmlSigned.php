@@ -65,10 +65,16 @@ class XmlSigned
      */
     public function signXml($content)
     {
-        $doc = $this->getDocXml($content);
-        $this->sign($doc);
+         $doc = $this->getDocXml($content);
+         $this->sign($doc);
+
+	// modificado error 2085
+        //$doc = $this->getDocXml($content);
+        //$this->signatureId = $doc->getElementsByTagName('Signature')->item(0)->getElementsByTagName('ID')->item(0)->nodeValue;
+        //$this->sign($doc);
 
         return $doc->saveXML();
+
     }
 
     /**
@@ -223,6 +229,10 @@ class XmlSigned
     protected function createXmlSecurityDSig()
     {
         return new XMLSecurityDSig();
+	// modificado error 2085
+        //$xmlSecurityDSig = new XMLSecurityDSig();
+        //$xmlSecurityDSig->sigNode->setAttribute('Id', $this->signatureId);
+        //return $xmlSecurityDSig;
     }
 
     /**

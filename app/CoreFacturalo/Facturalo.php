@@ -114,9 +114,16 @@ class Facturalo
 
         $res = $sender->send($this->document->filename, $content);
 
+	// capturar error para volver a enviar
         if(!$res->isSuccess()) {
-            throw new Exception("Code: {$res->getError()->getCode()}; Description: {$res->getError()->getMessage()}");
-        } else {
+	    return [
+                'error_soap' => true,
+                'code' => 1, // estado_sunat
+                'description' => $res->getError()->getMessage()
+            ];
+            //throw new Exception("Code: {$res->getError()->getCode()}; Description: {$res->getError()->getMessage()}");
+        }
+	//else {
             if(!in_array($this->type, ['summary', 'voided'])) {
                 $cdrResponse = $res->getCdrResponse();
                 $this->uploadFile($res->getCdrZip(), 'cdr');
@@ -129,7 +136,7 @@ class Facturalo
                 $this->updateDocumentByTicket($res->getTicket());
                 return true;
             }
-        }
+        //}
     }
 
     public function statusSummary($ticket)

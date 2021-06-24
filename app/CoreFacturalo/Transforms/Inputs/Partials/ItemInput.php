@@ -27,7 +27,9 @@ class ItemInput
             $price_type_id = $row['codigo_tipo_precio'];
             $unit_price = $row['precio_unitario'];
             $affectation_igv_type_id = $row['codigo_tipo_afectacion_igv'];
-            $total_base_igv = $row['total_base_igv'];
+            // $total_base_igv = $row['total_base_igv']; // x error 3105 - 12/07/2020
+	    // $total_base_igv = $row['total_base_igv'] == 0 ? $row['total_item'] : $row['total_base_igv'];
+	    $total_base_igv = $row['total_base_igv'] == 0 ? $row['total_item'] == 0 ? 0.01 : $row['total_item'] : $row['total_base_igv'];
             $percentage_igv = $row['porcentaje_igv'];
             $total_igv = $row['total_igv'];
             $system_isc_type_id = array_key_exists('codigo_tipo_sistema_isc', $row)?$row['codigo_tipo_sistema_isc']:null;

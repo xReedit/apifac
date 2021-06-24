@@ -79,4 +79,27 @@ class DocumentController extends Controller
             ];
         }
     }
+
+    public function getLinks(Request $request) {
+
+        $company = Company::where('number', $request->input('number_ruc_company'))->first();
+
+        $document = Document::where('user_id', $company->user_id)
+                              ->where('series', $request->input('series'))
+                              ->where('number', $request->input('number_document'))
+                              ->where('total', $request->input('total'))
+                              ->first();
+
+        return [
+            'success' => true,
+            'data' => [
+                'external_id' => $document->external_id
+            ],
+            'links' => [
+                'pdf' => $document->download_external_pdf,
+                'xml' => $document->download_external_xml
+            ],
+        ];
+    }
+
 }

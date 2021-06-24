@@ -307,7 +307,7 @@
                 @endif
 		@if($document->total_discount > 0)
                     <tr>
-                        <td class="text-right font-lg font-bold" width="70%">DESCUENTO: {{ $document->currency_type->symbol }}</td>
+                        <td class="text-right font-lg font-bold" width="70%">TOTAL DESCUENTO: {{ $document->currency_type->symbol }}</td>
                         <td class="text-right font-lg font-bold" width="30%">{{ number_format($document->total_discount, 2) }}</td>
                     </tr>
                 @endif
